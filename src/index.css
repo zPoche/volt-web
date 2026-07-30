@@ -70,13 +70,12 @@
     linear-gradient(180deg, rgb(249 250 251) 0%, rgb(243 244 246) 100%);
 }
 
+/* Transform-only: Copy bleibt beim First Paint / Headless sichtbar */
 @keyframes volt-rise {
   from {
-    opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -91,15 +90,15 @@
 }
 
 .animate-rise {
-  animation: volt-rise 0.7s ease-out both;
+  animation: volt-rise 0.65s ease-out both;
 }
 
 .animate-rise-delay {
-  animation: volt-rise 0.7s ease-out 0.12s both;
+  animation: volt-rise 0.65s ease-out 0.08s both;
 }
 
 .animate-rise-delay-2 {
-  animation: volt-rise 0.7s ease-out 0.22s both;
+  animation: volt-rise 0.65s ease-out 0.16s both;
 }
 
 .animate-hero-visual {
