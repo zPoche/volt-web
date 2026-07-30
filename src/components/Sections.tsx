@@ -1,48 +1,59 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
-import { FEATURES, WORKFLOW } from '../content/features';
+import { Check } from 'lucide-react';
+import { motion } from 'motion/react';
+import { BUSINESS_BENEFITS, FEATURES, WORKFLOW } from '../content/features';
 import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 import { BlitzLoader } from './BlitzLoader';
 import { useLoading } from '../loading/useLoading';
 
 const CONTACT_EMAIL = 'demo@volt-erp.de';
-const viewport = { once: true, amount: 0.2, margin: '0px 0px -8% 0px' } as const;
+const viewport = { once: true, amount: 0.15, margin: '0px 0px -6% 0px' } as const;
 
 export function ProductSection() {
   return (
     <section id="produkt" className="border-b border-border bg-card" aria-labelledby="produkt-heading">
       <motion.div
-        className="mx-auto max-w-6xl space-y-4 px-6 py-16 sm:px-8 sm:py-20"
+        className="mx-auto max-w-6xl space-y-10 px-6 py-16 sm:px-8 sm:py-20"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
-        <motion.h2
-          id="produkt-heading"
-          className="text-2xl font-semibold tracking-tight sm:text-3xl"
-          variants={fadeUp}
+        <div className="space-y-4">
+          <motion.h2
+            id="produkt-heading"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
+            variants={fadeUp}
+          >
+            Unternehmerischer Vorteil
+            <span className="font-normal text-muted-foreground">
+              {' '}
+              — Zeit, Kostenüberblick, planbare KI
+            </span>
+          </motion.h2>
+          <motion.p className="max-w-2xl text-muted-foreground leading-relaxed" variants={fadeUp}>
+            Volt entlastet Büro und Baustelle und macht sichtbar, wo Geld verdient oder verbrannt wird.
+            Unten: alle Funktionen offen — mit Alltagshilfe und Kostenvorteil.
+          </motion.p>
+        </div>
+        <motion.ul
+          className="grid gap-6 sm:grid-cols-2"
+          variants={staggerContainer}
         >
-          Was Volt im Alltag kann
-          <span className="font-normal text-muted-foreground">
-            {' '}
-            — Module aus dem echten ERP
-          </span>
-        </motion.h2>
-        <motion.p className="max-w-2xl text-muted-foreground leading-relaxed" variants={fadeUp}>
-          Projekte und LV, Plantafel, Angebote, MonteurHub, Kundencenter, Lager, Service, KPI und
-          Schnittstellen greifen ineinander. Unten: was jede Funktion tut — und welchen Umweg sie spart.
-        </motion.p>
+          {BUSINESS_BENEFITS.map((item) => (
+            <motion.li key={item.title} variants={fadeUp} className="space-y-2">
+              <h3 className="text-base font-semibold tracking-tight text-foreground">{item.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+            </motion.li>
+          ))}
+        </motion.ul>
       </motion.div>
     </section>
   );
 }
 
 export function ModulesSection() {
-  const [openTitle, setOpenTitle] = useState<string | null>(FEATURES[0]?.title ?? null);
-
   return (
     <section id="module" className="border-b border-border" aria-labelledby="module-heading">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
@@ -54,111 +65,76 @@ export function ModulesSection() {
           whileInView="show"
           viewport={viewport}
         >
-          Funktionen im Überblick
+          Alle Funktionen
           <span className="font-normal text-muted-foreground">
             {' '}
-            — aufklappen für den konkreten Nutzen
+            — Nutzen im Alltag und was es spart
           </span>
         </motion.h2>
         <motion.ul
-          className="mt-10 grid gap-3 lg:grid-cols-2"
+          className="mt-10 grid gap-4 lg:grid-cols-2"
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
         >
-          {FEATURES.map(({ icon: Icon, title, does, helps, points }) => {
-            const open = openTitle === title;
-            return (
-              <motion.li
-                key={title}
-                variants={fadeUp}
-                layout
-                whileHover={{ y: -3 }}
-                transition={springSnappy}
-                className="relative overflow-hidden rounded-xl border border-border bg-card"
-                animate={{
-                  borderColor: open ? 'rgb(45 212 191 / 0.45)' : 'rgb(51 65 85)',
-                }}
-              >
-                {open && (
-                  <motion.span
-                    layoutId="feature-glow"
-                    className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-primary"
-                    transition={springSnappy}
-                  />
-                )}
-                <motion.button
-                  type="button"
-                  className="flex w-full items-start gap-3 p-5 text-left"
-                  onClick={() => setOpenTitle(open ? null : title)}
-                  whileHover={{ backgroundColor: 'rgb(51 65 85 / 0.55)' }}
-                  aria-expanded={open}
+          {FEATURES.map(({ icon: Icon, title, does, helps, saves, points }, index) => (
+            <motion.li
+              key={title}
+              variants={fadeUp}
+              whileHover={{ y: -3, borderColor: 'rgb(45 212 191 / 0.4)' }}
+              transition={springSnappy}
+              className="relative overflow-hidden rounded-xl border border-border bg-card"
+            >
+              <motion.span
+                className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-left bg-primary"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={viewport}
+                transition={{ duration: 0.45, delay: 0.05 + index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              />
+              <div className="flex items-start gap-3 p-5 pb-0">
+                <motion.span
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground"
+                  initial={{ scale: 0.85, rotate: -8 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  viewport={viewport}
+                  transition={{ ...springSoft, delay: 0.04 + index * 0.03 }}
                 >
-                  <motion.span
-                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground"
-                    animate={{ scale: open ? 1.08 : 1, rotate: open ? -6 : 0 }}
-                    transition={springSoft}
-                  >
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                  </motion.span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center justify-between gap-3">
-                      <span className="text-base font-semibold tracking-tight">{title}</span>
-                      <motion.span
-                        animate={{ rotate: open ? 180 : 0 }}
-                        transition={springSnappy}
-                        className="text-muted-foreground"
-                      >
-                        <ChevronDown className="h-4 w-4" aria-hidden="true" />
-                      </motion.span>
-                    </span>
-                    <span className="mt-1.5 block text-sm leading-relaxed text-muted-foreground">
-                      {does}
-                    </span>
-                  </span>
-                </motion.button>
-                <AnimatePresence initial={false}>
-                  {open && (
-                    <motion.div
-                      key="body"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </motion.span>
+                <div className="min-w-0 flex-1 space-y-2">
+                  <h3 className="text-base font-semibold tracking-tight">{title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{does}</p>
+                </div>
+              </div>
+              <div className="space-y-3 px-5 pb-5 pt-4">
+                <p className="text-sm font-medium text-foreground">
+                  Alltag:{' '}
+                  <span className="font-normal text-muted-foreground">{helps}</span>
+                </p>
+                <p className="text-sm font-medium text-foreground">
+                  Kostenvorteil:{' '}
+                  <span className="font-normal text-muted-foreground">{saves}</span>
+                </p>
+                <ul className="grid gap-2">
+                  {points.map((point, i) => (
+                    <motion.li
+                      key={point}
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
+                      initial={{ x: -6, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={viewport}
+                      transition={{ delay: 0.08 + i * 0.04 }}
                     >
-                      <div className="space-y-3 border-t border-border px-5 pb-5 pt-4">
-                        <motion.p
-                          className="text-sm font-medium text-foreground"
-                          initial={{ y: 8, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ delay: 0.05 }}
-                        >
-                          So erleichtert das die Arbeit:{' '}
-                          <span className="font-normal text-muted-foreground">{helps}</span>
-                        </motion.p>
-                        <ul className="grid gap-2">
-                          {points.map((point, i) => (
-                            <motion.li
-                              key={point}
-                              className="flex items-start gap-2 text-sm text-muted-foreground"
-                              initial={{ x: -8, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ delay: 0.08 + i * 0.05 }}
-                            >
-                              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                              {point}
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.li>
-            );
-          })}
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                      {point}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </motion.li>
+          ))}
         </motion.ul>
       </div>
     </section>
