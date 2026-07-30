@@ -92,8 +92,8 @@ export function Hero() {
             animate={{ y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: easeOut }}
           >
-            Projekte, Plantafel, Angebote, MonteurHub, Lager und Belege — modular, deutsch,
-            Lexware nur wenn ihr wollt.
+            Projekte, Plantafel, MonteurHub, Kostenüberblick und lokale KI ohne Token-Rechnung —
+            modular, deutsch, Lexware nur wenn ihr wollt.
           </motion.p>
 
           <motion.div
