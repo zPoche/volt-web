@@ -1,15 +1,25 @@
-name: Build deploy package
+name: Build & commit dist
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+# Verhindert Endlosschleife bei dist-only Commits
+concurrency:
+  group: dist-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
 jobs:
   build-dist:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: pnpm/action-setup@v4
         with:
@@ -25,31 +35,19 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm build
 
-      - name: Pack dist zip
-        run: |
-          (cd dist && zip -r ../volt-web-dist.zip .)
-          ls -lh volt-web-dist.zip
+      - name: Commit dist/ into main
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update production dist/'
+          file_pattern: 'dist'
+          skip_dirty_check: false
 
-      - name: Upload deploy artifact
+      - name: Pack zip artifact
+        run: (cd dist && zip -r ../volt-web-dist.zip .)
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: volt-web-dist
           path: volt-web-dist.zip
           retention-days: 30
-
-      - name: Publish GitHub Release (main only)
-        if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: deploy-${{ github.run_number }}
-          name: Deploy package #${{ github.run_number }}
-          body: |
-            Fertiges Plesk-Paket: `volt-web-dist.zip`
-
-            1. ZIP herunterladen
-            2. In Plesk `httpdocs` leeren (altes `src/` weg)
-            3. ZIP-Inhalt entpacken
-          files: volt-web-dist.zip
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

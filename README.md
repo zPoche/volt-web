@@ -48,19 +48,16 @@ Alte Dateien vorher leeren (`src/`, `package.json`, `node_modules/` weg).
 Nach jedem Push auf `main` baut GitHub Actions ebenfalls `volt-web-dist.zip`
 (Artifact + Release „Deploy package“).
 
-**Option B — Plesk Git + Node.js (empfohlen, wenn beides da ist):**
+**Option B — Plesk Git, nur pullen (empfohlen):**
 
-Siehe ausführlich **[PLESK.md](./PLESK.md)**. Kurz:
+`dist/` liegt im Repo; CI aktualisiert ihn bei Push auf `main`. Siehe **[PLESK.md](./PLESK.md)**.
 
-1. **Node.js** für die Domain an: Startup File `server.js`, App Root `httpdocs`
-2. SSH-Zugang: `/bin/bash` (nicht chrooted)
-3. Git → Zusatzaktionen:
+Am einfachsten in Plesk:
 
-```sh
-(export PATH="/opt/plesk/node/22/bin:/opt/plesk/node/20/bin:/opt/plesk/node/18/bin:$PATH"; bash scripts/plesk-post-deploy.sh) 2>&1 | tee -a plesk-deploy.log
-```
+1. Document Root → **`httpdocs/dist`**
+2. Git Auto-Deploy auf `main` — **keine** Build-Zusatzaktion nötig
 
-Build bleibt nötig (einmal pro Deploy, automatisch). Ohne Build kann der Browser kein `.tsx`.
+Fertig: pullen = live.
 
 ### Manuell
 
