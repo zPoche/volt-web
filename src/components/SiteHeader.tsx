@@ -31,7 +31,7 @@ export function SiteHeader() {
     >
       <motion.div
         className="mx-auto flex max-w-6xl items-center justify-between px-6 sm:px-8"
-        animate={{ height: compact ? 56 : 64 }}
+        animate={{ height: compact ? 60 : 72 }}
         transition={springSnappy}
       >
         <motion.a
@@ -40,7 +40,7 @@ export function SiteHeader() {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
         >
-          <VoltLogo />
+          <VoltLogo size="nav" />
         </motion.a>
         <nav
           className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex"
@@ -63,25 +63,15 @@ export function SiteHeader() {
             </motion.a>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
-          <motion.a
-            href="#kontakt"
-            className="hidden rounded-lg px-3 py-2 text-sm font-medium text-foreground sm:inline-flex"
-            whileHover={{ backgroundColor: 'rgb(243 244 246)' }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Kontakt
-          </motion.a>
-          <motion.a
-            href="#kontakt"
-            className="inline-flex h-9 items-center rounded-lg bg-primary px-3.5 text-sm font-semibold text-primary-foreground"
-            whileHover={{ scale: 1.04, y: -1 }}
-            whileTap={{ scale: 0.97 }}
-            transition={springSnappy}
-          >
-            Demo anfragen
-          </motion.a>
-        </div>
+        <motion.a
+          href="#kontakt"
+          className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground"
+          whileHover={{ scale: 1.04, y: -1 }}
+          whileTap={{ scale: 0.97 }}
+          transition={springSnappy}
+        >
+          Demo anfragen
+        </motion.a>
       </motion.div>
     </motion.header>
   );
