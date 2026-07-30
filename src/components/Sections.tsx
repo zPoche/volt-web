@@ -25,15 +25,15 @@ export function ProductSection() {
           className="text-2xl font-semibold tracking-tight sm:text-3xl"
           variants={fadeUp}
         >
-          Alle Funktionen — und wie sie den Tag entlasten
+          Was Volt im Alltag kann
           <span className="font-normal text-muted-foreground">
             {' '}
-            — vom Angebot bis zur Abrechnung
+            — Module aus dem echten ERP
           </span>
         </motion.h2>
         <motion.p className="max-w-2xl text-muted-foreground leading-relaxed" variants={fadeUp}>
-          Volt ist das ERP für Elektrohandwerk: Projekte, Planung, Kunden, Zeiten, Material und Belege
-          greifen ineinander. Unten siehst du jede Funktion — und welchen Umweg sie dir im Alltag spart.
+          Projekte und LV, Plantafel, Angebote, MonteurHub, Kundencenter, Lager, Service, KPI und
+          Schnittstellen greifen ineinander. Unten: was jede Funktion tut — und welchen Umweg sie spart.
         </motion.p>
       </motion.div>
     </section>
@@ -78,7 +78,7 @@ export function ModulesSection() {
                 transition={springSnappy}
                 className="relative overflow-hidden rounded-xl border border-border bg-card"
                 animate={{
-                  borderColor: open ? 'rgb(20 184 166 / 0.45)' : 'rgb(229 231 235)',
+                  borderColor: open ? 'rgb(45 212 191 / 0.45)' : 'rgb(51 65 85)',
                 }}
               >
                 {open && (
@@ -92,7 +92,7 @@ export function ModulesSection() {
                   type="button"
                   className="flex w-full items-start gap-3 p-5 text-left"
                   onClick={() => setOpenTitle(open ? null : title)}
-                  whileHover={{ backgroundColor: 'rgb(249 250 251)' }}
+                  whileHover={{ backgroundColor: 'rgb(51 65 85 / 0.55)' }}
                   aria-expanded={open}
                 >
                   <motion.span
@@ -273,7 +273,7 @@ export function OperationsSection() {
           initial={{ opacity: 0.2, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={viewport}
-          whileHover={{ y: -4, borderColor: 'rgb(20 184 166 / 0.35)' }}
+          whileHover={{ y: -4, borderColor: 'rgb(45 212 191 / 0.4)' }}
           transition={springSoft}
         >
           <TypeLine prefix="# Kundenserver" delay={0.1} />
@@ -375,7 +375,7 @@ export function ContactSection() {
                 disabled={sending}
                 autoComplete={field.autoComplete}
                 className="h-10 rounded-lg border border-input bg-card px-3 font-normal outline-none ring-ring disabled:opacity-60"
-                whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(20 184 166 / 0.35)' }}
+                whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(45 212 191 / 0.4)' }}
                 transition={springSnappy}
               />
             </label>
@@ -388,7 +388,7 @@ export function ContactSection() {
               required
               disabled={sending}
               className="rounded-lg border border-input bg-card px-3 py-2 font-normal outline-none ring-ring disabled:opacity-60"
-              whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(20 184 166 / 0.35)' }}
+              whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(45 212 191 / 0.4)' }}
               transition={springSnappy}
             />
           </label>

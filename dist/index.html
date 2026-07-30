@@ -1,13 +1,14 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Volt — modulares ERP für Elektrohandwerk. Projekte, Planung, Angebote und Abrechnung in einem System."
+      content="Volt — modulares ERP für Elektrohandwerk. Projekte, Plantafel, Angebote, MonteurHub, Lager und Belege in einem System."
     />
-    <meta name="theme-color" content="#14b8a6" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="dark" />
     <link rel="icon" href="./favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
@@ -27,7 +28,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #f9fafb;
+        background: #0f172a;
         transition: opacity 0.32s ease;
       }
       #volt-splash.volt-splash--hide {
@@ -36,22 +37,22 @@
       }
       #volt-splash .bolt-track {
         fill: none;
-        stroke: rgba(20, 210, 190, 0.12);
+        stroke: rgba(45, 212, 191, 0.16);
         stroke-width: 1.2;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
       #volt-splash .bolt-glow {
         fill: none;
-        stroke: #14d2be;
+        stroke: #2dd4bf;
         stroke-width: 1.2;
         stroke-linecap: round;
         stroke-linejoin: round;
         filter: url(#volt-splash-glow);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-SoxRbfcS.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DmVQyYeP.css">
+    <script type="module" crossorigin src="./assets/index-ux2lNJ_b.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DdmkDCmv.css">
   </head>
   <body>
     <div id="volt-splash" aria-busy="true" aria-label="Volt wird geladen">
@@ -129,10 +130,10 @@
           if (hasBuiltBundle) return;
           if (typeof window.__voltHideSplash === 'function') window.__voltHideSplash();
           root.innerHTML =
-            '<div style="max-width:36rem;margin:4rem auto;padding:1.5rem;font-family:system-ui,sans-serif;color:#111827;background:#f9fafb;border:1px solid #e5e7eb;border-radius:0.75rem;line-height:1.5">' +
-            '<strong style="color:#0d9488">Volt — falscher Document Root</strong>' +
-            '<p style="margin:0.75rem 0 0;color:#4b5563">Apache liefert die Quell-<code>index.html</code> statt <code>dist/</code>.</p>' +
-            '<ol style="margin:0.75rem 0 0;padding-left:1.25rem;color:#374151">' +
+            '<div style="max-width:36rem;margin:4rem auto;padding:1.5rem;font-family:system-ui,sans-serif;color:#f1f5f9;background:#0f172a;border:1px solid #334155;border-radius:0.75rem;line-height:1.5">' +
+            '<strong style="color:#2dd4bf">Volt — falscher Document Root</strong>' +
+            '<p style="margin:0.75rem 0 0;color:#94a3b8">Apache liefert die Quell-<code>index.html</code> statt <code>dist/</code>.</p>' +
+            '<ol style="margin:0.75rem 0 0;padding-left:1.25rem;color:#cbd5e1">' +
             '<li>Plesk → Document Root auf <code>httpdocs/dist</code> setzen</li>' +
             '<li><strong>oder</strong> Git-Zusatzaktion: <code>bash scripts/plesk-publish-dist.sh</code></li>' +
             '<li>Details: <code>PLESK.md</code> im Repo</li>' +

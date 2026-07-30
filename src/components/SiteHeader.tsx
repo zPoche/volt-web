@@ -25,7 +25,7 @@ export function SiteHeader() {
     <motion.header
       className="sticky top-0 z-40 border-b border-border/80 bg-card/90 backdrop-blur-md"
       animate={{
-        boxShadow: compact ? '0 8px 24px rgb(17 24 39 / 0.06)' : '0 0 0 rgb(0 0 0 / 0)',
+        boxShadow: compact ? '0 8px 24px rgb(0 0 0 / 0.35)' : '0 0 0 rgb(0 0 0 / 0)',
       }}
       transition={{ duration: 0.25 }}
     >

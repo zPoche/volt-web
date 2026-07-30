@@ -7,8 +7,9 @@
 | Token | Wert |
 | --- | --- |
 | Font | Plus Jakarta Sans |
-| Primary | `#14b8a6` (Türkis) |
-| Background | `#f9fafb` |
+| Primary | `#2dd4bf` (Dark) / `#14b8a6` (ERP Light-Akzent) |
+| Background | `#0f172a` (Dark Mode, ERP `.dark`) |
+| Card | `#1e293b` |
 | Logo | Lucide `Zap` + „Volt“ (wie `VoltLogo` in der App) |
 | Radius / Look | flach, `rounded-xl` / `rounded-lg`, wenig Schatten |
 
