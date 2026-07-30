@@ -6,6 +6,7 @@ import {
   OperationsSection,
   ProductSection,
   SiteFooter,
+  WorkflowSection,
 } from './components/Sections';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Hero />
         <ProductSection />
         <ModulesSection />
+        <WorkflowSection />
         <OperationsSection />
         <ContactSection />
       </main>

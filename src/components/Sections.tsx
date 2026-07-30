@@ -1,58 +1,11 @@
-import {
-  CalendarDays,
-  ClipboardList,
-  FileText,
-  HardHat,
-  ShieldCheck,
-  Users,
-} from 'lucide-react';
-import type { FormEvent, ReactNode } from 'react';
-import type { LucideIcon } from 'lucide-react';
-import { motion } from 'motion/react';
+import { useState, type FormEvent, type ReactNode } from 'react';
+import { Check, ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { FEATURES, WORKFLOW } from '../content/features';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 
-type Feature = {
-  icon: LucideIcon;
-  title: string;
-  text: string;
-};
-
-const MODULES: Feature[] = [
-  {
-    icon: HardHat,
-    title: 'Projekte & Baustellen',
-    text: 'Vom Auftrag bis zur Abnahme — Status, Dokumente und Team an einem Ort.',
-  },
-  {
-    icon: CalendarDays,
-    title: 'Plantafel & Einsätze',
-    text: 'Personal und Termine planen, Abwesenheiten im Blick, Outlook-Sync wenn gewünscht.',
-  },
-  {
-    icon: FileText,
-    title: 'Angebote & Belege',
-    text: 'Operative Belege in Volt führen — Lexware optional anbinden, nicht erzwingen.',
-  },
-  {
-    icon: Users,
-    title: 'Kunden & Service',
-    text: 'Kundencenter, Anlagen und Wartung mit klaren Rechten für Büro und Monteure.',
-  },
-  {
-    icon: ClipboardList,
-    title: 'Zeiten & Material',
-    text: 'Rückmeldungen aus dem Alltag — ohne Excel-Umwege und Doppelpflege.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Rechte & DSGVO',
-    text: 'Rollen, Audit und Hosting in DE — gebaut für den Mittelstand, nicht für Spielzeug-SaaS.',
-  },
-];
-
 const CONTACT_EMAIL = 'johannes@avtx.io';
-
-const viewport = { once: true, amount: 0.25, margin: '0px 0px -8% 0px' } as const;
+const viewport = { once: true, amount: 0.2, margin: '0px 0px -8% 0px' } as const;
 
 export function ProductSection() {
   return (
@@ -69,15 +22,15 @@ export function ProductSection() {
           className="text-2xl font-semibold tracking-tight sm:text-3xl"
           variants={fadeUp}
         >
-          Eine Oberfläche für den Betrieb
+          Alle Funktionen — und wie sie den Tag entlasten
           <span className="font-normal text-muted-foreground">
             {' '}
-            — Büro und Baustelle im selben System
+            — vom Angebot bis zur Abrechnung
           </span>
         </motion.h2>
         <motion.p className="max-w-2xl text-muted-foreground leading-relaxed" variants={fadeUp}>
-          Volt bündelt Projekte, Planung, Belege und Kunden — ohne parallele Tools und ohne
-          doppelte Pflege. Hell, flach und schnell erfassbar, wie im ERP selbst.
+          Volt ist das ERP für Elektrohandwerk: Projekte, Planung, Kunden, Zeiten, Material und Belege
+          greifen ineinander. Unten siehst du jede Funktion — und welchen Umweg sie dir im Alltag spart.
         </motion.p>
       </motion.div>
     </section>
@@ -85,6 +38,8 @@ export function ProductSection() {
 }
 
 export function ModulesSection() {
+  const [openTitle, setOpenTitle] = useState<string | null>(FEATURES[0]?.title ?? null);
+
   return (
     <section id="module" className="border-b border-border" aria-labelledby="module-heading">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
@@ -96,36 +51,133 @@ export function ModulesSection() {
           whileInView="show"
           viewport={viewport}
         >
-          Module für den Tagesbetrieb
-          <span className="font-normal text-muted-foreground"> — was Teams wirklich brauchen</span>
+          Funktionen im Überblick
+          <span className="font-normal text-muted-foreground">
+            {' '}
+            — aufklappen für den konkreten Nutzen
+          </span>
         </motion.h2>
         <motion.ul
-          className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 grid gap-3 lg:grid-cols-2"
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
         >
-          {MODULES.map(({ icon: Icon, title, text }) => (
-            <motion.li
-              key={title}
-              variants={fadeUp}
-              whileHover={{ y: -6, borderColor: 'rgb(20 184 166 / 0.4)' }}
-              transition={springSnappy}
-              className="rounded-xl border border-border bg-card p-5 shadow-none"
-            >
-              <motion.div
-                className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground"
-                whileHover={{ rotate: -8, scale: 1.08 }}
-                transition={springSoft}
+          {FEATURES.map(({ icon: Icon, title, does, helps, points }) => {
+            const open = openTitle === title;
+            return (
+              <motion.li
+                key={title}
+                variants={fadeUp}
+                layout
+                className="overflow-hidden rounded-xl border border-border bg-card"
               >
-                <Icon className="h-4 w-4" aria-hidden="true" />
-              </motion.div>
-              <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{text}</p>
+                <motion.button
+                  type="button"
+                  className="flex w-full items-start gap-3 p-5 text-left"
+                  onClick={() => setOpenTitle(open ? null : title)}
+                  whileHover={{ backgroundColor: 'rgb(249 250 251)' }}
+                  aria-expanded={open}
+                >
+                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="flex items-center justify-between gap-3">
+                      <span className="text-base font-semibold tracking-tight">{title}</span>
+                      <motion.span
+                        animate={{ rotate: open ? 180 : 0 }}
+                        transition={springSnappy}
+                        className="text-muted-foreground"
+                      >
+                        <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                      </motion.span>
+                    </span>
+                    <span className="mt-1.5 block text-sm leading-relaxed text-muted-foreground">
+                      {does}
+                    </span>
+                  </span>
+                </motion.button>
+                <AnimatePresence initial={false}>
+                  {open && (
+                    <motion.div
+                      key="body"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="space-y-3 border-t border-border px-5 pb-5 pt-4">
+                        <p className="text-sm font-medium text-foreground">
+                          So erleichtert das die Arbeit:{' '}
+                          <span className="font-normal text-muted-foreground">{helps}</span>
+                        </p>
+                        <ul className="grid gap-2">
+                          {points.map((point) => (
+                            <li key={point} className="flex items-start gap-2 text-sm text-muted-foreground">
+                              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+      </div>
+    </section>
+  );
+}
+
+export function WorkflowSection() {
+  return (
+    <section id="ablauf" className="border-b border-border bg-card" aria-labelledby="ablauf-heading">
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
+        <motion.h2
+          id="ablauf-heading"
+          className="text-2xl font-semibold tracking-tight sm:text-3xl"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          So erleichtert Volt die Arbeit
+          <span className="font-normal text-muted-foreground">
+            {' '}
+            — ein typischer Auftrag von Anfang bis Ende
+          </span>
+        </motion.h2>
+        <motion.ol
+          className="mt-10 grid gap-6 sm:grid-cols-2"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          {WORKFLOW.map((item) => (
+            <motion.li
+              key={item.step}
+              variants={fadeUp}
+              whileHover={{ y: -4 }}
+              transition={springSnappy}
+              className="relative border-l-2 border-primary/40 pl-5"
+            >
+              <div className="text-xs font-semibold tracking-wider text-primary">{item.step}</div>
+              <h3 className="mt-2 text-lg font-semibold tracking-tight">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+              <p className="mt-3 text-sm font-medium text-foreground">
+                Entlastung:{' '}
+                <span className="font-normal text-muted-foreground">{item.relief}</span>
+              </p>
             </motion.li>
           ))}
-        </motion.ul>
+        </motion.ol>
       </div>
     </section>
   );
@@ -133,7 +185,7 @@ export function ModulesSection() {
 
 export function OperationsSection() {
   return (
-    <section id="betrieb" className="border-b border-border bg-card" aria-labelledby="betrieb-heading">
+    <section id="betrieb" className="border-b border-border" aria-labelledby="betrieb-heading">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:items-center">
         <motion.div
           variants={staggerContainer}
@@ -154,7 +206,8 @@ export function OperationsSection() {
           </motion.h2>
           <motion.p className="mt-4 text-muted-foreground leading-relaxed" variants={fadeUp}>
             Installation und Updates über vorgebaute Container-Images. Kein Git-Checkout, kein lokaler
-            Build beim Kunden — passend zum Image-only-Deploy von Volt.
+            Build beim Kunden — passend zum Image-only-Deploy von Volt. IT bleibt schlank, Fachabteilung
+            arbeitet weiter.
           </motion.p>
         </motion.div>
         <motion.div
@@ -238,7 +291,8 @@ export function ContactSection() {
           <span className="font-normal text-muted-foreground"> — wir zeigen Volt im Alltag</span>
         </motion.h2>
         <motion.p className="mt-4 max-w-xl text-muted-foreground" variants={fadeUp}>
-          Schreib uns kurz, worum es geht — wir melden uns mit Terminvorschlag.
+          Schreib uns kurz, worum es geht — wir melden uns mit Terminvorschlag und gehen die Funktionen
+          an euren Prozessen durch.
         </motion.p>
         <motion.form className="mt-8 grid max-w-xl gap-3" onSubmit={submitContact} variants={fadeUp}>
           {[
@@ -306,7 +360,7 @@ export function SiteFooter() {
         <p>
           <span className="font-semibold text-foreground">Volt</span> — ERP für Elektrohandwerk
         </p>
-        <p>Design-Tokens aus dem Volt-ERP · Hosting DE</p>
+        <p>Funktionen, Planung, Belege · Hosting DE</p>
       </div>
     </motion.footer>
   );

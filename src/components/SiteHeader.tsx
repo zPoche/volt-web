@@ -4,8 +4,8 @@ import { VoltLogo } from './VoltLogo';
 import { springSnappy } from '../lib/motion';
 
 const NAV = [
-  { href: '#produkt', label: 'Produkt' },
-  { href: '#module', label: 'Module' },
+  { href: '#module', label: 'Funktionen' },
+  { href: '#ablauf', label: 'Ablauf' },
   { href: '#betrieb', label: 'Betrieb' },
 ] as const;
 

@@ -65,7 +65,7 @@ export function Hero() {
             animate={{ y: 0 }}
             transition={{ duration: 0.65, delay: 0.16, ease: easeOut }}
           >
-            Projekte, Einsatzplanung, Angebote und Abrechnung in einem System.
+            Jede Funktion erklärt, was sie tut — und wie sie Büro und Baustelle entlastet.
           </motion.p>
           <motion.div
             className="mt-8 flex flex-wrap items-center gap-3"
@@ -90,13 +90,13 @@ export function Hero() {
               </motion.span>
             </motion.a>
             <motion.a
-              href="#produkt"
+              href="#module"
               className="inline-flex h-11 items-center rounded-lg border border-border bg-card px-5 text-sm font-semibold text-foreground"
               whileHover={{ scale: 1.03, y: -2, backgroundColor: 'rgb(243 244 246)' }}
               whileTap={{ scale: 0.97 }}
               transition={springSoft}
             >
-              Produkt ansehen
+              Funktionen ansehen
             </motion.a>
           </motion.div>
         </div>
