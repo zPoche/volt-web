@@ -1,0 +1,53 @@
+import { Component, type ErrorInfo, type ReactNode } from 'react';
+
+type Props = { children: ReactNode };
+type State = { error: Error | null };
+
+/** Verhindert stillen White-Screen — zeigt den Fehler sichtbar. */
+export class ErrorBoundary extends Component<Props, State> {
+  state: State = { error: null };
+
+  static getDerivedStateFromError(error: Error): State {
+    return { error };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Volt UI crash:', error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <div
+          style={{
+            minHeight: '100vh',
+            padding: '2rem',
+            fontFamily: 'system-ui, sans-serif',
+            background: '#f9fafb',
+            color: '#111827',
+          }}
+        >
+          <h1 style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>
+            Volt konnte nicht geladen werden
+          </h1>
+          <p style={{ color: '#6b7280', marginBottom: '1rem' }}>
+            Bitte Seite neu laden. Wenn es bleibt, Fehlerdetails:
+          </p>
+          <pre
+            style={{
+              whiteSpace: 'pre-wrap',
+              background: '#fff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '0.5rem',
+              padding: '1rem',
+              fontSize: '0.875rem',
+            }}
+          >
+            {this.state.error.message}
+          </pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}

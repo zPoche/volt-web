@@ -206,7 +206,7 @@ export function WorkflowSection() {
                 <motion.li
                   key={item.step}
                   className={`relative grid gap-3 sm:grid-cols-2 sm:gap-10 ${left ? '' : ''}`}
-                  initial={{ opacity: 0, y: 28 }}
+                  initial={{ opacity: 0.2, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={viewport}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -267,7 +267,7 @@ export function OperationsSection() {
         </motion.div>
         <motion.div
           className="rounded-xl border border-border bg-background p-6 font-mono text-sm leading-7 text-foreground"
-          initial={{ opacity: 0, x: 28 }}
+          initial={{ opacity: 0.2, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={viewport}
           whileHover={{ y: -4, borderColor: 'rgb(20 184 166 / 0.35)' }}
@@ -304,7 +304,7 @@ function TypeLine({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 6 }}
+      initial={{ opacity: 0.2, y: 6 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewport}
       transition={{ delay, duration: 0.35 }}
@@ -407,7 +407,7 @@ export function SiteFooter() {
   return (
     <motion.footer
       className="border-t border-border bg-card"
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 0.35 }}
       whileInView={{ opacity: 1 }}
       viewport={viewport}
     >

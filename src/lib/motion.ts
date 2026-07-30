@@ -14,8 +14,9 @@ export const springSnappy: Transition = {
   damping: 32,
 };
 
+/** Transform-first — Copy bleibt lesbar, auch wenn whileInView spät feuert. */
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0.14, y: 18 },
   show: {
     opacity: 1,
     y: 0,
@@ -31,7 +32,7 @@ export const staggerContainer: Variants = {
 };
 
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.96 },
+  hidden: { opacity: 0.14, scale: 0.98 },
   show: {
     opacity: 1,
     scale: 1,

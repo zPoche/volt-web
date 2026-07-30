@@ -59,10 +59,11 @@ export function Hero() {
 
       <div className="relative mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-stretch">
         <div className="relative z-10 flex max-w-xl flex-col justify-end px-6 pb-16 pt-14 sm:px-8 lg:pb-20 lg:pt-20">
+          {/* Transform-only: nie opacity 0 → kein White-Screen beim First Paint */}
           <motion.div
-            initial={{ y: 18, filter: 'blur(4px)' }}
-            animate={{ y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.7, ease: easeOut }}
+            initial={{ y: 14 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.65, ease: easeOut }}
           >
             <VoltLogo size="hero" />
           </motion.div>
@@ -74,30 +75,31 @@ export function Hero() {
             {HEADLINE.split(' ').map((word, index) => (
               <motion.span
                 key={`${word}-${index}`}
-                className="mr-[0.3em] inline-block"
-                initial={{ y: 18 }}
+                className="inline-block"
+                initial={{ y: 14 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.5, delay: 0.08 + index * 0.035, ease: easeOut }}
+                transition={{ duration: 0.5, delay: 0.06 + index * 0.03, ease: easeOut }}
               >
                 {word}
+                {index < HEADLINE.split(' ').length - 1 ? '\u00A0' : ''}
               </motion.span>
             ))}
           </h1>
 
           <motion.p
             className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
-            initial={{ y: 16 }}
+            initial={{ y: 14 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35, ease: easeOut }}
+            transition={{ duration: 0.6, delay: 0.3, ease: easeOut }}
           >
             Jede Funktion erklärt, was sie tut — und wie sie Büro und Baustelle entlastet.
           </motion.p>
 
           <motion.div
             className="mt-8 flex flex-wrap items-center gap-3"
-            initial={{ y: 16 }}
+            initial={{ y: 14 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.6, delay: 0.42, ease: easeOut }}
+            transition={{ duration: 0.6, delay: 0.38, ease: easeOut }}
           >
             <Magnetic>
               <motion.a
@@ -133,9 +135,9 @@ export function Hero() {
 
         <motion.div
           className="relative min-h-[280px] border-t border-border lg:min-h-[420px] lg:border-t-0"
-          initial={{ y: 24, scale: 1.03, rotate: 0.4 }}
-          animate={{ y: 0, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.05, ease: easeOut }}
+          initial={{ y: 20, scale: 1.02 }}
+          animate={{ y: 0, scale: 1 }}
+          transition={{ duration: 1, ease: easeOut }}
           style={{ x: visualX, y: visualY }}
         >
           <ProductVisual />
