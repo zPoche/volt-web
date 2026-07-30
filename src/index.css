@@ -21,22 +21,22 @@
 }
 
 :root {
-  /* Tokens 1:1 aus Volt ERP (apps/frontend/src/styles/globals.css) */
-  --background: 249 250 251;
-  --foreground: 17 24 39;
-  --card: 255 255 255;
-  --card-foreground: 17 24 39;
-  --primary: 20 184 166;
+  /* Dark Mode — Tokens 1:1 aus Volt ERP `.dark` (globals.css) */
+  --background: 15 23 42;
+  --foreground: 241 245 249;
+  --card: 30 41 59;
+  --card-foreground: 241 245 249;
+  --primary: 45 212 191;
   --primary-foreground: 15 23 42;
-  --secondary: 243 244 246;
-  --secondary-foreground: 17 24 39;
-  --muted: 243 244 246;
-  --muted-foreground: 107 114 128;
-  --accent: 204 251 241;
-  --accent-foreground: 19 78 74;
-  --border: 229 231 235;
-  --input: 229 231 235;
-  --ring: 20 184 166;
+  --secondary: 51 65 85;
+  --secondary-foreground: 241 245 249;
+  --muted: 51 65 85;
+  --muted-foreground: 148 163 184;
+  --accent: 19 78 74;
+  --accent-foreground: 204 251 241;
+  --border: 51 65 85;
+  --input: 51 65 85;
+  --ring: 45 212 191;
   --radius: 0.625rem;
 }
 
@@ -46,6 +46,7 @@
   }
 
   html {
+    color-scheme: dark;
     scroll-behavior: smooth;
   }
 
@@ -76,17 +77,17 @@
   }
 }
 
-/* Dezente Marken-Atmosphäre — kein Purple-/Glow-Klischee */
+/* Marken-Atmosphäre auf dunklem Grund */
 .volt-atmosphere {
   background:
-    radial-gradient(1200px 600px at 12% -10%, rgb(20 184 166 / 0.14), transparent 55%),
-    radial-gradient(900px 480px at 88% 8%, rgb(20 184 166 / 0.08), transparent 50%),
-    linear-gradient(180deg, rgb(249 250 251) 0%, rgb(243 244 246) 100%);
+    radial-gradient(1200px 600px at 12% -10%, rgb(45 212 191 / 0.16), transparent 55%),
+    radial-gradient(900px 480px at 88% 8%, rgb(45 212 191 / 0.1), transparent 50%),
+    linear-gradient(180deg, rgb(15 23 42) 0%, rgb(15 23 42) 40%, rgb(30 41 59 / 0.55) 100%);
 }
 
 ::selection {
-  background: rgb(20 184 166 / 0.22);
-  color: rgb(15 23 42);
+  background: rgb(45 212 191 / 0.28);
+  color: rgb(241 245 249);
 }
 
 .sr-only {

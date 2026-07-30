@@ -12,7 +12,7 @@ import { ProductVisual } from './ProductVisual';
 import { Magnetic } from './Magnetic';
 import { easeOut, springSoft } from '../lib/motion';
 
-const HEADLINE = 'ERP fürs Elektrohandwerk — klar, modular, alltagstauglich.';
+const HEADLINE = 'Das ERP für Elektrohandwerk — vom Projekt bis zur Baustelle.';
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -22,7 +22,7 @@ export function Hero() {
   const pointerY = useSpring(rawY, { stiffness: 140, damping: 22 });
   const visualX = useTransform(pointerX, [0, 100], [-14, 14]);
   const visualY = useTransform(pointerY, [0, 100], [-10, 10]);
-  const glow = useMotionTemplate`radial-gradient(560px circle at ${pointerX}% ${pointerY}%, rgb(20 184 166 / 0.2), transparent 55%)`;
+  const glow = useMotionTemplate`radial-gradient(560px circle at ${pointerX}% ${pointerY}%, rgb(45 212 191 / 0.22), transparent 55%)`;
 
   function onPointerMove(event: PointerEvent<HTMLElement>) {
     const rect = sectionRef.current?.getBoundingClientRect();
@@ -92,7 +92,8 @@ export function Hero() {
             animate={{ y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: easeOut }}
           >
-            Jede Funktion erklärt, was sie tut — und wie sie Büro und Baustelle entlastet.
+            Projekte, Plantafel, Angebote, MonteurHub, Lager und Belege — modular, deutsch,
+            Lexware nur wenn ihr wollt.
           </motion.p>
 
           <motion.div
@@ -123,7 +124,7 @@ export function Hero() {
               <motion.a
                 href="#module"
                 className="inline-flex h-11 items-center rounded-lg border border-border bg-card px-5 text-sm font-semibold text-foreground"
-                whileHover={{ scale: 1.03, backgroundColor: 'rgb(243 244 246)' }}
+                whileHover={{ scale: 1.03, backgroundColor: 'rgb(51 65 85)' }}
                 whileTap={{ scale: 0.97 }}
                 transition={springSoft}
               >

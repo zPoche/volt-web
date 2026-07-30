@@ -3,15 +3,15 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Zap } from 'lucide-react';
 import { springSoft, springSnappy } from '../lib/motion';
 
-const NAV = ['Projekte', 'Plantafel', 'Angebote', 'Kunden', 'Zeiten', 'Material'] as const;
+const NAV = ['Projekte', 'Plantafel', 'Angebote', 'Kundencenter', 'Monteur', 'Lager'] as const;
 
 const PANELS: Record<(typeof NAV)[number], { widths: number[]; label: string }> = {
-  Projekte: { widths: [72, 54, 64], label: 'Aktive Projekte' },
+  Projekte: { widths: [72, 54, 64], label: 'PRJ · LV · Rechnungen' },
   Plantafel: { widths: [80, 62, 70], label: 'Einsätze diese Woche' },
   Angebote: { widths: [60, 75, 52], label: 'Offene Angebote' },
-  Kunden: { widths: [55, 66, 71], label: 'Kunden & Anlagen' },
-  Zeiten: { widths: [64, 48, 58], label: 'Rückmeldungen' },
-  Material: { widths: [70, 52, 61], label: 'Verbrauch & Bestand' },
+  Kundencenter: { widths: [55, 66, 71], label: 'Anfragen & Kommunikation' },
+  Monteur: { widths: [64, 48, 58], label: 'Stempeluhr & Checklisten' },
+  Lager: { widths: [70, 52, 61], label: 'Katalog & Bestellungen' },
 };
 
 /**
@@ -76,7 +76,7 @@ export function ProductVisual() {
                   whileHover={{ x: 2 }}
                   whileTap={{ scale: 0.98 }}
                   animate={{
-                    backgroundColor: isActive ? 'rgb(20 184 166 / 0.1)' : 'rgb(255 255 255 / 0)',
+                    backgroundColor: isActive ? 'rgb(45 212 191 / 0.12)' : 'rgb(255 255 255 / 0)',
                   }}
                   transition={springSnappy}
                 >
@@ -103,7 +103,7 @@ export function ProductVisual() {
                 className="space-y-3"
               >
                 <div className="flex items-baseline gap-2">
-                  <div className="h-5 w-28 rounded bg-foreground/90" />
+                  <div className="h-5 w-28 rounded bg-foreground/80" />
                   <div className="text-xs text-muted-foreground">{panel.label}</div>
                 </div>
                 <div className="flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3">
@@ -122,7 +122,7 @@ export function ProductVisual() {
                       initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 * i, ...springSoft }}
-                      whileHover={{ y: -2, borderColor: 'rgb(20 184 166 / 0.45)' }}
+                      whileHover={{ y: -2, borderColor: 'rgb(45 212 191 / 0.45)' }}
                     >
                       <motion.div
                         className="h-8 w-8 rounded-lg bg-accent"
