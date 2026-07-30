@@ -90,6 +90,32 @@
   color: rgb(241 245 249);
 }
 
+/* Leichter Sheen auf Feature-Kacheln beim Hover */
+.feature-tile::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgb(45 212 191 / 0.06) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+
+.feature-tile:hover::after {
+  transform: translateX(120%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-tile::after {
+    display: none;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
