@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ReactNode } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { FEATURES, WORKFLOW } from '../content/features';
+import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 import { BlitzLoader } from './BlitzLoader';
 import { useLoading } from '../loading/useLoading';
@@ -424,19 +425,93 @@ export function ContactSection() {
   );
 }
 
+export function ImpressumSection() {
+  return (
+    <section
+      id="impressum"
+      className="border-t border-border bg-card"
+      aria-labelledby="impressum-heading"
+    >
+      <motion.div
+        className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewport}
+      >
+        <motion.h2
+          id="impressum-heading"
+          className="text-2xl font-semibold tracking-tight sm:text-3xl"
+          variants={fadeUp}
+        >
+          Impressum
+        </motion.h2>
+        <motion.div
+          className="mt-8 max-w-xl space-y-6 text-sm leading-relaxed text-muted-foreground"
+          variants={fadeUp}
+        >
+          <div>
+            <p className="font-semibold text-foreground">{IMPRESSUM.legalTitle}</p>
+            <p className="mt-2 text-foreground">{IMPRESSUM.name}</p>
+            {IMPRESSUM.addressLines.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+          <div>
+            <p className="font-semibold text-foreground">{IMPRESSUM.responsibleTitle}</p>
+            <p className="mt-2 text-foreground">{IMPRESSUM.name}</p>
+            {IMPRESSUM.addressLines.map((line) => (
+              <p key={`r-${line}`}>{line}</p>
+            ))}
+          </div>
+          <div>
+            <p className="font-semibold text-foreground">Kontakt</p>
+            <p className="mt-2">
+              E-Mail:{' '}
+              <a
+                className="font-medium text-foreground underline-offset-2 hover:underline"
+                href={`mailto:${IMPRESSUM.email}`}
+              >
+                {IMPRESSUM.email}
+              </a>
+            </p>
+            <p>
+              Web:{' '}
+              <a
+                className="font-medium text-foreground underline-offset-2 hover:underline"
+                href={IMPRESSUM.website}
+              >
+                {IMPRESSUM.website.replace(/^https?:\/\//, '')}
+              </a>
+            </p>
+            <p className="mt-2">{IMPRESSUM.product}</p>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
 export function SiteFooter() {
   return (
     <motion.footer
-      className="border-t border-border bg-card"
+      className="border-t border-border bg-background"
       initial={{ opacity: 0.35 }}
       whileInView={{ opacity: 1 }}
       viewport={viewport}
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p>
           <span className="font-semibold text-foreground">Volt</span> — ERP für Elektrohandwerk
         </p>
-        <p>Funktionen, Planung, Belege · Hosting DE</p>
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Rechtliches">
+          <a href="#impressum" className="font-medium text-foreground underline-offset-2 hover:underline">
+            Impressum
+          </a>
+          <a href="#kontakt" className="underline-offset-2 hover:underline">
+            Demo anfragen
+          </a>
+        </nav>
       </div>
     </motion.footer>
   );

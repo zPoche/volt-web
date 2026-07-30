@@ -5,6 +5,7 @@ import { PageSplash } from './components/PageSplash';
 import { LoadingProvider } from './loading/LoadingContext';
 import {
   ContactSection,
+  ImpressumSection,
   ModulesSection,
   OperationsSection,
   ProductSection,
@@ -26,6 +27,7 @@ export default function App() {
           <WorkflowSection />
           <OperationsSection />
           <ContactSection />
+          <ImpressumSection />
         </main>
         <SiteFooter />
       </div>
