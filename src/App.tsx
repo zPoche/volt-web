@@ -1,6 +1,8 @@
 import { SiteHeader } from './components/SiteHeader';
 import { Hero } from './components/Hero';
 import { ScrollProgress } from './components/ScrollProgress';
+import { PageSplash } from './components/PageSplash';
+import { LoadingProvider } from './loading/LoadingContext';
 import {
   ContactSection,
   ModulesSection,
@@ -12,18 +14,21 @@ import {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <ScrollProgress />
-      <SiteHeader />
-      <main>
-        <Hero />
-        <ProductSection />
-        <ModulesSection />
-        <WorkflowSection />
-        <OperationsSection />
-        <ContactSection />
-      </main>
-      <SiteFooter />
-    </div>
+    <LoadingProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <PageSplash />
+        <ScrollProgress />
+        <SiteHeader />
+        <main>
+          <Hero />
+          <ProductSection />
+          <ModulesSection />
+          <WorkflowSection />
+          <OperationsSection />
+          <ContactSection />
+        </main>
+        <SiteFooter />
+      </div>
+    </LoadingProvider>
   );
 }

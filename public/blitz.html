@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  .bolt-track {
+    fill: none;
+    stroke: rgba(20, 210, 190, 0.12);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .bolt-glow {
+    fill: none;
+    stroke: #14d2be;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: url(#glow);
+  }
+</style>
+</head>
+<body>
+  <svg width="120" height="120" viewBox="0 0 24 24">
+    <defs>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="0.6" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <path class="bolt-track" d="M13 2 L4.5 13.5 H11.5 L11 22 L19.5 10.5 H12.5 Z"/>
+    <path class="bolt-glow" id="g" d="M13 2 L4.5 13.5 H11.5 L11 22 L19.5 10.5 H12.5 Z"/>
+  </svg>
+
+  <script>
+    const p = document.getElementById('g');
+    const total = p.getTotalLength();
+    const dot = 6;
+    const gap = total - 8; // 8 Einheiten früher = nächster startet bevor alter ganz raus
+    const period = dot + gap;
+
+    p.style.strokeDasharray = `${dot} ${gap}`;
+
+    const duration = 2000;
+    let start = null;
+
+    function tick(ts) {
+      if (!start) start = ts;
+      const elapsed = (ts - start) % duration;
+      const offset = period - (elapsed / duration * period);
+      p.style.strokeDashoffset = offset;
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

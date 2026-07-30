@@ -3,6 +3,8 @@ import { Check, ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { FEATURES, WORKFLOW } from '../content/features';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
+import { BlitzLoader } from './BlitzLoader';
+import { useLoading } from '../loading/useLoading';
 
 const CONTACT_EMAIL = 'johannes@avtx.io';
 const viewport = { once: true, amount: 0.2, margin: '0px 0px -8% 0px' } as const;
@@ -314,22 +316,31 @@ function TypeLine({
   );
 }
 
-function submitContact(event: FormEvent<HTMLFormElement>) {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const name = String(data.get('name') ?? '').trim();
-  const email = String(data.get('email') ?? '').trim();
-  const message = String(data.get('message') ?? '').trim();
-  const subject = encodeURIComponent(`Volt Demo-Anfrage${name ? ` — ${name}` : ''}`);
-  const body = encodeURIComponent(
-    [`Name: ${name}`, `E-Mail: ${email}`, '', message].join('\n'),
-  );
-  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-}
-
 export function ContactSection() {
+  const { withLoading } = useLoading();
+  const [sending, setSending] = useState(false);
+
+  async function submitContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const name = String(data.get('name') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const message = String(data.get('message') ?? '').trim();
+    const subject = encodeURIComponent(`Volt Demo-Anfrage${name ? ` — ${name}` : ''}`);
+    const body = encodeURIComponent(
+      [`Name: ${name}`, `E-Mail: ${email}`, '', message].join('\n'),
+    );
+
+    setSending(true);
+    await withLoading(async () => {
+      await new Promise((r) => window.setTimeout(r, 650));
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    }, 'Anfrage wird vorbereitet…');
+    setSending(false);
+  }
+
   return (
-    <section id="kontakt" className="volt-atmosphere" aria-labelledby="kontakt-heading">
+    <section id="kontakt" className="volt-atmosphere relative" aria-labelledby="kontakt-heading">
       <motion.div
         className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
         variants={staggerContainer}
@@ -360,8 +371,9 @@ export function ContactSection() {
                 name={field.name}
                 type={field.type}
                 required
+                disabled={sending}
                 autoComplete={field.autoComplete}
-                className="h-10 rounded-lg border border-input bg-card px-3 font-normal outline-none ring-ring"
+                className="h-10 rounded-lg border border-input bg-card px-3 font-normal outline-none ring-ring disabled:opacity-60"
                 whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(20 184 166 / 0.35)' }}
                 transition={springSnappy}
               />
@@ -373,19 +385,28 @@ export function ContactSection() {
               name="message"
               rows={4}
               required
-              className="rounded-lg border border-input bg-card px-3 py-2 font-normal outline-none ring-ring"
+              disabled={sending}
+              className="rounded-lg border border-input bg-card px-3 py-2 font-normal outline-none ring-ring disabled:opacity-60"
               whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(20 184 166 / 0.35)' }}
               transition={springSnappy}
             />
           </label>
           <motion.button
             type="submit"
-            className="mt-1 inline-flex h-11 w-fit items-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+            disabled={sending}
+            className="mt-1 inline-flex h-11 w-fit items-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-80"
+            whileHover={sending ? undefined : { scale: 1.04, y: -2 }}
+            whileTap={sending ? undefined : { scale: 0.97 }}
             transition={springSoft}
           >
-            Anfrage senden
+            {sending ? (
+              <>
+                <BlitzLoader size="xs" label="Senden" color="#0f172a" />
+                Senden…
+              </>
+            ) : (
+              'Anfrage senden'
+            )}
           </motion.button>
           <p className="text-xs text-muted-foreground">
             Öffnet dein Mailprogramm an{' '}
