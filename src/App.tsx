@@ -1,0 +1,25 @@
+import { SiteHeader } from './components/SiteHeader';
+import { Hero } from './components/Hero';
+import {
+  ContactSection,
+  ModulesSection,
+  OperationsSection,
+  ProductSection,
+  SiteFooter,
+} from './components/Sections';
+
+export default function App() {
+  return (
+    <div className="min-h-screen">
+      <SiteHeader />
+      <main>
+        <Hero />
+        <ProductSection />
+        <ModulesSection />
+        <OperationsSection />
+        <ContactSection />
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
