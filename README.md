@@ -55,16 +55,18 @@ In **Git → Einstellungen von volt-web**:
 1. Bereitstellungsmodus: **Automatisch** (bleibt)
 2. Serverpfad: `httpdocs` / `/volt-erp.de/httpdocs` (bleibt)
 3. **Zusätzliche Bereitstellungsaktionen aktivieren** ← anhaken
-4. Befehl eintragen:
+4. Befehl eintragen (mit Log):
 
 ```sh
-bash scripts/plesk-post-deploy.sh
+bash -x scripts/plesk-post-deploy.sh 2>&1 | tee -a plesk-deploy.log
 ```
 
-Das Skript macht `install` → `build` → legt `dist/` nach `httpdocs` und entfernt `src/` usw.
+5. **Anwenden**, dann Deploy. Bei Warnung-Dreieck: `httpdocs/plesk-deploy.log` lesen.
 
-Voraussetzung: In Plesk ist **Node.js** für die Domain verfügbar (18+).
-Ohne Node: Option A (ZIP) nutzen.
+Das Skript macht `install` → `build` → legt `dist/` nach `httpdocs` und entfernt `src/`.
+
+**Voraussetzung:** Plesk-Erweiterung **Node.js** für die Domain (18+).  
+Orange Warnung / leeres Log-Fenster = meist kein `node` in der Git-Shell → dann **Option A (ZIP)**, kein Build auf dem Server.
 
 ### Manuell
 
