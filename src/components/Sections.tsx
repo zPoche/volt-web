@@ -71,8 +71,20 @@ export function ModulesSection() {
                 key={title}
                 variants={fadeUp}
                 layout
-                className="overflow-hidden rounded-xl border border-border bg-card"
+                whileHover={{ y: -3 }}
+                transition={springSnappy}
+                className="relative overflow-hidden rounded-xl border border-border bg-card"
+                animate={{
+                  borderColor: open ? 'rgb(20 184 166 / 0.45)' : 'rgb(229 231 235)',
+                }}
               >
+                {open && (
+                  <motion.span
+                    layoutId="feature-glow"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-primary"
+                    transition={springSnappy}
+                  />
+                )}
                 <motion.button
                   type="button"
                   className="flex w-full items-start gap-3 p-5 text-left"
@@ -80,9 +92,13 @@ export function ModulesSection() {
                   whileHover={{ backgroundColor: 'rgb(249 250 251)' }}
                   aria-expanded={open}
                 >
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                  <motion.span
+                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground"
+                    animate={{ scale: open ? 1.08 : 1, rotate: open ? -6 : 0 }}
+                    transition={springSoft}
+                  >
                     <Icon className="h-4 w-4" aria-hidden="true" />
-                  </span>
+                  </motion.span>
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center justify-between gap-3">
                       <span className="text-base font-semibold tracking-tight">{title}</span>
@@ -106,20 +122,31 @@ export function ModulesSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.28 }}
+                      transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
                       <div className="space-y-3 border-t border-border px-5 pb-5 pt-4">
-                        <p className="text-sm font-medium text-foreground">
+                        <motion.p
+                          className="text-sm font-medium text-foreground"
+                          initial={{ y: 8, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.05 }}
+                        >
                           So erleichtert das die Arbeit:{' '}
                           <span className="font-normal text-muted-foreground">{helps}</span>
-                        </p>
+                        </motion.p>
                         <ul className="grid gap-2">
-                          {points.map((point) => (
-                            <li key={point} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          {points.map((point, i) => (
+                            <motion.li
+                              key={point}
+                              className="flex items-start gap-2 text-sm text-muted-foreground"
+                              initial={{ x: -8, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ delay: 0.08 + i * 0.05 }}
+                            >
                               <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                               {point}
-                            </li>
+                            </motion.li>
                           ))}
                         </ul>
                       </div>
@@ -153,31 +180,59 @@ export function WorkflowSection() {
             — ein typischer Auftrag von Anfang bis Ende
           </span>
         </motion.h2>
-        <motion.ol
-          className="mt-10 grid gap-6 sm:grid-cols-2"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          {WORKFLOW.map((item) => (
-            <motion.li
-              key={item.step}
-              variants={fadeUp}
-              whileHover={{ y: -4 }}
-              transition={springSnappy}
-              className="relative border-l-2 border-primary/40 pl-5"
-            >
-              <div className="text-xs font-semibold tracking-wider text-primary">{item.step}</div>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
-              <p className="mt-3 text-sm font-medium text-foreground">
-                Entlastung:{' '}
-                <span className="font-normal text-muted-foreground">{item.relief}</span>
-              </p>
-            </motion.li>
-          ))}
-        </motion.ol>
+
+        <div className="relative mt-12">
+          <motion.div
+            className="absolute bottom-3 left-[1.15rem] top-3 w-px origin-top bg-border sm:left-1/2"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={viewport}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="absolute bottom-3 left-[1.15rem] top-3 w-px origin-top bg-primary sm:left-1/2"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={viewport}
+            transition={{ duration: 1.4, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden="true"
+          />
+
+          <ol className="relative grid gap-10">
+            {WORKFLOW.map((item, index) => {
+              const left = index % 2 === 0;
+              return (
+                <motion.li
+                  key={item.step}
+                  className={`relative grid gap-3 sm:grid-cols-2 sm:gap-10 ${left ? '' : ''}`}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewport}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                >
+                  <div
+                    className={`pl-12 sm:pl-0 ${left ? 'sm:pr-12 sm:text-right' : 'sm:col-start-2 sm:pl-12'}`}
+                  >
+                    <motion.div
+                      className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-card text-xs font-bold text-primary sm:left-1/2 sm:-translate-x-1/2"
+                      whileHover={{ scale: 1.12 }}
+                      transition={springSnappy}
+                    >
+                      {item.step}
+                    </motion.div>
+                    <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+                    <p className="mt-3 text-sm font-medium text-foreground">
+                      Entlastung:{' '}
+                      <span className="font-normal text-muted-foreground">{item.relief}</span>
+                    </p>
+                  </div>
+                </motion.li>
+              );
+            })}
+          </ol>
+        </div>
       </div>
     </section>
   );

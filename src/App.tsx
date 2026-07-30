@@ -1,5 +1,6 @@
 import { SiteHeader } from './components/SiteHeader';
 import { Hero } from './components/Hero';
+import { ScrollProgress } from './components/ScrollProgress';
 import {
   ContactSection,
   ModulesSection,
@@ -12,6 +13,7 @@ import {
 export default function App() {
   return (
     <div className="min-h-screen">
+      <ScrollProgress />
       <SiteHeader />
       <main>
         <Hero />
