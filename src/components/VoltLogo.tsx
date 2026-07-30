@@ -13,7 +13,7 @@ export function VoltLogo({ className = '', size = 'nav' }: VoltLogoProps) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 font-bold tracking-tight text-primary ${
-        isHero ? 'text-5xl sm:text-6xl md:text-7xl' : 'text-2xl sm:text-3xl'
+        isHero ? 'text-5xl sm:text-6xl md:text-7xl' : 'text-3xl sm:text-4xl'
       } ${className}`}
       aria-label="Volt"
     >
