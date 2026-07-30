@@ -6,7 +6,7 @@ import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motio
 import { BlitzLoader } from './BlitzLoader';
 import { useLoading } from '../loading/useLoading';
 
-const CONTACT_EMAIL = 'johannes@avtx.io';
+const CONTACT_EMAIL = 'demo@volt-erp.de';
 const viewport = { once: true, amount: 0.2, margin: '0px 0px -8% 0px' } as const;
 
 export function ProductSection() {
