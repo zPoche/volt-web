@@ -48,9 +48,23 @@ Alte Dateien vorher leeren (`src/`, `package.json`, `node_modules/` weg).
 Nach jedem Push auf `main` baut GitHub Actions ebenfalls `volt-web-dist.zip`
 (Artifact + Release „Deploy package“).
 
-**Option B — Build in Plesk:** nur sinnvoll mit Node.js-Hosting / Git-Deploy.
-Document Root muss dann auf den **Build-Output** zeigen (`dist/`), nicht aufs Repo-Root.
-Befehl z. B. `pnpm install && pnpm build`. Für normales Apache-Static-Hosting ist Option A einfacher.
+**Option B — Plesk Git (automatisch aus `main`):**
+
+In **Git → Einstellungen von volt-web**:
+
+1. Bereitstellungsmodus: **Automatisch** (bleibt)
+2. Serverpfad: `httpdocs` / `/volt-erp.de/httpdocs` (bleibt)
+3. **Zusätzliche Bereitstellungsaktionen aktivieren** ← anhaken
+4. Befehl eintragen:
+
+```sh
+bash scripts/plesk-post-deploy.sh
+```
+
+Das Skript macht `install` → `build` → legt `dist/` nach `httpdocs` und entfernt `src/` usw.
+
+Voraussetzung: In Plesk ist **Node.js** für die Domain verfügbar (18+).
+Ohne Node: Option A (ZIP) nutzen.
 
 ### Manuell
 
