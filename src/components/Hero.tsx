@@ -9,8 +9,8 @@ export function Hero() {
       className="volt-atmosphere relative overflow-hidden border-b border-border"
       aria-labelledby="hero-heading"
     >
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-end lg:gap-12 lg:pb-20 lg:pt-20">
-        <div className="relative z-10 max-w-xl">
+      <div className="mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-stretch">
+        <div className="relative z-10 flex max-w-xl flex-col justify-end px-6 pb-16 pt-14 sm:px-8 lg:pb-20 lg:pt-20">
           <VoltLogo size="hero" className="animate-rise" />
           <h1
             id="hero-heading"
@@ -19,8 +19,7 @@ export function Hero() {
             ERP fürs Elektrohandwerk — klar, modular, alltagstauglich.
           </h1>
           <p className="animate-rise-delay-2 mt-4 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Projekte, Einsatzplanung, Angebote und Abrechnung in einem System — mit der gleichen
-            Designsprache wie in der Volt-App.
+            Projekte, Einsatzplanung, Angebote und Abrechnung in einem System.
           </p>
           <div className="animate-rise-delay-2 mt-8 flex flex-wrap items-center gap-3">
             <a
@@ -39,7 +38,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="animate-hero-visual relative min-h-[280px] lg:min-h-[360px]">
+        <div className="animate-hero-visual relative min-h-[280px] border-t border-border lg:min-h-[420px] lg:border-t-0">
           <ProductVisual />
         </div>
       </div>

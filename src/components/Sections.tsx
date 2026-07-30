@@ -6,6 +6,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
+import type { FormEvent } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 type Feature = {
@@ -47,21 +48,22 @@ const MODULES: Feature[] = [
   },
 ];
 
+const CONTACT_EMAIL = 'johannes@avtx.io';
+
 export function ProductSection() {
   return (
     <section id="produkt" className="border-b border-border bg-card" aria-labelledby="produkt-heading">
       <div className="mx-auto max-w-6xl space-y-4 px-6 py-16 sm:px-8 sm:py-20">
         <h2 id="produkt-heading" className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          Eine Oberfläche — der Betrieb darin
-          <span className="mt-0 font-normal text-muted-foreground">
+          Eine Oberfläche für den Betrieb
+          <span className="font-normal text-muted-foreground">
             {' '}
-            — dieselbe Sprache wie in der App: hell, flach, mit Volt-Türkis.
+            — Büro und Baustelle im selben System
           </span>
         </h2>
-        <p className="max-w-2xl text-muted-foreground">
-          Die Website nutzt die Tokens aus dem ERP: Plus Jakarta Sans, Primary{' '}
-          <code className="rounded bg-secondary px-1.5 py-0.5 text-sm text-foreground">#14b8a6</code>,
-          flache Flächen und klare Hierarchie. Kein zweites Markenbild.
+        <p className="max-w-2xl text-muted-foreground leading-relaxed">
+          Volt bündelt Projekte, Planung, Belege und Kunden — ohne parallele Tools und ohne
+          doppelte Pflege. Hell, flach und schnell erfassbar, wie im ERP selbst.
         </p>
       </div>
     </section>
@@ -125,6 +127,19 @@ export function OperationsSection() {
   );
 }
 
+function submitContact(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const name = String(data.get('name') ?? '').trim();
+  const email = String(data.get('email') ?? '').trim();
+  const message = String(data.get('message') ?? '').trim();
+  const subject = encodeURIComponent(`Volt Demo-Anfrage${name ? ` — ${name}` : ''}`);
+  const body = encodeURIComponent(
+    [`Name: ${name}`, `E-Mail: ${email}`, '', message].join('\n'),
+  );
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+}
+
 export function ContactSection() {
   return (
     <section id="kontakt" className="volt-atmosphere" aria-labelledby="kontakt-heading">
@@ -136,12 +151,7 @@ export function ContactSection() {
         <p className="mt-4 max-w-xl text-muted-foreground">
           Schreib uns kurz, worum es geht — wir melden uns mit Terminvorschlag.
         </p>
-        <form
-          className="mt-8 grid max-w-xl gap-3"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <form className="mt-8 grid max-w-xl gap-3" onSubmit={submitContact}>
           <label className="grid gap-1.5 text-sm font-medium">
             Name
             <input
@@ -177,7 +187,11 @@ export function ContactSection() {
             Anfrage senden
           </button>
           <p className="text-xs text-muted-foreground">
-            Formular-Anbindung (Mail/API) folgt — aktuell nur UI-Platzhalter.
+            Öffnet dein Mailprogramm an{' '}
+            <a className="font-medium text-foreground underline-offset-2 hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
+              {CONTACT_EMAIL}
+            </a>
+            .
           </p>
         </form>
       </div>

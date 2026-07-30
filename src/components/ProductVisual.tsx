@@ -1,3 +1,5 @@
+import { Zap } from 'lucide-react';
+
 /**
  * Stilisiertes App-Shell-Mock (Header + Sidebar + Content),
  * angelehnt an Volt ERP — flach, hell, Primary-Türkis.
@@ -5,13 +7,13 @@
 export function ProductVisual() {
   return (
     <div
-      className="absolute inset-0 overflow-hidden rounded-none lg:rounded-tl-2xl lg:border lg:border-border lg:bg-card lg:shadow-sm"
+      className="absolute inset-0 overflow-hidden border-l border-border bg-card"
       aria-hidden="true"
     >
       <div className="flex h-full min-h-[280px] flex-col bg-background lg:min-h-[360px]">
         <div className="flex h-12 items-center gap-3 border-b border-border bg-card px-4">
           <span className="inline-flex items-center gap-1 text-sm font-bold text-primary">
-            <span className="inline-block h-3.5 w-3.5 rotate-12 rounded-sm bg-primary" />
+            <Zap className="h-3.5 w-3.5 fill-current" />
             Volt
           </span>
           <div className="ml-4 h-7 flex-1 rounded-lg bg-secondary" />
@@ -37,7 +39,7 @@ export function ProductVisual() {
               <div className="h-5 w-28 rounded bg-foreground/90" />
               <div className="h-3 w-40 rounded bg-muted-foreground/30" />
             </div>
-            <div className="flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3 shadow-sm">
+            <div className="flex h-10 items-center gap-2 rounded-xl border border-border bg-card px-3">
               <div className="h-6 flex-1 rounded-md bg-secondary" />
               <div className="h-7 w-20 rounded-lg bg-primary" />
             </div>
