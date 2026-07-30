@@ -48,25 +48,19 @@ Alte Dateien vorher leeren (`src/`, `package.json`, `node_modules/` weg).
 Nach jedem Push auf `main` baut GitHub Actions ebenfalls `volt-web-dist.zip`
 (Artifact + Release „Deploy package“).
 
-**Option B — Plesk Git (automatisch aus `main`):**
+**Option B — Plesk Git + Node.js (empfohlen, wenn beides da ist):**
 
-In **Git → Einstellungen von volt-web**:
+Siehe ausführlich **[PLESK.md](./PLESK.md)**. Kurz:
 
-1. Bereitstellungsmodus: **Automatisch** (bleibt)
-2. Serverpfad: `httpdocs` / `/volt-erp.de/httpdocs` (bleibt)
-3. **Zusätzliche Bereitstellungsaktionen aktivieren** ← anhaken
-4. Befehl eintragen (mit Log):
+1. **Node.js** für die Domain an: Startup File `server.js`, App Root `httpdocs`
+2. SSH-Zugang: `/bin/bash` (nicht chrooted)
+3. Git → Zusatzaktionen:
 
 ```sh
-bash -x scripts/plesk-post-deploy.sh 2>&1 | tee -a plesk-deploy.log
+(export PATH="/opt/plesk/node/22/bin:/opt/plesk/node/20/bin:/opt/plesk/node/18/bin:$PATH"; bash scripts/plesk-post-deploy.sh) 2>&1 | tee -a plesk-deploy.log
 ```
 
-5. **Anwenden**, dann Deploy. Bei Warnung-Dreieck: `httpdocs/plesk-deploy.log` lesen.
-
-Das Skript macht `install` → `build` → legt `dist/` nach `httpdocs` und entfernt `src/`.
-
-**Voraussetzung:** Plesk-Erweiterung **Node.js** für die Domain (18+).  
-Orange Warnung / leeres Log-Fenster = meist kein `node` in der Git-Shell → dann **Option A (ZIP)**, kein Build auf dem Server.
+Build bleibt nötig (einmal pro Deploy, automatisch). Ohne Build kann der Browser kein `.tsx`.
 
 ### Manuell
 
