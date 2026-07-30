@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pack:dist": "bash scripts/pack-dist.sh"
   },
   "dependencies": {
     "lucide-react": "^1.27.0",

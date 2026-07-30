@@ -31,32 +31,44 @@ pnpm preview
 
 ## Deploy auf Plesk
 
-**Wichtig:** Nicht das Repo-Root hochladen — nur den Inhalt von `dist/` nach dem Build.
+**Wichtig:** Nicht das Git-Repo hochladen. Browser können `.tsx` nicht ausführen.
+Nur den **Build** (`dist/`) gehört nach `httpdocs`.
 
-1. Lokal (oder CI):
+### Schnell (empfohlen)
+
+```sh
+pnpm pack:dist
+```
+
+Erzeugt `volt-web-dist.zip`. In Plesk nach `httpdocs` hochladen und **entpacken**.
+Alte Dateien vorher leeren (`src/`, `package.json`, `node_modules/` weg).
+
+### Manuell
 
 ```sh
 pnpm install
 pnpm build
 ```
 
-2. In Plesk ins **Document Root** der Domain (z. B. `httpdocs`) den **Inhalt** von `dist/` hochladen:
-   - `index.html`
-   - `assets/` (JS + CSS)
-   - `favicon.svg`, `icons.svg`, `blitz.html`
-   - `.htaccess` (Apache MIME + SPA-Fallback)
+Inhalt von `dist/` nach `httpdocs` kopieren:
 
-3. Nicht hochladen: `src/`, `node_modules/`, `package.json` — die Site ist rein statisch.
+- `index.html` (muss `./assets/index-….js` referenzieren — **nicht** `/src/main.tsx`)
+- Ordner `assets/`
+- `.htaccess`, `favicon.svg`, …
 
-4. Hard-Reload im Browser (Cache). Die Blitz-Animation darf max. ~2,5 s sichtbar sein; danach erscheint die Seite auch wenn Fonts/JS zäh sind.
+### Check im Browser (DevTools → Netzwerk)
+
+| Gut | Falsch (aktueller Fehler) |
+| --- | --- |
+| `./assets/index-xxxxx.js` lädt mit 200 | `/src/main.tsx` → MIME-Fehler, Seite weiß |
 
 ### Typische Fehler
 
 | Symptom | Ursache |
 | --- | --- |
-| Ladeanimation bleibt ewig | Alte Version ohne Failsafe, oder JS-Bundle 404 (falscher Ordner) |
-| Weiße Seite / kein JS | `src/` statt `dist/` deployed, oder fehlende `assets/` |
-| 404 auf `/assets/...` | Alte absolute Pfade — Build nutzt jetzt `base: './'` |
+| Splash weg, dann weiß | Repo-Root deployed statt `dist/` |
+| Ladeanimation bleibt ewig | Alte Version / JS 404 |
+| 404 auf Assets | `assets/`-Ordner fehlt auf dem Server |
 
 ## Hinweis
 
