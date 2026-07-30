@@ -1,9 +1,9 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
-import { Check } from 'lucide-react';
 import { motion } from 'motion/react';
-import { BUSINESS_BENEFITS, FEATURES, WORKFLOW } from '../content/features';
+import { BUSINESS_BENEFITS, WORKFLOW } from '../content/features';
 import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
+import { FeatureShowcase } from './FeatureShowcase';
 import { BlitzLoader } from './BlitzLoader';
 import { useLoading } from '../loading/useLoading';
 
@@ -14,36 +14,27 @@ export function ProductSection() {
   return (
     <section id="produkt" className="border-b border-border bg-card" aria-labelledby="produkt-heading">
       <motion.div
-        className="mx-auto max-w-6xl space-y-10 px-6 py-16 sm:px-8 sm:py-20"
+        className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
-        <div className="space-y-4">
-          <motion.h2
-            id="produkt-heading"
-            className="text-2xl font-semibold tracking-tight sm:text-3xl"
-            variants={fadeUp}
-          >
-            Unternehmerischer Vorteil
-            <span className="font-normal text-muted-foreground">
-              {' '}
-              — Zeit, Kostenüberblick, planbare KI
-            </span>
-          </motion.h2>
-          <motion.p className="max-w-2xl text-muted-foreground leading-relaxed" variants={fadeUp}>
-            Volt entlastet Büro und Baustelle und macht sichtbar, wo Geld verdient oder verbrannt wird.
-            Unten: alle Funktionen offen — mit Alltagshilfe und Kostenvorteil.
-          </motion.p>
-        </div>
+        <motion.h2
+          id="produkt-heading"
+          className="max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl"
+          variants={fadeUp}
+        >
+          Weniger Chaos.
+          <span className="font-normal text-muted-foreground"> Mehr Marge.</span>
+        </motion.h2>
         <motion.ul
-          className="grid gap-6 sm:grid-cols-2"
+          className="mt-10 grid gap-8 border-t border-border pt-10 sm:grid-cols-2 lg:grid-cols-4"
           variants={staggerContainer}
         >
           {BUSINESS_BENEFITS.map((item) => (
             <motion.li key={item.title} variants={fadeUp} className="space-y-2">
-              <h3 className="text-base font-semibold tracking-tight text-foreground">{item.title}</h3>
+              <h3 className="text-sm font-semibold tracking-tight text-primary">{item.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
             </motion.li>
           ))}
@@ -57,85 +48,27 @@ export function ModulesSection() {
   return (
     <section id="module" className="border-b border-border" aria-labelledby="module-heading">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
-        <motion.h2
-          id="module-heading"
-          className="text-2xl font-semibold tracking-tight sm:text-3xl"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          Alle Funktionen
-          <span className="font-normal text-muted-foreground">
-            {' '}
-            — Nutzen im Alltag und was es spart
-          </span>
-        </motion.h2>
-        <motion.ul
-          className="mt-10 grid gap-4 lg:grid-cols-2"
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
+          className="max-w-2xl space-y-3"
         >
-          {FEATURES.map(({ icon: Icon, title, does, helps, saves, points }, index) => (
-            <motion.li
-              key={title}
-              variants={fadeUp}
-              whileHover={{ y: -3, borderColor: 'rgb(45 212 191 / 0.4)' }}
-              transition={springSnappy}
-              className="relative overflow-hidden rounded-xl border border-border bg-card"
-            >
-              <motion.span
-                className="pointer-events-none absolute inset-x-0 top-0 h-1 origin-left bg-primary"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={viewport}
-                transition={{ duration: 0.45, delay: 0.05 + index * 0.04, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <div className="flex items-start gap-3 p-5 pb-0">
-                <motion.span
-                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground"
-                  initial={{ scale: 0.85, rotate: -8 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={viewport}
-                  transition={{ ...springSoft, delay: 0.04 + index * 0.03 }}
-                >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                </motion.span>
-                <div className="min-w-0 flex-1 space-y-2">
-                  <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{does}</p>
-                </div>
-              </div>
-              <div className="space-y-3 px-5 pb-5 pt-4">
-                <p className="text-sm font-medium text-foreground">
-                  Alltag:{' '}
-                  <span className="font-normal text-muted-foreground">{helps}</span>
-                </p>
-                <p className="text-sm font-medium text-foreground">
-                  Kostenvorteil:{' '}
-                  <span className="font-normal text-muted-foreground">{saves}</span>
-                </p>
-                <ul className="grid gap-2">
-                  {points.map((point, i) => (
-                    <motion.li
-                      key={point}
-                      className="flex items-start gap-2 text-sm text-muted-foreground"
-                      initial={{ x: -6, opacity: 0 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={viewport}
-                      transition={{ delay: 0.08 + i * 0.04 }}
-                    >
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                      {point}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.li>
-          ))}
-        </motion.ul>
+          <motion.h2
+            id="module-heading"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
+            variants={fadeUp}
+          >
+            Funktionen
+            <span className="font-normal text-muted-foreground"> — eine nach der anderen</span>
+          </motion.h2>
+          <motion.p className="text-muted-foreground leading-relaxed" variants={fadeUp}>
+            Modul wählen — Details zu Alltag und Kostenvorteil erscheinen daneben. Läuft auch
+            automatisch durch.
+          </motion.p>
+        </motion.div>
+        <FeatureShowcase />
       </div>
     </section>
   );
