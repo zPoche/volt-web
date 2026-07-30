@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "pack:dist": "bash scripts/pack-dist.sh"
+    "pack:dist": "bash scripts/pack-dist.sh",
+    "plesk:deploy": "bash scripts/plesk-post-deploy.sh"
   },
   "dependencies": {
     "lucide-react": "^1.27.0",
