@@ -36,12 +36,21 @@ Nur den **Build** (`dist/`) gehört nach `httpdocs`.
 
 ### Schnell (empfohlen)
 
+**Option A — fertiges ZIP (ohne Build auf dem Server):**
+
 ```sh
 pnpm pack:dist
 ```
 
 Erzeugt `volt-web-dist.zip`. In Plesk nach `httpdocs` hochladen und **entpacken**.
 Alte Dateien vorher leeren (`src/`, `package.json`, `node_modules/` weg).
+
+Nach jedem Push auf `main` baut GitHub Actions ebenfalls `volt-web-dist.zip`
+(Artifact + Release „Deploy package“).
+
+**Option B — Build in Plesk:** nur sinnvoll mit Node.js-Hosting / Git-Deploy.
+Document Root muss dann auf den **Build-Output** zeigen (`dist/`), nicht aufs Repo-Root.
+Befehl z. B. `pnpm install && pnpm build`. Für normales Apache-Static-Hosting ist Option A einfacher.
 
 ### Manuell
 
