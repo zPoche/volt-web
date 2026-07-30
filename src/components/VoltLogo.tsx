@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import { Zap } from 'lucide-react';
 
 type VoltLogoProps = {
@@ -16,10 +17,24 @@ export function VoltLogo({ className = '', size = 'nav' }: VoltLogoProps) {
       } ${className}`}
       aria-label="Volt"
     >
-      <Zap
-        className={`shrink-0 fill-current ${isHero ? 'h-[0.95em] w-[0.95em]' : 'h-[1em] w-[1em]'}`}
-        aria-hidden="true"
-      />
+      <motion.span
+        className="inline-flex"
+        animate={
+          isHero
+            ? { rotate: [0, -12, 0], scale: [1, 1.08, 1] }
+            : undefined
+        }
+        transition={
+          isHero
+            ? { duration: 1.8, repeat: Infinity, repeatDelay: 2.4, ease: 'easeInOut' }
+            : undefined
+        }
+      >
+        <Zap
+          className={`shrink-0 fill-current ${isHero ? 'h-[0.95em] w-[0.95em]' : 'h-[1em] w-[1em]'}`}
+          aria-hidden="true"
+        />
+      </motion.span>
       Volt
     </span>
   );

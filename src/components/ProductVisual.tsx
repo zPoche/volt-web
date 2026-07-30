@@ -3,14 +3,15 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Zap } from 'lucide-react';
 import { springSoft, springSnappy } from '../lib/motion';
 
-const NAV = ['Dashboard', 'Projekte', 'Plantafel', 'Angebote', 'Kunden'] as const;
+const NAV = ['Projekte', 'Plantafel', 'Angebote', 'Kunden', 'Zeiten', 'Material'] as const;
 
 const PANELS: Record<(typeof NAV)[number], { widths: number[]; label: string }> = {
-  Dashboard: { widths: [68, 48, 58], label: 'Überblick' },
   Projekte: { widths: [72, 54, 64], label: 'Aktive Projekte' },
-  Plantafel: { widths: [80, 62, 70], label: 'Diese Woche' },
+  Plantafel: { widths: [80, 62, 70], label: 'Einsätze diese Woche' },
   Angebote: { widths: [60, 75, 52], label: 'Offene Angebote' },
-  Kunden: { widths: [55, 66, 71], label: 'Kundenliste' },
+  Kunden: { widths: [55, 66, 71], label: 'Kunden & Anlagen' },
+  Zeiten: { widths: [64, 48, 58], label: 'Rückmeldungen' },
+  Material: { widths: [70, 52, 61], label: 'Verbrauch & Bestand' },
 };
 
 /**
