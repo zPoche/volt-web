@@ -16,11 +16,81 @@
       rel="stylesheet"
     />
     <title>Volt — ERP für Elektrohandwerk</title>
+    <style>
+      /* Sofort-Splash vor React — gleiche Blitz-Animation wie blitz.html */
+      #volt-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9fafb;
+        transition: opacity 0.32s ease;
+      }
+      #volt-splash.volt-splash--hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #volt-splash .bolt-track {
+        fill: none;
+        stroke: rgba(20, 210, 190, 0.12);
+        stroke-width: 1.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #volt-splash .bolt-glow {
+        fill: none;
+        stroke: #14d2be;
+        stroke-width: 1.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: url(#volt-splash-glow);
+      }
+    </style>
   </head>
   <body>
+    <div id="volt-splash" aria-busy="true" aria-label="Volt wird geladen">
+      <svg width="120" height="120" viewBox="0 0 24 24" aria-hidden="true">
+        <defs>
+          <filter id="volt-splash-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path class="bolt-track" d="M13 2 L4.5 13.5 H11.5 L11 22 L19.5 10.5 H12.5 Z" />
+        <path class="bolt-glow" id="volt-splash-bolt" d="M13 2 L4.5 13.5 H11.5 L11 22 L19.5 10.5 H12.5 Z" />
+      </svg>
+    </div>
+    <script>
+      (function () {
+        var p = document.getElementById('volt-splash-bolt');
+        if (!p || !p.getTotalLength) return;
+        var total = p.getTotalLength();
+        var dot = 6;
+        var gap = total - 8;
+        var period = dot + gap;
+        p.style.strokeDasharray = dot + ' ' + gap;
+        var duration = 2000;
+        var start = null;
+        function tick(ts) {
+          if (!document.getElementById('volt-splash')) return;
+          if (start === null) start = ts;
+          var elapsed = (ts - start) % duration;
+          p.style.strokeDashoffset = period - (elapsed / duration) * period;
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      })();
+    </script>
+
     <div id="root"></div>
     <noscript>
-      <p style="padding:2rem;font-family:system-ui,sans-serif">
+      <p style="padding: 2rem; font-family: system-ui, sans-serif">
         Volt benötigt JavaScript. Bitte aktiviere JS oder starte die Seite mit
         <code>pnpm install && pnpm dev</code>.
       </p>
