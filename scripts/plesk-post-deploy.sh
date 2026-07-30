@@ -1,33 +1,71 @@
 #!/usr/bin/env bash
-# Läuft in Plesk unter: Git → Zusätzliche Bereitstellungsaktionen
-# Voraussetzung: Repo wird nach httpdocs deployed (Serverpfad = httpdocs)
+# Plesk → Git → Zusätzliche Bereitstellungsaktionen
+# Empfohlener Aufruf in Plesk:
+#   bash -x scripts/plesk-post-deploy.sh 2>&1 | tee -a plesk-deploy.log
 set -euo pipefail
 
+LOG_PREFIX="[volt]"
+echo "$LOG_PREFIX start $(date -Is 2>/dev/null || date)"
+echo "$LOG_PREFIX pwd=$(pwd)"
+echo "$LOG_PREFIX PATH=$PATH"
+ls -la | head -30 || true
+
+# In Document Root wechseln, falls Plesk woanders startet
+if [[ ! -f package.json && -f httpdocs/package.json ]]; then
+  cd httpdocs
+  echo "$LOG_PREFIX cd httpdocs → $(pwd)"
+fi
+if [[ ! -f package.json ]]; then
+  # typische Plesk-Pfade
+  for d in \
+    "$HOME/httpdocs" \
+    /var/www/vhosts/volt-erp.de/httpdocs \
+    /var/www/vhosts/*/httpdocs
+  do
+    if [[ -f "$d/package.json" ]]; then
+      cd "$d"
+      echo "$LOG_PREFIX cd $d"
+      break
+    fi
+  done
+fi
+
 ROOT="$(pwd)"
-echo "[volt] Plesk post-deploy in: $ROOT"
+echo "$LOG_PREFIX ROOT=$ROOT"
 
-# Node finden (Plesk legt oft Versionen unter /opt/plesk/node ab)
-export PATH="/opt/plesk/node/22/bin:/opt/plesk/node/20/bin:/opt/plesk/node/18/bin:$HOME/.local/share/pnpm:$PATH"
-
-if ! command -v node >/dev/null 2>&1; then
-  echo "[volt] FEHLER: node nicht gefunden. In Plesk Node.js aktivieren oder ZIP-Deploy nutzen."
+if [[ ! -f "$ROOT/package.json" ]]; then
+  echo "$LOG_PREFIX FEHLER: package.json nicht gefunden. Falsches Arbeitsverzeichnis."
   exit 1
 fi
 
-echo "[volt] node $(node -v) / npm $(npm -v 2>/dev/null || echo '?')"
+# Node von Plesk einsammeln
+for b in /opt/plesk/node/*/bin; do
+  [[ -d "$b" ]] && export PATH="$b:$PATH"
+done
+export PATH="$HOME/nodevenv/*/bin:$PATH"
 
-# pnpm bevorzugen, sonst npm
-if command -v pnpm >/dev/null 2>&1; then
-  PKG=pnpm
-elif command -v corepack >/dev/null 2>&1; then
-  corepack enable >/dev/null 2>&1 || true
-  corepack prepare pnpm@latest --activate >/dev/null 2>&1 || true
-  PKG=pnpm
-else
-  PKG=npm
+if ! command -v node >/dev/null 2>&1; then
+  cat <<EOF
+$LOG_PREFIX FEHLER: node nicht im PATH der Git-Deploy-Shell.
+→ In Plesk „Node.js“ für die Domain aktivieren
+  ODER fertiges ZIP deployen (kein Build auf dem Server):
+  pnpm pack:dist → volt-web-dist.zip nach httpdocs entpacken
+EOF
+  exit 1
 fi
 
-echo "[volt] package manager: $PKG"
+echo "$LOG_PREFIX node=$(command -v node) $(node -v)"
+echo "$LOG_PREFIX npm=$(command -v npm || true) $(npm -v 2>/dev/null || true)"
+
+PKG=npm
+if command -v corepack >/dev/null 2>&1; then
+  corepack enable >/dev/null 2>&1 || true
+  corepack prepare pnpm@9.15.9 --activate >/dev/null 2>&1 || true
+fi
+if command -v pnpm >/dev/null 2>&1; then
+  PKG=pnpm
+fi
+echo "$LOG_PREFIX using $PKG"
 
 if [[ "$PKG" == "pnpm" ]]; then
   pnpm install --frozen-lockfile || pnpm install
@@ -37,30 +75,16 @@ else
   npm run build
 fi
 
-if [[ ! -f dist/index.html ]]; then
-  echo "[volt] FEHLER: dist/index.html fehlt nach dem Build"
-  exit 1
-fi
+test -f dist/index.html
 
-# Build nach Document-Root legen, Quellcode aus dem Webroot entfernen
-echo "[volt] dist/ → Document Root"
+echo "$LOG_PREFIX publish dist/ → $ROOT"
 TMP="$(mktemp -d)"
 cp -a dist/. "$TMP/"
-
-# Alles im Webroot außer .git entfernen, dann Build hinein
-find "$ROOT" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+find "$ROOT" -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'plesk-deploy.log' -exec rm -rf {} +
 cp -a "$TMP"/. "$ROOT"/
 rm -rf "$TMP"
+rm -rf "$ROOT/src" "$ROOT/node_modules" 2>/dev/null || true
 
-# Sicherstellen, dass kein /src/main.tsx mehr ausgeliefert wird
-if [[ -e "$ROOT/src" ]]; then
-  rm -rf "$ROOT/src"
-fi
-
-if ! grep -q 'assets/' "$ROOT/index.html"; then
-  echo "[volt] FEHLER: index.html referenziert keine assets/ — Deploy abgebrochen"
-  exit 1
-fi
-
-echo "[volt] Fertig. index.html nutzt ./assets/…"
-ls -la "$ROOT" | head -20
+grep -q 'assets/' "$ROOT/index.html"
+echo "$LOG_PREFIX OK — Live sollte ./assets/… laden"
+ls -la "$ROOT" | head -25
