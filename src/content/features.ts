@@ -27,7 +27,7 @@ export type Feature = {
   points: string[];
 };
 
-/** Kompakt formuliert — Detail-Bühne, kein Textwall. */
+/** Kompakt formuliert — Kacheln auf-/zuklappbar. */
 export const FEATURES: Feature[] = [
   {
     icon: HardHat,
