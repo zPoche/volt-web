@@ -3,37 +3,53 @@ import { useEffect } from 'react';
 declare global {
   interface Window {
     __VOLT_SPLASH_DONE__?: boolean;
+    __voltHideSplash?: () => void;
   }
 }
 
 /**
- * Blendet den HTML-Splash (#volt-splash mit Blitz-Animation) aus,
- * sobald React + Fonts bereit sind.
+ * Blendet den HTML-Splash aus, sobald React gemountet ist.
+ * Wartet NICHT ewig auf Google Fonts (hängen oft hinter Plesk/Firewall).
  */
 export function PageSplash() {
   useEffect(() => {
     if (window.__VOLT_SPLASH_DONE__) return;
 
-    const htmlSplash = document.getElementById('volt-splash');
-    const minMs = 800;
+    const minMs = 600;
+    const hardCapMs = 1800;
     const started = performance.now();
+    let done = false;
 
-    const finish = () => {
+    const hide = () => {
+      if (done) return;
+      done = true;
       const wait = Math.max(0, minMs - (performance.now() - started));
       window.setTimeout(() => {
-        htmlSplash?.classList.add('volt-splash--hide');
-        window.setTimeout(() => {
-          htmlSplash?.remove();
+        if (typeof window.__voltHideSplash === 'function') {
+          window.__voltHideSplash();
+        } else {
+          const el = document.getElementById('volt-splash');
+          el?.classList.add('volt-splash--hide');
+          window.setTimeout(() => el?.remove(), 320);
           window.__VOLT_SPLASH_DONE__ = true;
-        }, 320);
+        }
       }, wait);
     };
 
-    if (document.fonts?.ready) {
-      void document.fonts.ready.then(finish).catch(finish);
-    } else {
-      finish();
-    }
+    // Fonts optional kurz abwarten — aber mit Timeout, nie blockierend
+    const fonts =
+      document.fonts?.ready ??
+      Promise.resolve();
+    const raced = Promise.race([
+      fonts.catch(() => undefined),
+      new Promise<void>((resolve) => window.setTimeout(resolve, 400)),
+    ]);
+
+    void raced.then(hide);
+
+    // Zusätzlicher Hard-Cap falls etwas schiefgeht
+    const cap = window.setTimeout(hide, hardCapMs);
+    return () => window.clearTimeout(cap);
   }, []);
 
   return null;
