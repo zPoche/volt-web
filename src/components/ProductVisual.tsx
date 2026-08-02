@@ -36,9 +36,9 @@ export function ProductVisual() {
   }, [autoplay]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden border-l border-border bg-card">
-      <div className="flex h-full min-h-[280px] flex-col bg-background lg:min-h-[360px]">
-        <div className="flex h-12 items-center gap-3 border-b border-border bg-card px-4">
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="flex h-full min-h-[280px] flex-col bg-[rgb(8_12_20_/_0.55)] lg:min-h-[360px]">
+        <div className="flex h-12 items-center gap-3 border-b border-white/8 bg-white/[0.03] px-4">
           <motion.span
             className="inline-flex items-center gap-1 text-sm font-bold text-primary"
             animate={{ rotate: [0, -4, 0] }}

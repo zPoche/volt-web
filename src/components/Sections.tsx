@@ -10,9 +10,17 @@ import { useLoading } from '../loading/useLoading';
 const CONTACT_EMAIL = 'demo@volt-erp.de';
 const viewport = { once: true, amount: 0.15, margin: '0px 0px -6% 0px' } as const;
 
+function SectionEyebrow({ children }: { children: ReactNode }) {
+  return <p className="eyebrow">{children}</p>;
+}
+
 export function ProductSection() {
   return (
-    <section id="produkt" className="relative overflow-hidden border-b border-border bg-card" aria-labelledby="produkt-heading">
+    <section
+      id="produkt"
+      className="relative overflow-hidden border-b border-border"
+      aria-labelledby="produkt-heading"
+    >
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute -left-20 top-8 h-48 w-48 rounded-full bg-primary/10 blur-3xl"
@@ -20,22 +28,26 @@ export function ProductSection() {
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
+        className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
-        <motion.h2
-          id="produkt-heading"
-          className="max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl"
+        <motion.div variants={fadeUp}>
+          <SectionEyebrow>Warum Volt</SectionEyebrow>
+        </motion.div>
+        <motion.h2 id="produkt-heading" className="text-section mt-4 max-w-2xl" variants={fadeUp}>
+          Weniger Chaos. <span className="text-highlight">Mehr Marge.</span>
+        </motion.h2>
+        <motion.p
+          className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground"
           variants={fadeUp}
         >
-          Weniger Chaos.
-          <span className="font-normal text-muted-foreground"> Mehr Marge.</span>
-        </motion.h2>
+          Ein System für Büro und Baustelle — statt Excel, WhatsApp und Insellösungen.
+        </motion.p>
         <motion.ul
-          className="mt-10 grid gap-6 border-t border-border pt-10 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-12 grid gap-8 border-t border-white/8 pt-12 sm:grid-cols-2 lg:grid-cols-4"
           variants={staggerContainer}
         >
           {BUSINESS_BENEFITS.map((item, index) => (
@@ -76,35 +88,29 @@ export function ModulesSection() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="pointer-events-none absolute inset-0 opacity-[0.4]"
         style={{
-          backgroundImage:
-            'radial-gradient(rgb(45 212 191 / 0.09) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(rgb(45 212 191 / 0.08) 1px, transparent 1px)',
           backgroundSize: '22px 22px',
           maskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent)',
         }}
       />
-      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
+      <div className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="max-w-2xl space-y-3"
+          className="max-w-2xl"
         >
-          <motion.h2
-            id="module-heading"
-            className="text-2xl font-semibold tracking-tight sm:text-3xl"
-            variants={fadeUp}
-          >
-            Funktionen
-            <span className="font-normal text-muted-foreground">
-              {' '}
-              — antippen für Alltag und Kostenvorteil
-            </span>
+          <motion.div variants={fadeUp}>
+            <SectionEyebrow>Module</SectionEyebrow>
+          </motion.div>
+          <motion.h2 id="module-heading" className="text-section mt-4" variants={fadeUp}>
+            Funktionen, die den <span className="text-highlight">Alltag</span> tragen
           </motion.h2>
-          <motion.p className="text-sm text-muted-foreground" variants={fadeUp}>
-            Kachel öffnen — Nutzen und Ersparnis erscheinen mit.
+          <motion.p className="mt-4 text-base text-muted-foreground" variants={fadeUp}>
+            Kachel öffnen — Nutzen und Kostenvorteil erscheinen mit.
           </motion.p>
         </motion.div>
         <FeatureTiles />
@@ -115,24 +121,31 @@ export function ModulesSection() {
 
 export function WorkflowSection() {
   return (
-    <section id="ablauf" className="border-b border-border bg-card" aria-labelledby="ablauf-heading">
-      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
-        <motion.h2
-          id="ablauf-heading"
-          className="text-2xl font-semibold tracking-tight sm:text-3xl"
-          variants={fadeUp}
+    <section
+      id="ablauf"
+      className="border-b border-border bg-card/40"
+      aria-labelledby="ablauf-heading"
+    >
+      <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
+        <motion.div
           initial="hidden"
           whileInView="show"
           viewport={viewport}
+          variants={staggerContainer}
+          className="max-w-2xl"
         >
-          So erleichtert Volt die Arbeit
-          <span className="font-normal text-muted-foreground">
-            {' '}
-            — ein typischer Auftrag von Anfang bis Ende
-          </span>
-        </motion.h2>
+          <motion.div variants={fadeUp}>
+            <SectionEyebrow>Ablauf</SectionEyebrow>
+          </motion.div>
+          <motion.h2 id="ablauf-heading" className="text-section mt-4" variants={fadeUp}>
+            So erleichtert Volt die <span className="text-highlight">Arbeit</span>
+          </motion.h2>
+          <motion.p className="mt-4 text-base text-muted-foreground" variants={fadeUp}>
+            Ein typischer Auftrag von der Anfrage bis zur Abrechnung.
+          </motion.p>
+        </motion.div>
 
-        <div className="relative mt-12">
+        <div className="relative mt-14">
           <motion.div
             className="absolute bottom-3 left-[1.15rem] top-3 w-px origin-top bg-border sm:left-1/2"
             initial={{ scaleY: 0 }}
@@ -156,7 +169,7 @@ export function WorkflowSection() {
               return (
                 <motion.li
                   key={item.step}
-                  className={`relative grid gap-3 sm:grid-cols-2 sm:gap-10 ${left ? '' : ''}`}
+                  className="relative grid gap-3 sm:grid-cols-2 sm:gap-10"
                   initial={{ opacity: 0.2, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={viewport}
@@ -166,7 +179,7 @@ export function WorkflowSection() {
                     className={`pl-12 sm:pl-0 ${left ? 'sm:pr-12 sm:text-right' : 'sm:col-start-2 sm:pl-12'}`}
                   >
                     <motion.div
-                      className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-card text-xs font-bold text-primary sm:left-1/2 sm:-translate-x-1/2"
+                      className="volt-glass absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-primary sm:left-1/2 sm:-translate-x-1/2"
                       whileHover={{ scale: 1.12 }}
                       transition={springSnappy}
                     >
@@ -192,32 +205,26 @@ export function WorkflowSection() {
 export function OperationsSection() {
   return (
     <section id="betrieb" className="border-b border-border" aria-labelledby="betrieb-heading">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:items-center">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
         >
-          <motion.h2
-            id="betrieb-heading"
-            className="text-2xl font-semibold tracking-tight sm:text-3xl"
-            variants={fadeUp}
-          >
-            Betrieb ohne Source auf dem Kundenserver
-            <span className="font-normal text-muted-foreground">
-              {' '}
-              — Updates per privater Registry
-            </span>
+          <motion.div variants={fadeUp}>
+            <SectionEyebrow>Betrieb</SectionEyebrow>
+          </motion.div>
+          <motion.h2 id="betrieb-heading" className="text-section mt-4" variants={fadeUp}>
+            Updates ohne Source auf dem <span className="text-highlight">Kundenserver</span>
           </motion.h2>
-          <motion.p className="mt-4 text-muted-foreground leading-relaxed" variants={fadeUp}>
+          <motion.p className="mt-4 text-base leading-relaxed text-muted-foreground" variants={fadeUp}>
             Installation und Updates über vorgebaute Container-Images. Kein Git-Checkout, kein lokaler
-            Build beim Kunden — passend zum Image-only-Deploy von Volt. IT bleibt schlank, Fachabteilung
-            arbeitet weiter.
+            Build beim Kunden — IT bleibt schlank, Fachabteilung arbeitet weiter.
           </motion.p>
         </motion.div>
         <motion.div
-          className="rounded-xl border border-border bg-background p-6 font-mono text-sm leading-7 text-foreground"
+          className="volt-glass rounded-2xl p-6 font-mono text-sm leading-7 text-foreground"
           initial={{ opacity: 0.2, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={viewport}
@@ -290,26 +297,29 @@ export function ContactSection() {
 
   return (
     <section id="kontakt" className="volt-atmosphere relative" aria-labelledby="kontakt-heading">
+      <div aria-hidden="true" className="volt-grid pointer-events-none absolute inset-0 opacity-40" />
       <motion.div
-        className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
+        className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
-        <motion.h2
-          id="kontakt-heading"
-          className="text-2xl font-semibold tracking-tight sm:text-3xl"
-          variants={fadeUp}
-        >
-          Demo oder Einführung
-          <span className="font-normal text-muted-foreground"> — wir zeigen Volt im Alltag</span>
+        <motion.div variants={fadeUp}>
+          <SectionEyebrow>Kontakt</SectionEyebrow>
+        </motion.div>
+        <motion.h2 id="kontakt-heading" className="text-section mt-4" variants={fadeUp}>
+          Demo oder <span className="text-highlight">Einführung</span>
         </motion.h2>
-        <motion.p className="mt-4 max-w-xl text-muted-foreground" variants={fadeUp}>
+        <motion.p className="mt-4 max-w-xl text-base text-muted-foreground" variants={fadeUp}>
           Schreib uns kurz, worum es geht — wir melden uns mit Terminvorschlag und gehen die Funktionen
           an euren Prozessen durch.
         </motion.p>
-        <motion.form className="mt-8 grid max-w-xl gap-3" onSubmit={submitContact} variants={fadeUp}>
+        <motion.form
+          className="volt-glass mt-10 grid max-w-xl gap-3 rounded-2xl p-6"
+          onSubmit={submitContact}
+          variants={fadeUp}
+        >
           {[
             { name: 'name', label: 'Name', type: 'text', autoComplete: 'name' },
             { name: 'email', label: 'E-Mail', type: 'email', autoComplete: 'email' },
@@ -322,7 +332,7 @@ export function ContactSection() {
                 required
                 disabled={sending}
                 autoComplete={field.autoComplete}
-                className="h-10 rounded-lg border border-input bg-card px-3 font-normal outline-none ring-ring disabled:opacity-60"
+                className="h-11 rounded-xl border border-white/10 bg-white/[0.04] px-3 font-normal outline-none ring-ring disabled:opacity-60"
                 whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(45 212 191 / 0.4)' }}
                 transition={springSnappy}
               />
@@ -335,7 +345,7 @@ export function ContactSection() {
               rows={4}
               required
               disabled={sending}
-              className="rounded-lg border border-input bg-card px-3 py-2 font-normal outline-none ring-ring disabled:opacity-60"
+              className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 font-normal outline-none ring-ring disabled:opacity-60"
               whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(45 212 191 / 0.4)' }}
               transition={springSnappy}
             />
@@ -343,14 +353,14 @@ export function ContactSection() {
           <motion.button
             type="submit"
             disabled={sending}
-            className="mt-1 inline-flex h-11 w-fit items-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-80"
+            className="mt-1 inline-flex h-11 w-fit items-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_28px_rgb(45_212_191_/_0.25)] disabled:opacity-80"
             whileHover={sending ? undefined : { scale: 1.04, y: -2 }}
             whileTap={sending ? undefined : { scale: 0.97 }}
             transition={springSoft}
           >
             {sending ? (
               <>
-                <BlitzLoader size="xs" label="Senden" color="#0f172a" />
+                <BlitzLoader size="xs" label="Senden" color="#080c14" />
                 Senden…
               </>
             ) : (
@@ -377,7 +387,7 @@ export function ImpressumSection() {
   return (
     <section
       id="impressum"
-      className="border-t border-border bg-card"
+      className="border-t border-border bg-card/30"
       aria-labelledby="impressum-heading"
     >
       <motion.div
@@ -387,11 +397,10 @@ export function ImpressumSection() {
         whileInView="show"
         viewport={viewport}
       >
-        <motion.h2
-          id="impressum-heading"
-          className="text-2xl font-semibold tracking-tight sm:text-3xl"
-          variants={fadeUp}
-        >
+        <motion.div variants={fadeUp}>
+          <SectionEyebrow>Rechtliches</SectionEyebrow>
+        </motion.div>
+        <motion.h2 id="impressum-heading" className="text-section mt-4" variants={fadeUp}>
           Impressum
         </motion.h2>
         <motion.div

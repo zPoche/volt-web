@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
             minHeight: '100vh',
             padding: '2rem',
             fontFamily: 'system-ui, sans-serif',
-            background: '#0f172a',
+            background: '#080c14',
             color: '#f1f5f9',
           }}
         >
@@ -36,8 +36,8 @@ export class ErrorBoundary extends Component<Props, State> {
           <pre
             style={{
               whiteSpace: 'pre-wrap',
-              background: '#1e293b',
-              border: '1px solid #334155',
+              background: '#121b2a',
+              border: '1px solid #263448',
               borderRadius: '0.5rem',
               padding: '1rem',
               fontSize: '0.875rem',

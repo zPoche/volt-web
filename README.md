@@ -2,16 +2,21 @@
 
 Öffentliche Produkt-Website für **Volt** — Designsprache am echten ERP ausgerichtet.
 
-## Design (Source of Truth: Volt ERP)
+## Design
+
+Markenfarbe und Wordmark bleiben am ERP ausgerichtet. Die Marketing-Site darf
+expressiver sein (Glass, Display-Typo, Atmosphere) — ohne die Teal-Marke zu
+verlassen.
 
 | Token | Wert |
 | --- | --- |
 | Font | Plus Jakarta Sans |
-| Primary | `#2dd4bf` (Dark) / `#14b8a6` (ERP Light-Akzent) |
-| Background | `#0f172a` (Dark Mode, ERP `.dark`) |
-| Card | `#1e293b` |
+| Primary | `#2dd4bf` (wie ERP Dark) |
+| Background | `#080c14` (Marketing-Ink, tiefer als ERP `.dark`) |
+| Card / Glass | `#121b2a` + `.volt-glass` |
 | Logo | Lucide `Zap` + „Volt“ (wie `VoltLogo` in der App) |
-| Radius / Look | flach, `rounded-xl` / `rounded-lg`, wenig Schatten |
+| Typo | `.text-display` / `.text-section` + `.text-highlight` / `.eyebrow` |
+| Radius / Look | `rounded-xl` / `rounded-2xl`, Glass + Soft-Bloom |
 
 ## Stack
 
