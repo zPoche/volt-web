@@ -154,7 +154,7 @@ export function Hero() {
           style={{ x: visualX, y: visualY }}
         >
           <div className="volt-glass relative h-full min-h-[280px] overflow-hidden rounded-2xl lg:min-h-[420px]">
-            <ProductVisual />
+            <ProductVisual className="absolute inset-0" layoutIdPrefix="hero-product" />
           </div>
         </motion.div>
       </div>

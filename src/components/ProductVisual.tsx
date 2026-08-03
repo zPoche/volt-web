@@ -6,6 +6,7 @@ import { springSoft, springSnappy } from '../lib/motion';
 const NAV = ['Projekte', 'Plantafel', 'Angebote', 'Kundencenter', 'Monteur', 'Lager'] as const;
 
 type PanelRow = { title: string; meta: string; status: string; tone: 'ok' | 'warn' | 'muted' };
+type VisualTheme = 'dark' | 'light';
 
 const PANELS: Record<
   (typeof NAV)[number],
@@ -91,19 +92,40 @@ const PANELS: Record<
   },
 };
 
-const TONE_CLASS: Record<PanelRow['tone'], string> = {
-  ok: 'bg-primary/15 text-primary',
-  warn: 'bg-amber-400/15 text-amber-200',
-  muted: 'bg-white/8 text-muted-foreground',
+const TONE_CLASS: Record<VisualTheme, Record<PanelRow['tone'], string>> = {
+  dark: {
+    ok: 'bg-primary/15 text-primary',
+    warn: 'bg-amber-400/15 text-amber-200',
+    muted: 'bg-white/8 text-muted-foreground',
+  },
+  light: {
+    ok: 'bg-teal-50 text-teal-700',
+    warn: 'bg-amber-50 text-amber-700',
+    muted: 'bg-slate-100 text-slate-600',
+  },
+};
+
+type ProductVisualProps = {
+  /** `dark` = Hero/Marketing; `light` = ERP-Alltag / Screenshot-Ersatz */
+  theme?: VisualTheme;
+  className?: string;
+  /** layoutId-Präfix, damit Dark+Light gleichzeitig auf der Seite leben können */
+  layoutIdPrefix?: string;
 };
 
 /**
  * Interaktives App-Shell-Mock — Sidebar klickbar, Content mit echten Labeln.
+ * Light-Theme wirkt wie ein ERP-Screenshot (helle Büro-Oberfläche).
  */
-export function ProductVisual() {
+export function ProductVisual({
+  theme = 'dark',
+  className = '',
+  layoutIdPrefix = 'product',
+}: ProductVisualProps) {
   const [active, setActive] = useState<(typeof NAV)[number]>('Projekte');
   const [autoplay, setAutoplay] = useState(true);
   const panel = PANELS[active];
+  const isLight = theme === 'light';
 
   useEffect(() => {
     if (!autoplay) return;
@@ -118,12 +140,35 @@ export function ProductVisual() {
     return () => window.clearInterval(id);
   }, [autoplay]);
 
+  const shell = isLight
+    ? 'bg-white text-slate-900'
+    : 'bg-[rgb(8_12_20_/_0.55)] text-foreground';
+  const chromeBorder = isLight ? 'border-slate-200' : 'border-white/8';
+  const chromeBg = isLight ? 'bg-slate-50/90' : 'bg-white/[0.03]';
+  const asideBg = isLight ? 'bg-slate-50' : 'bg-white/[0.02]';
+  const surface = isLight
+    ? 'border border-slate-200 bg-white shadow-[0_1px_0_rgb(15_23_42_/_0.04)]'
+    : 'border border-white/8 bg-white/[0.03]';
+  const muted = isLight ? 'text-slate-500' : 'text-muted-foreground';
+  const strong = isLight ? 'text-slate-900' : 'text-foreground';
+  const searchBg = isLight
+    ? 'border border-slate-200 bg-white text-slate-400'
+    : 'border border-white/8 bg-white/[0.04] text-muted-foreground';
+  const filterBg = isLight ? 'bg-slate-100 text-slate-500' : 'bg-white/5 text-muted-foreground';
+  const brand = isLight ? 'text-teal-600' : 'text-primary';
+  const activeNavBg = isLight ? 'rgb(20 184 166 / 0.1)' : 'rgb(45 212 191 / 0.12)';
+  const hoverBorder = isLight ? 'rgb(13 148 136 / 0.45)' : 'rgb(45 212 191 / 0.45)';
+  const navLayoutId = `${layoutIdPrefix}-nav-pill`;
+
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <div className="flex h-full min-h-[280px] flex-col bg-[rgb(8_12_20_/_0.55)] lg:min-h-[360px]">
-        <div className="flex h-12 items-center gap-3 border-b border-white/8 bg-white/[0.03] px-4">
+    <div className={`overflow-hidden ${className}`.trim()}>
+      <div
+        className={`flex h-full min-h-[280px] flex-col lg:min-h-[360px] ${shell}`}
+        style={isLight ? { colorScheme: 'light' } : undefined}
+      >
+        <div className={`flex h-12 items-center gap-3 border-b px-4 ${chromeBorder} ${chromeBg}`}>
           <motion.span
-            className="inline-flex items-center gap-1 text-sm font-bold text-primary"
+            className={`inline-flex items-center gap-1 text-sm font-bold ${brand}`}
             animate={{ rotate: [0, -4, 0] }}
             transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 3 }}
           >
@@ -131,14 +176,18 @@ export function ProductVisual() {
             Volt
           </motion.span>
           <div className="ml-2 hidden flex-1 items-center gap-2 sm:flex">
-            <div className="h-7 flex-1 rounded-lg border border-white/8 bg-white/[0.04] px-3 text-[11px] leading-7 text-muted-foreground">
+            <div className={`h-7 flex-1 rounded-lg px-3 text-[11px] leading-7 ${searchBg}`}>
               Suche Projekte, Kunden, Belege…
             </div>
           </div>
-          <div className="h-7 w-7 rounded-full bg-primary/20 ring-1 ring-primary/30" />
+          <div
+            className={`h-7 w-7 rounded-full ${
+              isLight ? 'bg-teal-100 ring-1 ring-teal-200' : 'bg-primary/20 ring-1 ring-primary/30'
+            }`}
+          />
         </div>
         <div className="flex min-h-0 flex-1">
-          <aside className="hidden w-44 shrink-0 border-r border-white/8 bg-white/[0.02] p-3 sm:block">
+          <aside className={`hidden w-44 shrink-0 border-r p-3 sm:block ${chromeBorder} ${asideBg}`}>
             {NAV.map((label) => {
               const isActive = label === active;
               return (
@@ -150,19 +199,21 @@ export function ProductVisual() {
                     setActive(label);
                   }}
                   className={`relative mb-1 flex w-full rounded-lg px-3 py-2 text-left text-xs font-medium ${
-                    isActive ? 'text-primary' : 'text-muted-foreground'
+                    isActive ? brand : muted
                   }`}
                   whileHover={{ x: 2 }}
                   whileTap={{ scale: 0.98 }}
                   animate={{
-                    backgroundColor: isActive ? 'rgb(45 212 191 / 0.12)' : 'rgb(255 255 255 / 0)',
+                    backgroundColor: isActive ? activeNavBg : 'rgb(255 255 255 / 0)',
                   }}
                   transition={springSnappy}
                 >
                   {isActive && (
                     <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-y-1 left-0 w-0.5 rounded-full bg-primary"
+                      layoutId={navLayoutId}
+                      className={`absolute inset-y-1 left-0 w-0.5 rounded-full ${
+                        isLight ? 'bg-teal-600' : 'bg-primary'
+                      }`}
                       transition={springSnappy}
                     />
                   )}
@@ -171,7 +222,7 @@ export function ProductVisual() {
               );
             })}
           </aside>
-          <main className="flex-1 space-y-3 overflow-hidden p-4 sm:p-5">
+          <main className={`flex-1 space-y-3 overflow-hidden p-4 sm:p-5 ${isLight ? 'bg-[#f8fafc]' : ''}`}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -182,35 +233,41 @@ export function ProductVisual() {
                 className="space-y-3"
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="text-sm font-semibold tracking-tight text-foreground">{active}</h3>
-                  <p className="text-[11px] text-muted-foreground">{panel.label}</p>
+                  <h3 className={`text-sm font-semibold tracking-tight ${strong}`}>{active}</h3>
+                  <p className={`text-[11px] ${muted}`}>{panel.label}</p>
                 </div>
 
                 <div className="grid grid-cols-3 gap-2">
                   {panel.kpis.map((kpi, i) => (
                     <motion.div
                       key={kpi.label}
-                      className="rounded-xl border border-white/8 bg-white/[0.03] px-2.5 py-2"
+                      className={`rounded-xl px-2.5 py-2 ${surface}`}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.04 * i }}
                     >
-                      <p className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+                      <p
+                        className={`text-[10px] uppercase tracking-[0.12em] ${muted}`}
+                      >
                         {kpi.label}
                       </p>
-                      <p className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+                      <p className={`mt-0.5 text-sm font-semibold tabular-nums ${strong}`}>
                         {kpi.value}
                       </p>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="flex h-10 items-center gap-2 rounded-xl border border-white/8 bg-white/[0.03] px-3">
-                  <div className="h-6 flex-1 rounded-md bg-white/5 text-[11px] leading-6 text-muted-foreground">
+                <div className={`flex h-10 items-center gap-2 rounded-xl px-3 ${surface}`}>
+                  <div className={`h-6 flex-1 rounded-md text-[11px] leading-6 ${filterBg}`}>
                     Filter · Status · Zeitraum
                   </div>
                   <motion.div
-                    className="h-7 rounded-lg bg-primary px-2.5 text-[11px] font-semibold leading-7 text-primary-foreground"
+                    className={`h-7 rounded-lg px-2.5 text-[11px] font-semibold leading-7 ${
+                      isLight
+                        ? 'bg-teal-600 text-white'
+                        : 'bg-primary text-primary-foreground'
+                    }`}
                     animate={{ scale: [1, 1.03, 1] }}
                     transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2 }}
                   >
@@ -222,18 +279,18 @@ export function ProductVisual() {
                   {panel.rows.map((row, i) => (
                     <motion.div
                       key={`${active}-${row.title}`}
-                      className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-3"
+                      className={`flex items-center gap-3 rounded-xl px-3 py-3 ${surface}`}
                       initial={{ opacity: 0, x: 16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 * i, ...springSoft }}
-                      whileHover={{ y: -2, borderColor: 'rgb(45 212 191 / 0.45)' }}
+                      whileHover={{ y: -2, borderColor: hoverBorder }}
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-xs font-semibold text-foreground">{row.title}</p>
-                        <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{row.meta}</p>
+                        <p className={`truncate text-xs font-semibold ${strong}`}>{row.title}</p>
+                        <p className={`mt-0.5 truncate text-[11px] ${muted}`}>{row.meta}</p>
                       </div>
                       <span
-                        className={`shrink-0 rounded-md px-2 py-1 text-[10px] font-semibold ${TONE_CLASS[row.tone]}`}
+                        className={`shrink-0 rounded-md px-2 py-1 text-[10px] font-semibold ${TONE_CLASS[theme][row.tone]}`}
                       >
                         {row.status}
                       </span>

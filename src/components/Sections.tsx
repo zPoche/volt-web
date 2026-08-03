@@ -5,6 +5,7 @@ import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 import { FeatureTiles } from './FeatureTiles';
 import { BlitzLoader } from './BlitzLoader';
+import { ProductVisual } from './ProductVisual';
 import { useLoading } from '../loading/useLoading';
 
 const CONTACT_EMAIL = 'demo@volt-erp.de';
@@ -382,7 +383,7 @@ function TypeLine({
   );
 }
 
-/** Heller Kontrastband — zeigt, dass Volt im Alltag light-first ist. */
+/** Heller Kontrastband — Light-Mode ERP-Preview als Screenshot-Ersatz + Demo-CTA. */
 export function LightCtaSection() {
   return (
     <section
@@ -391,47 +392,66 @@ export function LightCtaSection() {
       aria-labelledby="demo-band-heading"
       style={{
         background:
-          'radial-gradient(ellipse 80% 60% at 50% -10%, rgb(20 184 166 / 0.14), transparent 65%), linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)',
+          'radial-gradient(ellipse 80% 60% at 50% -10%, rgb(20 184 166 / 0.14), transparent 65%), linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)',
         colorScheme: 'light',
       }}
     >
-      <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-16 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-20">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-24">
+        <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <motion.div
+            className="max-w-xl"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewport}
+          >
+            <motion.p
+              className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700"
+              variants={fadeUp}
+            >
+              Im Büro hell · auf Wunsch dunkel
+            </motion.p>
+            <motion.h2
+              id="demo-band-heading"
+              className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl"
+              variants={fadeUp}
+            >
+              So sieht Volt im Arbeitsalltag aus.
+            </motion.h2>
+            <motion.p
+              className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base"
+              variants={fadeUp}
+            >
+              Light-first Oberfläche fürs Büro — dichter, ruhig, ohne Marketing-Dunkelheit.
+            </motion.p>
+          </motion.div>
+          <motion.a
+            href="#kontakt"
+            className="inline-flex h-12 shrink-0 items-center rounded-xl bg-teal-600 px-6 text-sm font-semibold text-white shadow-[0_12px_32px_rgb(13_148_136_/_0.28)]"
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            transition={springSoft}
+            initial={{ opacity: 0.3, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport}
+          >
+            Demo anfragen
+          </motion.a>
+        </div>
+
         <motion.div
-          className="max-w-xl"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <motion.p
-            className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700"
-            variants={fadeUp}
-          >
-            Im Büro hell · auf Wunsch dunkel
-          </motion.p>
-          <motion.h2
-            id="demo-band-heading"
-            className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl"
-            variants={fadeUp}
-          >
-            Volt im Alltag ansehen — an euren Prozessen.
-          </motion.h2>
-          <motion.p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base" variants={fadeUp}>
-            Kurze Demo, konkrete Module, kein Pitch-Theater.
-          </motion.p>
-        </motion.div>
-        <motion.a
-          href="#kontakt"
-          className="inline-flex h-12 shrink-0 items-center rounded-xl bg-teal-600 px-6 text-sm font-semibold text-white shadow-[0_12px_32px_rgb(13_148_136_/_0.28)]"
-          whileHover={{ scale: 1.04, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          transition={springSoft}
-          initial={{ opacity: 0.3, y: 12 }}
+          className="relative mt-10 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_24px_64px_rgb(15_23_42_/_0.1)]"
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          Demo anfragen
-        </motion.a>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-teal-400/50 to-transparent"
+          />
+          <ProductVisual theme="light" layoutIdPrefix="light-product" className="relative" />
+        </motion.div>
       </div>
     </section>
   );
