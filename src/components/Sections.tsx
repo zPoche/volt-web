@@ -224,7 +224,7 @@ export function ModulesSection() {
   return (
     <section
       id="module"
-      className="relative overflow-hidden border-b border-border"
+      className="volt-section-reveal relative overflow-hidden border-b border-border"
       aria-labelledby="module-heading"
     >
       <div
@@ -264,7 +264,7 @@ export function WorkflowSection() {
   return (
     <section
       id="ablauf"
-      className="border-b border-border bg-card/40"
+      className="volt-section-reveal border-b border-border bg-card/40"
       aria-labelledby="ablauf-heading"
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">

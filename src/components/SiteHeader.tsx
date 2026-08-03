@@ -10,6 +10,7 @@ const NAV = [
   { href: '#module', id: 'module', label: 'Funktionen' },
   { href: '#ablauf', id: 'ablauf', label: 'Ablauf' },
   { href: '#demo-band', id: 'demo-band', label: 'Alltag' },
+  { href: '#kontakt', id: 'kontakt', label: 'Kontakt' },
 ] as const;
 
 export function SiteHeader() {

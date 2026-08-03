@@ -153,7 +153,11 @@ export function Hero() {
           transition={{ duration: 1, ease: easeOut }}
           style={{ x: visualX, y: visualY }}
         >
-          <div className="volt-glass relative h-full min-h-[280px] overflow-hidden rounded-2xl lg:min-h-[420px]">
+          <div className="volt-glass relative h-full min-h-[280px] overflow-hidden rounded-2xl shadow-[0_24px_80px_rgb(0_0_0_/_0.35)] ring-1 ring-primary/15 lg:min-h-[420px]">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-8 top-0 z-10 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+            />
             <ProductVisual className="absolute inset-0" layoutIdPrefix="hero-product" />
           </div>
         </motion.div>
