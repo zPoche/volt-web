@@ -39,37 +39,41 @@ export function ProductSection() {
           <SectionEyebrow>Warum Volt</SectionEyebrow>
         </motion.div>
         <motion.h2 id="produkt-heading" className="text-section mt-4 max-w-2xl" variants={fadeUp}>
-          Weniger Chaos. <span className="text-highlight">Mehr Marge.</span>
+          Wo Marge heute <span className="text-highlight">verloren geht</span>
         </motion.h2>
         <motion.p
           className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground"
           variants={fadeUp}
         >
-          Ein System für Büro und Baustelle — statt Excel, WhatsApp und Insellösungen.
+          Suchen, Nachtelefonieren, Nachtragen, Gegensteuern — Volt schließt die Lücken zwischen Büro und
+          Baustelle.
         </motion.p>
         <motion.ul
-          className="mt-12 grid gap-8 border-t border-white/8 pt-12 sm:grid-cols-2 lg:grid-cols-4"
+          className="relative mt-12 grid gap-8 border-t border-white/8 pt-12 sm:grid-cols-2 lg:grid-cols-4"
           variants={staggerContainer}
         >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[8%] right-[8%] top-[calc(3rem+0.7rem)] hidden h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent lg:block"
+          />
           {BUSINESS_BENEFITS.map((item, index) => (
             <motion.li
               key={item.title}
               variants={fadeUp}
               whileHover={{ y: -3 }}
               transition={springSnappy}
-              className="relative space-y-2 pl-4"
+              className="relative space-y-2"
             >
               <motion.span
                 aria-hidden="true"
-                className="absolute bottom-1 left-0 top-1 w-0.5 origin-top rounded-full bg-primary"
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
+                className="mb-3 grid h-7 w-7 place-items-center rounded-full border border-primary/40 bg-[rgb(8_12_20_/_0.7)] text-[11px] font-bold tabular-nums text-primary"
+                initial={{ scale: 0.7, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={viewport}
-                transition={{ duration: 0.5, delay: 0.08 * index, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <p className="text-[11px] font-bold tabular-nums tracking-[0.14em] text-primary/80">
+                transition={{ delay: 0.08 * index, ...springSnappy }}
+              >
                 {String(index + 1).padStart(2, '0')}
-              </p>
+              </motion.span>
               <h3 className="text-sm font-semibold tracking-tight text-foreground">{item.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
             </motion.li>
@@ -152,7 +156,7 @@ export function OutcomeSection() {
           </motion.div>
 
           <motion.div
-            className="volt-glass relative overflow-hidden rounded-2xl p-5 sm:p-6"
+            className="volt-glass relative overflow-hidden rounded-2xl p-5 sm:p-7"
             initial={{ opacity: 0.25, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewport}
@@ -161,23 +165,45 @@ export function OutcomeSection() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
               Typischer Tag
             </p>
-            <ol className="mt-5 space-y-4">
+            <ol className="relative mt-6 space-y-0">
+              <span
+                aria-hidden="true"
+                className="absolute bottom-3 left-[2.15rem] top-3 w-px bg-gradient-to-b from-primary/50 via-primary/25 to-amber-300/40"
+              />
               {[
-                { when: '07:45', what: 'Plantafel steht — Team und NU sind disponiert.' },
-                { when: '10:20', what: 'MonteurHub meldet Stempel, Fotos und Checkliste.' },
-                { when: '15:40', what: 'Nachtrag landet in der Akte — Büro sieht denselben Stand.' },
-                { when: '17:10', what: 'Ampel zeigt: Material frisst Marge — rechtzeitig gegengesteuert.' },
+                { when: '07:45', what: 'Plantafel steht — Team und NU sind disponiert.', accent: false },
+                { when: '10:20', what: 'MonteurHub meldet Stempel, Fotos und Checkliste.', accent: false },
+                { when: '15:40', what: 'Nachtrag landet in der Akte — Büro sieht denselben Stand.', accent: false },
+                {
+                  when: '17:10',
+                  what: 'Ampel zeigt: Material frisst Marge — rechtzeitig gegengesteuert.',
+                  accent: true,
+                },
               ].map((row, index) => (
                 <motion.li
                   key={row.when}
-                  className="flex gap-4 rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3"
+                  className="relative flex gap-4 py-3.5 pl-1"
                   initial={{ opacity: 0.2, x: 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={viewport}
                   transition={{ delay: 0.08 * index, duration: 0.4 }}
                 >
-                  <span className="shrink-0 font-mono text-xs font-semibold text-primary">{row.when}</span>
-                  <span className="text-sm leading-relaxed text-foreground/90">{row.what}</span>
+                  <span
+                    className={`relative z-[1] grid h-9 w-14 shrink-0 place-items-center rounded-full border font-mono text-[11px] font-semibold ${
+                      row.accent
+                        ? 'border-amber-300/50 bg-amber-400/15 text-amber-100 shadow-[0_0_24px_rgb(251_191_36_/_0.22)]'
+                        : 'border-primary/35 bg-[rgb(8_12_20_/_0.65)] text-primary'
+                    }`}
+                  >
+                    {row.when}
+                  </span>
+                  <span
+                    className={`pt-2 text-sm leading-relaxed ${
+                      row.accent ? 'text-foreground' : 'text-foreground/85'
+                    }`}
+                  >
+                    {row.what}
+                  </span>
                 </motion.li>
               ))}
             </ol>
@@ -390,12 +416,21 @@ export function LightCtaSection() {
       id="demo-band"
       className="relative overflow-hidden border-b border-border"
       aria-labelledby="demo-band-heading"
-      style={{
-        background:
-          'radial-gradient(ellipse 80% 60% at 50% -10%, rgb(20 184 166 / 0.14), transparent 65%), linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)',
-        colorScheme: 'light',
-      }}
+      style={{ colorScheme: 'light' }}
     >
+      {/* Dark→Light Übergang, damit der helle Band bewusst wirkt */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[rgb(8_12_20)] to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 60% at 50% -10%, rgb(20 184 166 / 0.14), transparent 65%), linear-gradient(180deg, #f1f5f9 0%, #eef2f7 45%, #e8eef5 100%)',
+        }}
+      />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-24">
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
@@ -440,16 +475,25 @@ export function LightCtaSection() {
         </div>
 
         <motion.div
-          className="relative mt-10 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_24px_64px_rgb(15_23_42_/_0.1)]"
+          className="relative mt-10 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_28px_70px_rgb(15_23_42_/_0.12)]"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-teal-400/50 to-transparent"
-          />
+          <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-50/95 px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-rose-300/90" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-300/90" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-300/90" />
+            <span className="ml-2 truncate text-[11px] font-medium text-slate-500">
+              app.volt-erp.de · KPI &amp; Controlling
+            </span>
+            <span className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-teal-200 bg-teal-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-teal-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+              Live Preview
+            </span>
+          </div>
+
           <ProductVisual theme="light" layoutIdPrefix="light-product" className="relative" />
         </motion.div>
       </div>
