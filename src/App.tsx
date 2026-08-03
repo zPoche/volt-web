@@ -6,6 +6,7 @@ import { LoadingProvider } from './loading/LoadingContext';
 import {
   ContactSection,
   ImpressumSection,
+  LightCtaSection,
   ModulesSection,
   OperationsSection,
   OutcomeSection,
@@ -28,6 +29,7 @@ export default function App() {
           <ModulesSection />
           <WorkflowSection />
           <OperationsSection />
+          <LightCtaSection />
           <ContactSection />
           <ImpressumSection />
         </main>

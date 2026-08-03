@@ -353,6 +353,61 @@ function TypeLine({
   );
 }
 
+/** Heller Kontrastband — zeigt, dass Volt im Alltag light-first ist. */
+export function LightCtaSection() {
+  return (
+    <section
+      id="demo-band"
+      className="relative overflow-hidden border-b border-border"
+      aria-labelledby="demo-band-heading"
+      style={{
+        background:
+          'radial-gradient(ellipse 80% 60% at 50% -10%, rgb(20 184 166 / 0.14), transparent 65%), linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)',
+        colorScheme: 'light',
+      }}
+    >
+      <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-16 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-20">
+        <motion.div
+          className="max-w-xl"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          <motion.p
+            className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700"
+            variants={fadeUp}
+          >
+            Im Büro hell · auf Wunsch dunkel
+          </motion.p>
+          <motion.h2
+            id="demo-band-heading"
+            className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl"
+            variants={fadeUp}
+          >
+            Volt im Alltag ansehen — an euren Prozessen.
+          </motion.h2>
+          <motion.p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base" variants={fadeUp}>
+            Kurze Demo, konkrete Module, kein Pitch-Theater.
+          </motion.p>
+        </motion.div>
+        <motion.a
+          href="#kontakt"
+          className="inline-flex h-12 shrink-0 items-center rounded-xl bg-teal-600 px-6 text-sm font-semibold text-white shadow-[0_12px_32px_rgb(13_148_136_/_0.28)]"
+          whileHover={{ scale: 1.04, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          transition={springSoft}
+          initial={{ opacity: 0.3, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+        >
+          Demo anfragen
+        </motion.a>
+      </div>
+    </section>
+  );
+}
+
 export function ContactSection() {
   const { withLoading } = useLoading();
   const [sending, setSending] = useState(false);
