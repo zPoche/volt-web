@@ -86,22 +86,28 @@ export function ProductSection() {
 
 export function TrustStrip() {
   return (
-    <section
-      className="border-b border-border"
-      aria-label="Volt auf einen Blick"
-    >
-      <div className="mx-auto max-w-6xl px-6 py-8 sm:px-8">
-        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+    <section className="relative border-b border-border" aria-label="Volt auf einen Blick">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
+      />
+      <div className="mx-auto max-w-6xl px-6 py-7 sm:px-8">
+        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
           {TRUST_POINTS.map((point, index) => (
             <motion.li
               key={point}
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+              className="inline-flex items-center gap-2.5 text-sm text-muted-foreground"
               initial={{ opacity: 0.25, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewport}
               transition={{ delay: index * 0.05, duration: 0.35 }}
             >
-              <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
+              <span
+                className="grid size-4 place-items-center rounded-full border border-primary/35 bg-primary/10"
+                aria-hidden="true"
+              >
+                <span className="size-1.5 rounded-full bg-primary" />
+              </span>
               {point}
             </motion.li>
           ))}
@@ -314,18 +320,18 @@ export function WorkflowSection() {
                     className={`pl-12 sm:pl-0 ${left ? 'sm:pr-12 sm:text-right' : 'sm:col-start-2 sm:pl-12'}`}
                   >
                     <motion.div
-                      className="volt-glass absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-primary sm:left-1/2 sm:-translate-x-1/2"
+                      className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full border border-primary/40 bg-[rgb(8_12_20_/_0.85)] text-xs font-bold text-primary shadow-[0_0_24px_rgb(45_212_191_/_0.18)] sm:left-1/2 sm:-translate-x-1/2"
                       whileHover={{ scale: 1.12 }}
                       transition={springSnappy}
                     >
                       {item.step}
                     </motion.div>
-                    <div className="volt-glass rounded-2xl px-5 py-4 sm:px-6">
+                    <div className="space-y-2">
                       <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
-                      <p className="mt-3 text-sm font-medium text-foreground">
-                        Entlastung:{' '}
-                        <span className="font-normal text-muted-foreground">{item.relief}</span>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-primary/90">Entlastung · </span>
+                        {item.relief}
                       </p>
                     </div>
                   </div>
@@ -341,8 +347,13 @@ export function WorkflowSection() {
 
 export function OperationsSection() {
   return (
-    <section id="betrieb" className="border-b border-border" aria-labelledby="betrieb-heading">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center">
+    <section
+      id="betrieb"
+      className="relative overflow-hidden border-b border-border"
+      aria-labelledby="betrieb-heading"
+    >
+      <div aria-hidden="true" className="volt-grid pointer-events-none absolute inset-0 opacity-30" />
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -361,24 +372,32 @@ export function OperationsSection() {
           </motion.p>
         </motion.div>
         <motion.div
-          className="volt-glass rounded-2xl p-6 font-mono text-sm leading-7 text-foreground"
+          className="volt-glass overflow-hidden rounded-2xl"
           initial={{ opacity: 0.2, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={viewport}
           whileHover={{ y: -4, borderColor: 'rgb(45 212 191 / 0.4)' }}
           transition={springSoft}
         >
-          <TypeLine prefix="# Kundenserver" delay={0.1} />
-          <TypeLine
-            delay={0.35}
-            content={
-              <>
-                <span className="text-primary">docker compose</span> pull && up -d
-              </>
-            }
-          />
-          <TypeLine prefix="# Registry" delay={0.65} className="mt-3" />
-          <TypeLine delay={0.85} content="harbor…/volt/volt-backend:x.y.z" />
+          <div className="flex items-center gap-2 border-b border-white/8 bg-white/[0.03] px-4 py-2.5">
+            <span className="h-2 w-2 rounded-full bg-rose-400/80" />
+            <span className="h-2 w-2 rounded-full bg-amber-400/80" />
+            <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
+            <span className="ml-2 font-mono text-[11px] text-muted-foreground">kundenserver ~</span>
+          </div>
+          <div className="p-5 font-mono text-sm leading-7 text-foreground sm:p-6">
+            <TypeLine prefix="# Kundenserver" delay={0.1} />
+            <TypeLine
+              delay={0.35}
+              content={
+                <>
+                  <span className="text-primary">docker compose</span> pull && up -d
+                </>
+              }
+            />
+            <TypeLine prefix="# Registry" delay={0.65} className="mt-3" />
+            <TypeLine delay={0.85} content="harbor…/volt/volt-backend:x.y.z" />
+          </div>
         </motion.div>
       </div>
     </section>
@@ -693,26 +712,34 @@ export function ImpressumSection() {
 export function SiteFooter() {
   return (
     <motion.footer
-      className="border-t border-border bg-background"
+      className="relative overflow-hidden border-t border-border"
       initial={{ opacity: 0.35 }}
       whileInView={{ opacity: 1 }}
       viewport={viewport}
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <div className="space-y-1">
-          <p>
-            <span className="font-semibold text-foreground">Volt</span> — ERP für Elektrohandwerk
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_120%,rgb(45_212_191_/_0.12),transparent_60%)]"
+      />
+      <div className="relative mx-auto flex max-w-6xl flex-col gap-5 px-6 py-12 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <div className="space-y-1.5">
+          <p className="text-base">
+            <span className="font-semibold text-primary">Volt</span>
+            <span className="text-foreground"> — ERP für Elektrohandwerk</span>
           </p>
           <p className="text-xs text-muted-foreground/80">Modular · deutsch · Hosting in DE</p>
         </div>
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Rechtliches">
-          <a href="#ergebnis" className="underline-offset-2 hover:underline">
+          <a href="#ergebnis" className="underline-offset-2 hover:text-foreground hover:underline">
             Ergebnis
           </a>
-          <a href="#module" className="underline-offset-2 hover:underline">
+          <a href="#module" className="underline-offset-2 hover:text-foreground hover:underline">
             Funktionen
           </a>
-          <a href="#impressum" className="font-medium text-foreground underline-offset-2 hover:underline">
+          <a
+            href="#impressum"
+            className="font-medium text-foreground underline-offset-2 hover:underline"
+          >
             Impressum
           </a>
           <a
