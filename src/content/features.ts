@@ -1,16 +1,31 @@
 import {
   Bot,
+  CalendarCheck,
   CalendarDays,
+  CarFront,
   ClipboardList,
   FileText,
   Gauge,
+  GraduationCap,
+  Hammer,
   HardHat,
   Headset,
+  Landmark,
+  MessageCircle,
+  Monitor,
   Package,
+  PenLine,
+  PhoneCall,
   Plug,
+  ReceiptText,
+  Ruler,
+  ScreenShare,
   ShieldCheck,
   Smartphone,
+  Sun,
+  TabletSmartphone,
   Users,
+  Workflow,
   Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -133,6 +148,54 @@ export const FEATURES: Feature[] = [
     saves: 'Überstunden und Leerlauf werden sichtbar.',
     points: ['Stundenübersicht', 'Abwesenheiten', 'Mitteilungen'],
   },
+  {
+    icon: Sun,
+    title: 'PV & Wärmepumpe',
+    does: 'Netzanmeldung, PV-Simulation und WP-Checklisten — Renewables als Prozess, nicht als Aktenordner.',
+    helps: 'Von der Anmeldung bis zur Inbetriebnahme mit Checklisten direkt am Einsatz.',
+    saves: 'Weniger Rückfragen bei Netzbetreibern und lückenlose Nachweise.',
+    points: ['Netzanmeldung-Checklisten', 'PV-Simulation', 'Reonic-Sync'],
+  },
+  {
+    icon: ReceiptText,
+    title: 'eRechnung',
+    does: 'ZUGFeRD- und XRechnung-fähig im Belegfluss — ohne Zusatztool dazwischen.',
+    helps: 'Öffentliche Auftraggeber und Großkunden fordern es — Volt kann es.',
+    saves: 'Kein separates eRechnungs-Tool, keine Medienbrüche beim Versand.',
+    points: ['ZUGFeRD & XRechnung', 'Im Belegfluss integriert', 'DATEV-Export'],
+  },
+  {
+    icon: CarFront,
+    title: 'Fahrtenbuch & Fuhrpark',
+    does: 'Fahrten pro Fahrzeug und Mitarbeiter — mit DATEV-Export und optionaler Telematik.',
+    helps: 'Dienstwagen sauber dokumentiert, ohne Zettel im Handschuhfach.',
+    saves: 'Weniger Nacharbeit bei Steuer und Abrechnung.',
+    points: ['Fahrtenbuch pro Fahrzeug', 'DATEV-Export', 'Telematik optional'],
+  },
+  {
+    icon: PhoneCall,
+    title: 'Telefonie (CTI)',
+    does: 'Anrufe mit Kundenkontext — eingehender Ruf, geöffnete Akte.',
+    helps: 'Du weißt vor dem Abheben, wer anruft und was ansteht.',
+    saves: 'Kürzere Gespräche, keine Suche nach der Kundenakte.',
+    points: ['Incoming-Call-Banner', 'Anruf direkt am Vorgang', 'CTI-Gateway'],
+  },
+  {
+    icon: PenLine,
+    title: 'E-Signatur',
+    does: 'Qualifizierte elektronische Signatur (QES) für Verträge und Protokolle.',
+    helps: 'Wartungsverträge und Aufträge unterschreiben Kunden digital.',
+    saves: 'Kein Scan-Ping-Pong, schnellere Vertragswege.',
+    points: ['QES via Skribble/Yousign', 'Signatur-Links', 'Nachweis am Projekt'],
+  },
+  {
+    icon: CalendarCheck,
+    title: 'Online-Terminbuchung',
+    does: 'Kunden buchen Service- und Beratungstermine selbst — Captcha-geschützt.',
+    helps: 'Termine landen direkt in der Planung, nicht im Telefonstau.',
+    saves: 'Weniger Telefonate für Standardtermine.',
+    points: ['Öffentlicher Buchungslink', 'Slot-Verwaltung', 'Captcha-Schutz'],
+  },
 ];
 
 export const BUSINESS_BENEFITS = [
@@ -153,6 +216,61 @@ export const BUSINESS_BENEFITS = [
     text: 'Nur die Module, die ihr braucht. Lexware & Co. optional.',
   },
 ] as const;
+
+export type ExtraModule = {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+};
+
+/** Zusatzmodule — kompakt, ohne Aufklapp-Kachel. */
+export const EXTRAS: ExtraModule[] = [
+  {
+    icon: Hammer,
+    title: 'Werkzeugverwaltung',
+    text: 'Werkzeuge und Prüfmittel mit Standort und Historie.',
+  },
+  {
+    icon: Workflow,
+    title: 'Automatisierungen',
+    text: 'Regeln statt Routineklicks — Abläufe laufen von selbst.',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Bewerber & Onboarding',
+    text: 'Von der Bewerbung bis zur Einarbeitungs-Checkliste.',
+  },
+  {
+    icon: Ruler,
+    title: 'Elektro-Installationsplaner',
+    text: 'Pläne mit Symbolen belegen und als PDF sichern.',
+  },
+  {
+    icon: Landmark,
+    title: 'Fördermittel',
+    text: 'Zuschüsse und Förderfälle pro Projekt im Blick.',
+  },
+  {
+    icon: MessageCircle,
+    title: 'WhatsApp Business',
+    text: 'Kundenkommunikation direkt aus dem Vorgang heraus.',
+  },
+  {
+    icon: TabletSmartphone,
+    title: 'Native Android-App',
+    text: 'Monteur-App mit Offline-Sync, Push und QR-Kopplung.',
+  },
+  {
+    icon: Monitor,
+    title: 'Wallboard',
+    text: 'Tagesplan und Status auf dem Werkstatt-Fernseher.',
+  },
+  {
+    icon: ScreenShare,
+    title: 'Fernwartung',
+    text: 'AnyDesk-Anbindung für schnellen Support am Arbeitsplatz.',
+  },
+];
 
 export type WorkflowStep = {
   step: string;

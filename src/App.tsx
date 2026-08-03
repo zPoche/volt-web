@@ -5,6 +5,7 @@ import { PageSplash } from './components/PageSplash';
 import { LoadingProvider } from './loading/LoadingContext';
 import {
   ContactSection,
+  ExtrasSection,
   ImpressumSection,
   ModulesSection,
   OperationsSection,
@@ -24,6 +25,7 @@ export default function App() {
           <Hero />
           <ProductSection />
           <ModulesSection />
+          <ExtrasSection />
           <WorkflowSection />
           <OperationsSection />
           <ContactSection />
