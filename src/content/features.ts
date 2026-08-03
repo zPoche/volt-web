@@ -173,6 +173,14 @@ export const OUTCOMES = [
 /** Zuerst sichtbar im Katalog; Rest hinter „Alle Module“. */
 export const FEATURED_FEATURE_COUNT = 6;
 
+/** Kurzer Trust-Strip unter dem Hero-/Produktblock. */
+export const TRUST_POINTS = [
+  'Modular zuschaltbar',
+  'Hosting in Deutschland',
+  'Lexware optional',
+  'Lokale KI ohne Token-Rechnung',
+] as const;
+
 export type WorkflowStep = {
   step: string;
   title: string;

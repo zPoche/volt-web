@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { motion } from 'motion/react';
-import { BUSINESS_BENEFITS, OUTCOMES, WORKFLOW } from '../content/features';
+import { BUSINESS_BENEFITS, OUTCOMES, TRUST_POINTS, WORKFLOW } from '../content/features';
 import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 import { FeatureTiles } from './FeatureTiles';
@@ -75,6 +75,33 @@ export function ProductSection() {
           ))}
         </motion.ul>
       </motion.div>
+    </section>
+  );
+}
+
+export function TrustStrip() {
+  return (
+    <section
+      className="border-b border-border"
+      aria-label="Volt auf einen Blick"
+    >
+      <div className="mx-auto max-w-6xl px-6 py-8 sm:px-8">
+        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+          {TRUST_POINTS.map((point, index) => (
+            <motion.li
+              key={point}
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+              initial={{ opacity: 0.25, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewport}
+              transition={{ delay: index * 0.05, duration: 0.35 }}
+            >
+              <span className="size-1.5 rounded-full bg-primary" aria-hidden="true" />
+              {point}
+            </motion.li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
@@ -266,12 +293,14 @@ export function WorkflowSection() {
                     >
                       {item.step}
                     </motion.div>
-                    <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
-                    <p className="mt-3 text-sm font-medium text-foreground">
-                      Entlastung:{' '}
-                      <span className="font-normal text-muted-foreground">{item.relief}</span>
-                    </p>
+                    <div className="volt-glass rounded-2xl px-5 py-4 sm:px-6">
+                      <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+                      <p className="mt-3 text-sm font-medium text-foreground">
+                        Entlastung:{' '}
+                        <span className="font-normal text-muted-foreground">{item.relief}</span>
+                      </p>
+                    </div>
                   </div>
                 </motion.li>
               );
