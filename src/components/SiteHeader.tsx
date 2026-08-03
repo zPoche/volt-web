@@ -6,9 +6,9 @@ import { springSnappy } from '../lib/motion';
 
 const NAV = [
   { href: '#produkt', label: 'Produkt' },
+  { href: '#ergebnis', label: 'Ergebnis' },
   { href: '#module', label: 'Funktionen' },
   { href: '#ablauf', label: 'Ablauf' },
-  { href: '#betrieb', label: 'Betrieb' },
 ] as const;
 
 export function SiteHeader() {

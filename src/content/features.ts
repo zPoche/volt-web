@@ -154,6 +154,25 @@ export const BUSINESS_BENEFITS = [
   },
 ] as const;
 
+/** Ergebnis-Story vor dem Modul-Katalog — eine Idee pro Zeile. */
+export const OUTCOMES = [
+  {
+    title: 'Ein System statt fünf Tools',
+    text: 'Projekte, Disposition, Baustelle und Belege greifen ineinander — ohne Excel-Brücken.',
+  },
+  {
+    title: 'Büro und Baustelle synchron',
+    text: 'Was der Monteur erfasst, sieht das Büro sofort. Kein Nachtragen am Abend.',
+  },
+  {
+    title: 'Marge sichtbar steuern',
+    text: 'Ampeln und Nachkalkulation zeigen früh, welche Baustelle Geld verbrennt.',
+  },
+] as const;
+
+/** Zuerst sichtbar im Katalog; Rest hinter „Alle Module“. */
+export const FEATURED_FEATURE_COUNT = 6;
+
 export type WorkflowStep = {
   step: string;
   title: string;

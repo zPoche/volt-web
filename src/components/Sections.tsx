@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { motion } from 'motion/react';
-import { BUSINESS_BENEFITS, WORKFLOW } from '../content/features';
+import { BUSINESS_BENEFITS, OUTCOMES, WORKFLOW } from '../content/features';
 import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 import { FeatureTiles } from './FeatureTiles';
@@ -75,6 +75,87 @@ export function ProductSection() {
           ))}
         </motion.ul>
       </motion.div>
+    </section>
+  );
+}
+
+export function OutcomeSection() {
+  return (
+    <section
+      id="ergebnis"
+      className="relative overflow-hidden border-b border-border bg-card/30"
+      aria-labelledby="ergebnis-heading"
+    >
+      <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewport}
+          >
+            <motion.div variants={fadeUp}>
+              <SectionEyebrow>Ergebnis</SectionEyebrow>
+            </motion.div>
+            <motion.h2 id="ergebnis-heading" className="text-section mt-4" variants={fadeUp}>
+              Was sich im Betrieb <span className="text-highlight">ändert</span>
+            </motion.h2>
+            <motion.p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground" variants={fadeUp}>
+              Nicht mehr Module um der Module willen — sondern ein klarer Arbeitsfluss von der Anfrage
+              bis zur Abrechnung.
+            </motion.p>
+            <motion.ul className="mt-10 space-y-6" variants={staggerContainer}>
+              {OUTCOMES.map((item, index) => (
+                <motion.li
+                  key={item.title}
+                  variants={fadeUp}
+                  className="relative border-l border-primary/40 pl-5"
+                >
+                  <p className="text-[11px] font-bold tabular-nums tracking-[0.14em] text-primary/80">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <h3 className="mt-1 text-base font-semibold tracking-tight text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+
+          <motion.div
+            className="volt-glass relative overflow-hidden rounded-2xl p-5 sm:p-6"
+            initial={{ opacity: 0.25, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewport}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+              Typischer Tag
+            </p>
+            <ol className="mt-5 space-y-4">
+              {[
+                { when: '07:45', what: 'Plantafel steht — Team und NU sind disponiert.' },
+                { when: '10:20', what: 'MonteurHub meldet Stempel, Fotos und Checkliste.' },
+                { when: '15:40', what: 'Nachtrag landet in der Akte — Büro sieht denselben Stand.' },
+                { when: '17:10', what: 'Ampel zeigt: Material frisst Marge — rechtzeitig gegengesteuert.' },
+              ].map((row, index) => (
+                <motion.li
+                  key={row.when}
+                  className="flex gap-4 rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3"
+                  initial={{ opacity: 0.2, x: 16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={viewport}
+                  transition={{ delay: 0.08 * index, duration: 0.4 }}
+                >
+                  <span className="shrink-0 font-mono text-xs font-semibold text-primary">{row.when}</span>
+                  <span className="text-sm leading-relaxed text-foreground/90">{row.what}</span>
+                </motion.li>
+              ))}
+            </ol>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

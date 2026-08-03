@@ -8,6 +8,7 @@ import {
   ImpressumSection,
   ModulesSection,
   OperationsSection,
+  OutcomeSection,
   ProductSection,
   SiteFooter,
   WorkflowSection,
@@ -23,6 +24,7 @@ export default function App() {
         <main>
           <Hero />
           <ProductSection />
+          <OutcomeSection />
           <ModulesSection />
           <WorkflowSection />
           <OperationsSection />
