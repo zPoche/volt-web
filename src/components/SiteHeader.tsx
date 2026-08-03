@@ -9,6 +9,7 @@ const NAV = [
   { href: '#ergebnis', label: 'Ergebnis' },
   { href: '#module', label: 'Funktionen' },
   { href: '#ablauf', label: 'Ablauf' },
+  { href: '#demo-band', label: 'Alltag' },
 ] as const;
 
 export function SiteHeader() {

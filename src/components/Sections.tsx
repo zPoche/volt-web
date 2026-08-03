@@ -547,12 +547,13 @@ export function ContactSection() {
     <section id="kontakt" className="volt-atmosphere relative" aria-labelledby="kontakt-heading">
       <div aria-hidden="true" className="volt-grid pointer-events-none absolute inset-0 opacity-40" />
       <motion.div
-        className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28"
+        className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
         viewport={viewport}
       >
+        <div>
         <motion.div variants={fadeUp}>
           <SectionEyebrow>Kontakt</SectionEyebrow>
         </motion.div>
@@ -563,20 +564,32 @@ export function ContactSection() {
           Schreib uns kurz, worum es geht — wir melden uns mit Terminvorschlag und gehen die Funktionen
           an euren Prozessen durch.
         </motion.p>
-        <motion.div
-          className="mt-8 flex flex-wrap gap-4 text-sm text-muted-foreground"
-          variants={fadeUp}
-        >
-          <a className="font-medium text-foreground underline-offset-2 hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
+        <motion.ul className="mt-8 space-y-3 text-sm text-muted-foreground" variants={staggerContainer}>
+          {[
+            'Kurze Demo an euren Prozessen',
+            'Antwort typischerweise innerhalb eines Werktags',
+            'Hosting in Deutschland · modular erweiterbar',
+          ].map((line) => (
+            <motion.li key={line} className="flex items-start gap-3" variants={fadeUp}>
+              <span
+                className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary"
+                aria-hidden="true"
+              />
+              {line}
+            </motion.li>
+          ))}
+        </motion.ul>
+        <motion.p className="mt-6 text-sm" variants={fadeUp}>
+          <a
+            className="font-medium text-foreground underline-offset-2 hover:underline"
+            href={`mailto:${CONTACT_EMAIL}`}
+          >
             {CONTACT_EMAIL}
           </a>
-          <span aria-hidden="true" className="text-white/20">
-            ·
-          </span>
-          <span>Antwort typischerweise innerhalb eines Werktags</span>
-        </motion.div>
+        </motion.p>
+        </div>
         <motion.form
-          className="volt-glass mt-6 grid max-w-xl gap-3 rounded-2xl p-6"
+          className="volt-glass grid gap-3 rounded-2xl p-6 sm:p-7"
           onSubmit={submitContact}
           variants={fadeUp}
         >
