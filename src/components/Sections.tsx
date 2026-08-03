@@ -634,15 +634,27 @@ export function SiteFooter() {
       whileInView={{ opacity: 1 }}
       viewport={viewport}
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <p>
-          <span className="font-semibold text-foreground">Volt</span> — ERP für Elektrohandwerk
-        </p>
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <div className="space-y-1">
+          <p>
+            <span className="font-semibold text-foreground">Volt</span> — ERP für Elektrohandwerk
+          </p>
+          <p className="text-xs text-muted-foreground/80">Modular · deutsch · Hosting in DE</p>
+        </div>
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Rechtliches">
+          <a href="#ergebnis" className="underline-offset-2 hover:underline">
+            Ergebnis
+          </a>
+          <a href="#module" className="underline-offset-2 hover:underline">
+            Funktionen
+          </a>
           <a href="#impressum" className="font-medium text-foreground underline-offset-2 hover:underline">
             Impressum
           </a>
-          <a href="#kontakt" className="underline-offset-2 hover:underline">
+          <a
+            href="#kontakt"
+            className="inline-flex h-9 items-center rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground"
+          >
             Demo anfragen
           </a>
         </nav>
