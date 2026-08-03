@@ -7,10 +7,13 @@ import {
   ContactSection,
   ExtrasSection,
   ImpressumSection,
+  LightCtaSection,
   ModulesSection,
   OperationsSection,
+  OutcomeSection,
   ProductSection,
   SiteFooter,
+  TrustStrip,
   WorkflowSection,
 } from './components/Sections';
 
@@ -23,11 +26,14 @@ export default function App() {
         <SiteHeader />
         <main>
           <Hero />
+          <TrustStrip />
           <ProductSection />
+          <OutcomeSection />
           <ModulesSection />
           <ExtrasSection />
           <WorkflowSection />
           <OperationsSection />
+          <LightCtaSection />
           <ContactSection />
           <ImpressumSection />
         </main>

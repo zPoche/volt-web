@@ -12,17 +12,15 @@ import { ProductVisual } from './ProductVisual';
 import { Magnetic } from './Magnetic';
 import { easeOut, springSoft } from '../lib/motion';
 
-const HEADLINE = 'Das ERP für Elektrohandwerk — vom Projekt bis zur Baustelle.';
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const rawX = useMotionValue(72);
   const rawY = useMotionValue(40);
   const pointerX = useSpring(rawX, { stiffness: 140, damping: 22 });
   const pointerY = useSpring(rawY, { stiffness: 140, damping: 22 });
-  const visualX = useTransform(pointerX, [0, 100], [-14, 14]);
-  const visualY = useTransform(pointerY, [0, 100], [-10, 10]);
-  const glow = useMotionTemplate`radial-gradient(560px circle at ${pointerX}% ${pointerY}%, rgb(45 212 191 / 0.22), transparent 55%)`;
+  const visualX = useTransform(pointerX, [0, 100], [-10, 10]);
+  const visualY = useTransform(pointerY, [0, 100], [-8, 8]);
+  const glow = useMotionTemplate`radial-gradient(640px circle at ${pointerX}% ${pointerY}%, rgb(45 212 191 / 0.2), transparent 55%)`;
 
   function onPointerMove(event: PointerEvent<HTMLElement>) {
     const rect = sectionRef.current?.getBoundingClientRect();
@@ -35,7 +33,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="top"
-      className="volt-atmosphere relative overflow-hidden border-b border-border"
+      className="volt-atmosphere relative min-h-[100svh] overflow-hidden border-b border-border"
       aria-labelledby="hero-heading"
       onPointerMove={onPointerMove}
       onPointerLeave={() => {
@@ -43,69 +41,83 @@ export function Hero() {
         rawY.set(40);
       }}
     >
+      <div aria-hidden="true" className="volt-grid pointer-events-none absolute inset-0 opacity-60" />
       <motion.div className="pointer-events-none absolute inset-0" style={{ background: glow }} />
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-16 top-24 h-40 w-40 rounded-full bg-primary/10 blur-2xl"
+        className="pointer-events-none absolute -left-16 top-24 h-48 w-48 rounded-full bg-primary/15 blur-3xl"
         animate={{ y: [0, 18, 0], x: [0, 10, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-10 bottom-10 h-48 w-48 rounded-full bg-primary/10 blur-3xl"
+        className="pointer-events-none absolute -right-10 bottom-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl"
         animate={{ y: [0, -16, 0], x: [0, -12, 0] }}
         transition={{ duration: 9.5, repeat: Infinity, ease: 'easeInOut' }}
       />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent"
+      />
 
-      <div className="relative mx-auto grid max-w-6xl lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-stretch">
-        <div className="relative z-10 flex max-w-xl flex-col justify-end px-6 pb-16 pt-14 sm:px-8 lg:pb-20 lg:pt-20">
-          {/* Transform-only: nie opacity 0 → kein White-Screen beim First Paint */}
+      <div className="relative mx-auto grid min-h-[100svh] max-w-6xl items-center lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+        <div className="relative z-10 flex max-w-xl flex-col justify-center px-6 pb-14 pt-[calc(var(--nav-h)+2rem)] sm:px-8 lg:pb-20 lg:pt-24">
           <motion.div
-            initial={{ y: 14 }}
+            initial={{ y: 16 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.65, ease: easeOut }}
           >
             <VoltLogo size="hero" />
           </motion.div>
 
-          <h1
-            id="hero-heading"
-            className="mt-6 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+          <motion.p
+            className="eyebrow mt-8"
+            initial={{ y: 12, opacity: 0.4 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: easeOut }}
           >
-            {HEADLINE.split(' ').map((word, index) => (
-              <motion.span
-                key={`${word}-${index}`}
-                className="inline-block"
-                initial={{ y: 14 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.5, delay: 0.06 + index * 0.03, ease: easeOut }}
-              >
-                {word}
-                {index < HEADLINE.split(' ').length - 1 ? '\u00A0' : ''}
-              </motion.span>
-            ))}
+            ERP für Elektrohandwerk
+          </motion.p>
+
+          <h1 id="hero-heading" className="text-display mt-4 text-foreground">
+            <motion.span
+              className="block"
+              initial={{ y: 18 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18, ease: easeOut }}
+            >
+              Weniger Chaos.
+            </motion.span>
+            <motion.span
+              className="text-highlight mt-1 block"
+              initial={{ y: 18 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.55, delay: 0.26, ease: easeOut }}
+            >
+              Mehr Marge.
+            </motion.span>
           </h1>
 
           <motion.p
-            className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
             initial={{ y: 14 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: easeOut }}
+            transition={{ duration: 0.6, delay: 0.34, ease: easeOut }}
           >
-            Projekte, Plantafel, MonteurHub, Kostenüberblick und lokale KI ohne Token-Rechnung —
-            modular, deutsch, Lexware nur wenn ihr wollt.
+            Projekte, Plantafel, MonteurHub und Kostenüberblick — modular, deutsch, Lexware nur wenn
+            ihr wollt.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="mt-9 flex flex-wrap items-center gap-3"
             initial={{ y: 14 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.6, delay: 0.38, ease: easeOut }}
+            transition={{ duration: 0.6, delay: 0.42, ease: easeOut }}
           >
             <Magnetic>
               <motion.a
                 href="#kontakt"
-                className="inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground"
+                className="inline-flex h-12 items-center gap-2 rounded-xl bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_0_32px_rgb(45_212_191_/_0.28)]"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
                 transition={springSoft}
@@ -123,8 +135,8 @@ export function Hero() {
             <Magnetic strength={0.2}>
               <motion.a
                 href="#module"
-                className="inline-flex h-11 items-center rounded-lg border border-border bg-card px-5 text-sm font-semibold text-foreground"
-                whileHover={{ scale: 1.03, backgroundColor: 'rgb(51 65 85)' }}
+                className="volt-glass inline-flex h-12 items-center rounded-xl px-6 text-sm font-semibold text-foreground"
+                whileHover={{ scale: 1.03, borderColor: 'rgb(45 212 191 / 0.4)' }}
                 whileTap={{ scale: 0.97 }}
                 transition={springSoft}
               >
@@ -135,13 +147,19 @@ export function Hero() {
         </div>
 
         <motion.div
-          className="relative min-h-[280px] border-t border-border lg:min-h-[420px] lg:border-t-0"
-          initial={{ y: 20, scale: 1.02 }}
+          className="relative min-h-[300px] px-4 pb-12 sm:px-6 lg:min-h-[480px] lg:px-0 lg:pb-16 lg:pr-8 lg:pt-24"
+          initial={{ y: 24, scale: 1.02 }}
           animate={{ y: 0, scale: 1 }}
           transition={{ duration: 1, ease: easeOut }}
           style={{ x: visualX, y: visualY }}
         >
-          <ProductVisual />
+          <div className="volt-glass relative h-full min-h-[280px] overflow-hidden rounded-2xl shadow-[0_24px_80px_rgb(0_0_0_/_0.35)] ring-1 ring-primary/15 lg:min-h-[420px]">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-8 top-0 z-10 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+            />
+            <ProductVisual className="absolute inset-0" layoutIdPrefix="hero-product" />
+          </div>
         </motion.div>
       </div>
     </section>
