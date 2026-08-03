@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { motion } from 'motion/react';
-import { BUSINESS_BENEFITS, OUTCOMES, TRUST_POINTS, WORKFLOW } from '../content/features';
+import { BUSINESS_BENEFITS, EXTRAS, OUTCOMES, TRUST_POINTS, WORKFLOW } from '../content/features';
 import { IMPRESSUM } from '../content/impressum';
 import { fadeUp, springSoft, springSnappy, staggerContainer } from '../lib/motion';
 import { FeatureTiles } from './FeatureTiles';
@@ -255,6 +255,80 @@ export function ModulesSection() {
           </motion.p>
         </motion.div>
         <FeatureTiles />
+      </div>
+    </section>
+  );
+}
+
+export function ExtrasSection() {
+  return (
+    <section
+      id="mehr"
+      className="relative overflow-hidden border-b border-border bg-card"
+      aria-labelledby="mehr-heading"
+    >
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-10 h-44 w-44 rounded-full bg-primary/10 blur-3xl"
+        animate={{ y: [0, 16, 0], x: [0, -10, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+          className="max-w-2xl space-y-3"
+        >
+          <motion.h2
+            id="mehr-heading"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
+            variants={fadeUp}
+          >
+            Auch an Bord
+            <span className="font-normal text-muted-foreground">
+              {' '}
+              — zuschaltbar, wenn ihr soweit seid
+            </span>
+          </motion.h2>
+          <motion.p className="text-sm text-muted-foreground" variants={fadeUp}>
+            Weitere Module aus dem Volt-Baukasten — gleiche Oberfläche, gleiche Daten, kein
+            Insel-Tool.
+          </motion.p>
+        </motion.div>
+
+        <motion.ul
+          className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          {EXTRAS.map(({ icon: Icon, title, text }) => (
+            <motion.li
+              key={title}
+              variants={fadeUp}
+              whileHover={{ y: -3, borderColor: 'rgb(45 212 191 / 0.45)' }}
+              transition={springSnappy}
+              className="flex items-start gap-3.5 rounded-xl border border-border bg-background p-4"
+            >
+              <motion.span
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground ring-1 ring-primary/15"
+                whileHover={{ rotate: -6, scale: 1.06 }}
+                transition={springSoft}
+              >
+                <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+              </motion.span>
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold tracking-tight">{title}</span>
+                <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                  {text}
+                </span>
+              </span>
+            </motion.li>
+          ))}
+        </motion.ul>
       </div>
     </section>
   );
