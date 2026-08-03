@@ -19,7 +19,7 @@ export function ProductSection() {
   return (
     <section
       id="produkt"
-      className="relative overflow-hidden border-b border-border"
+      className="volt-section-reveal relative overflow-hidden border-b border-border"
       aria-labelledby="produkt-heading"
     >
       <motion.div
@@ -121,7 +121,7 @@ export function OutcomeSection() {
   return (
     <section
       id="ergebnis"
-      className="relative overflow-hidden border-b border-border bg-card/30"
+      className="volt-section-reveal relative overflow-hidden border-b border-border bg-card/30"
       aria-labelledby="ergebnis-heading"
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
