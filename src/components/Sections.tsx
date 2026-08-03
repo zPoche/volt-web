@@ -480,8 +480,20 @@ export function ContactSection() {
           Schreib uns kurz, worum es geht — wir melden uns mit Terminvorschlag und gehen die Funktionen
           an euren Prozessen durch.
         </motion.p>
+        <motion.div
+          className="mt-8 flex flex-wrap gap-4 text-sm text-muted-foreground"
+          variants={fadeUp}
+        >
+          <a className="font-medium text-foreground underline-offset-2 hover:underline" href={`mailto:${CONTACT_EMAIL}`}>
+            {CONTACT_EMAIL}
+          </a>
+          <span aria-hidden="true" className="text-white/20">
+            ·
+          </span>
+          <span>Antwort typischerweise innerhalb eines Werktags</span>
+        </motion.div>
         <motion.form
-          className="volt-glass mt-10 grid max-w-xl gap-3 rounded-2xl p-6"
+          className="volt-glass mt-6 grid max-w-xl gap-3 rounded-2xl p-6"
           onSubmit={submitContact}
           variants={fadeUp}
         >
