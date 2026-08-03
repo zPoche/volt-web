@@ -33,7 +33,7 @@ export function Hero() {
     <section
       ref={sectionRef}
       id="top"
-      className="volt-atmosphere relative min-h-[100svh] overflow-hidden border-b border-border"
+      className="volt-atmosphere relative min-h-[100svh] overflow-x-clip border-b border-border"
       aria-labelledby="hero-heading"
       onPointerMove={onPointerMove}
       onPointerLeave={() => {

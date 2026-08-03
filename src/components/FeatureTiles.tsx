@@ -48,7 +48,7 @@ export function FeatureTiles() {
                 opacity: { duration: 0.45, ease: easeOut, delay: enterDelay },
                 y: { duration: 0.45, ease: easeOut, delay: enterDelay },
               }}
-              className="feature-tile volt-glass relative overflow-hidden rounded-2xl"
+              className="feature-tile volt-glass relative overflow-x-clip rounded-2xl"
               style={{
                 borderColor: isOpen ? 'rgb(45 212 191 / 0.45)' : 'rgb(255 255 255 / 0.08)',
               }}
@@ -62,7 +62,7 @@ export function FeatureTiles() {
 
               <motion.button
                 type="button"
-                className="relative flex w-full items-start gap-3.5 p-5 text-left sm:p-6"
+                className="relative flex w-full items-start gap-3.5 overflow-visible p-5 text-left sm:p-6"
                 onClick={() => toggle(title)}
                 aria-expanded={isOpen}
               >
@@ -79,9 +79,9 @@ export function FeatureTiles() {
                   </span>
                 </div>
 
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-start justify-between gap-3">
-                    <span className="text-base font-semibold leading-snug tracking-tight">
+                <span className="min-w-0 flex-1 overflow-visible">
+                  <span className="flex items-start justify-between gap-3 overflow-visible">
+                    <span className="text-base font-semibold leading-normal tracking-tight">
                       {title}
                     </span>
                     <motion.span
