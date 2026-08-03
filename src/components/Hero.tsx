@@ -79,9 +79,9 @@ export function Hero() {
             ERP für Elektrohandwerk
           </motion.p>
 
-          <h1 id="hero-heading" className="text-display mt-4 text-foreground">
+          <h1 id="hero-heading" className="text-display mt-4 overflow-visible text-foreground">
             <motion.span
-              className="block"
+              className="block overflow-visible"
               initial={{ y: 18 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.55, delay: 0.18, ease: easeOut }}
@@ -89,7 +89,7 @@ export function Hero() {
               Weniger Chaos.
             </motion.span>
             <motion.span
-              className="text-highlight mt-1 block"
+              className="text-highlight mt-1 block overflow-visible pb-[0.12em]"
               initial={{ y: 18 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.55, delay: 0.26, ease: easeOut }}

@@ -148,7 +148,7 @@ export function ProductVisual({
   const asideBg = isLight ? 'bg-slate-50' : 'bg-white/[0.02]';
   const surface = isLight
     ? 'border border-slate-200 bg-white shadow-[0_1px_0_rgb(15_23_42_/_0.04)]'
-    : 'border border-white/8 bg-white/[0.03]';
+    : 'border border-white/10 bg-white/[0.07]';
   const muted = isLight ? 'text-slate-500' : 'text-muted-foreground';
   const strong = isLight ? 'text-slate-900' : 'text-foreground';
   const searchBg = isLight
