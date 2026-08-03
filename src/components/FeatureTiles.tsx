@@ -138,14 +138,17 @@ export function FeatureTiles() {
         <div className="mt-8 flex justify-center">
           <motion.button
             type="button"
-            className="volt-glass inline-flex h-11 items-center gap-2 rounded-xl px-5 text-sm font-semibold text-foreground"
+            className="group inline-flex h-11 items-center gap-2 rounded-xl border border-primary/35 bg-primary/10 px-5 text-sm font-semibold text-primary"
             onClick={() => setShowAll(true)}
-            whileHover={{ scale: 1.03, borderColor: 'rgb(45 212 191 / 0.4)' }}
+            whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.97 }}
             transition={springSoft}
           >
             Alle Module anzeigen
-            <span className="text-muted-foreground">(+{hiddenCount})</span>
+            <span className="rounded-md bg-primary/15 px-1.5 py-0.5 text-xs tabular-nums text-primary/90">
+              +{hiddenCount}
+            </span>
+            <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
           </motion.button>
         </div>
       ) : null}

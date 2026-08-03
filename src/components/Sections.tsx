@@ -660,11 +660,15 @@ export function ImpressumSection() {
   return (
     <section
       id="impressum"
-      className="border-t border-border bg-card/30"
+      className="relative overflow-hidden border-t border-border"
       aria-labelledby="impressum-heading"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_0%,rgb(45_212_191_/_0.06),transparent_55%)]"
+      />
       <motion.div
-        className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
+        className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
@@ -677,7 +681,7 @@ export function ImpressumSection() {
           Impressum
         </motion.h2>
         <motion.div
-          className="mt-8 max-w-xl space-y-6 text-sm leading-relaxed text-muted-foreground"
+          className="mt-8 grid max-w-3xl gap-8 text-sm leading-relaxed text-muted-foreground sm:grid-cols-2"
           variants={fadeUp}
         >
           <div>
@@ -694,7 +698,7 @@ export function ImpressumSection() {
               <p key={`r-${line}`}>{line}</p>
             ))}
           </div>
-          <div>
+          <div className="sm:col-span-2">
             <p className="font-semibold text-foreground">Kontakt</p>
             <p className="mt-2">
               E-Mail:{' '}

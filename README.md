@@ -17,6 +17,7 @@ verlassen.
 | Logo | Lucide `Zap` + „Volt“ (wie `VoltLogo` in der App) |
 | Typo | `.text-display` / `.text-section` + `.text-highlight` / `.eyebrow` |
 | Radius / Look | `rounded-xl` / `rounded-2xl`, Glass + Soft-Bloom |
+| Product mock | `ProductVisual` dark (Hero) + light (Demo-Band / Alltag) |
 
 ## Stack
 
