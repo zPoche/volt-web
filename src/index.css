@@ -143,23 +143,26 @@
   );
 }
 
-/* Display-Headline-Skala */
+/* Display-Headline-Skala — knappe line-height schneidet Descender (g/y/p) ab */
 .text-display {
   font-size: clamp(2.5rem, 6.5vw, 4.5rem);
-  line-height: 0.98;
+  line-height: 1.18;
   font-weight: 700;
   letter-spacing: -0.035em;
+  overflow: visible;
 }
 
 .text-section {
   font-size: clamp(1.75rem, 3.8vw, 2.75rem);
-  line-height: 1.1;
+  line-height: 1.2;
   font-weight: 650;
   letter-spacing: -0.03em;
+  overflow: visible;
 }
 
 /* Einzelwort-Highlight (Primary → helles Teal) */
 .text-highlight {
+  display: inline-block;
   background: linear-gradient(
     120deg,
     rgb(45 212 191) 0%,
@@ -169,6 +172,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* background-clip:text braucht extra Box-Raum für Descender */
+  line-height: 1.22;
+  padding: 0.08em 0.02em 0.22em;
+  margin: -0.08em 0 -0.14em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .eyebrow {
