@@ -136,19 +136,21 @@
   border: 1px solid rgb(var(--border));
 }
 
-/* Display-Headline-Skala */
+/* Display-Headline — genug line-height für Descender (g/y/p) */
 .text-display {
   font-size: clamp(2.75rem, 7vw, 5rem);
-  line-height: 0.95;
+  line-height: 1.12;
   font-weight: 700;
   letter-spacing: -0.045em;
+  overflow: visible;
 }
 
 .text-section {
   font-size: clamp(1.85rem, 3.6vw, 2.85rem);
-  line-height: 1.08;
+  line-height: 1.16;
   font-weight: 650;
   letter-spacing: -0.035em;
+  overflow: visible;
 }
 
 /* Teal als Signalwort — flach, kein Multi-Stop-Glow */

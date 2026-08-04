@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { FEATURED_FEATURE_COUNT, FEATURES } from '../content/features';
-import { easeOut, springSoft, springSnappy, staggerContainer, fadeUp } from '../lib/motion';
+import { easeOut, springSoft, springSnappy } from '../lib/motion';
 
-const viewport = { once: true, amount: 0.12, margin: '0px 0px -6% 0px' } as const;
+const tileViewport = { once: true, amount: 0.15, margin: '0px 0px -4% 0px' } as const;
 
 /**
  * Aufklappbare Feature-Kacheln — zuerst Top-Module, Rest auf Wunsch.
- * Solide Panels (keine Glass-Kacheln).
+ * Solide Panels; jede Kachel animiert Opacity selbst, damit „Alle Module“
+ * nicht bei niedriger Opacity hängen bleibt.
  */
 export function FeatureTiles() {
   const [open, setOpen] = useState<Record<string, boolean>>({});
@@ -22,31 +23,38 @@ export function FeatureTiles() {
 
   return (
     <div className="mt-12">
-      <motion.ul
-        className="grid gap-2 lg:grid-cols-2"
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewport}
-      >
+      <ul className="grid gap-2 lg:grid-cols-2">
         {visible.map(({ icon: Icon, title, does, helps, saves, points }, index) => {
           const isOpen = Boolean(open[title]);
           const n = String(index + 1).padStart(2, '0');
+          const revealedLater = index >= FEATURED_FEATURE_COUNT;
+          const enterDelay = revealedLater
+            ? Math.min(index - FEATURED_FEATURE_COUNT, 8) * 0.04
+            : 0;
 
           return (
             <motion.li
               key={title}
-              variants={fadeUp}
               layout
-              transition={springSnappy}
-              className="volt-panel relative overflow-hidden rounded-md"
-              animate={{
-                borderColor: isOpen ? 'rgb(45 212 191 / 0.55)' : 'rgb(58 68 62)',
+              initial={{ opacity: 0.14, y: revealedLater ? 24 : 18 }}
+              {...(revealedLater
+                ? { animate: { opacity: 1, y: 0, borderColor: isOpen ? 'rgb(45 212 191 / 0.55)' : 'rgb(58 68 62)' } }
+                : {
+                    whileInView: { opacity: 1, y: 0 },
+                    viewport: tileViewport,
+                    animate: { borderColor: isOpen ? 'rgb(45 212 191 / 0.55)' : 'rgb(58 68 62)' },
+                  })}
+              transition={{
+                layout: springSnappy,
+                opacity: { duration: 0.45, ease: easeOut, delay: enterDelay },
+                y: { duration: 0.45, ease: easeOut, delay: enterDelay },
+                borderColor: { duration: 0.2 },
               }}
+              className="volt-panel relative overflow-x-clip rounded-md"
             >
               <motion.button
                 type="button"
-                className="relative flex w-full items-start gap-3.5 p-5 text-left sm:p-5"
+                className="relative flex w-full items-start gap-3.5 overflow-visible p-5 text-left sm:p-5"
                 onClick={() => toggle(title)}
                 aria-expanded={isOpen}
               >
@@ -59,9 +67,11 @@ export function FeatureTiles() {
                   </span>
                 </div>
 
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-start justify-between gap-3">
-                    <span className="text-base font-semibold tracking-tight">{title}</span>
+                <span className="min-w-0 flex-1 overflow-visible">
+                  <span className="flex items-start justify-between gap-3 overflow-visible">
+                    <span className="text-base font-semibold leading-normal tracking-tight">
+                      {title}
+                    </span>
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={springSnappy}
@@ -125,7 +135,7 @@ export function FeatureTiles() {
             </motion.li>
           );
         })}
-      </motion.ul>
+      </ul>
 
       {!showAll && hiddenCount > 0 ? (
         <div className="mt-8 flex justify-center">

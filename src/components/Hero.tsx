@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] overflow-hidden border-b border-border bg-background"
+      className="relative min-h-[100svh] overflow-x-clip border-b border-border bg-background"
       aria-labelledby="hero-heading"
     >
       <div aria-hidden="true" className="volt-ruled pointer-events-none absolute inset-0 opacity-70" />
@@ -36,9 +36,9 @@ export function Hero() {
             style={{ transformOrigin: 'left' }}
           />
 
-          <h1 id="hero-heading" className="text-display mt-7 text-foreground">
+          <h1 id="hero-heading" className="text-display mt-7 overflow-visible text-foreground">
             <motion.span
-              className="block"
+              className="block overflow-visible"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.55, delay: 0.2, ease: easeOut }}
@@ -46,7 +46,7 @@ export function Hero() {
               Weniger Chaos.
             </motion.span>
             <motion.span
-              className="mt-1 block text-primary"
+              className="mt-1 block overflow-visible pb-[0.08em] text-primary"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.55, delay: 0.28, ease: easeOut }}
