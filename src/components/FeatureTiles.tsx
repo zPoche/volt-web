@@ -8,6 +8,7 @@ const viewport = { once: true, amount: 0.12, margin: '0px 0px -6% 0px' } as cons
 
 /**
  * Aufklappbare Feature-Kacheln — zuerst Top-Module, Rest auf Wunsch.
+ * Solide Panels (keine Glass-Kacheln).
  */
 export function FeatureTiles() {
   const [open, setOpen] = useState<Record<string, boolean>>({});
@@ -22,7 +23,7 @@ export function FeatureTiles() {
   return (
     <div className="mt-12">
       <motion.ul
-        className="grid gap-3 lg:grid-cols-2"
+        className="grid gap-2 lg:grid-cols-2"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
@@ -37,35 +38,23 @@ export function FeatureTiles() {
               key={title}
               variants={fadeUp}
               layout
-              whileHover={{ y: -2 }}
               transition={springSnappy}
-              className="feature-tile volt-glass relative overflow-hidden rounded-2xl"
+              className="volt-panel relative overflow-hidden rounded-md"
               animate={{
-                borderColor: isOpen ? 'rgb(45 212 191 / 0.45)' : 'rgb(255 255 255 / 0.08)',
+                borderColor: isOpen ? 'rgb(45 212 191 / 0.55)' : 'rgb(58 68 62)',
               }}
             >
-              <motion.span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl"
-                animate={{ opacity: isOpen ? 1 : 0.3, scale: isOpen ? 1.1 : 1 }}
-                transition={{ duration: 0.4 }}
-              />
-
               <motion.button
                 type="button"
-                className="relative flex w-full items-start gap-3.5 p-5 text-left sm:p-6"
+                className="relative flex w-full items-start gap-3.5 p-5 text-left sm:p-5"
                 onClick={() => toggle(title)}
                 aria-expanded={isOpen}
               >
                 <div className="relative shrink-0">
-                  <motion.span
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20"
-                    animate={{ scale: isOpen ? 1.05 : 1 }}
-                    transition={springSoft}
-                  >
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-secondary text-primary">
                     <Icon className="h-5 w-5" aria-hidden="true" />
-                  </motion.span>
-                  <span className="absolute -bottom-1 -right-1 rounded-md bg-background/90 px-1 text-[10px] font-bold tabular-nums text-primary ring-1 ring-border">
+                  </span>
+                  <span className="absolute -bottom-1 -right-1 rounded-sm bg-background px-1 font-mono text-[10px] font-semibold tabular-nums text-brass ring-1 ring-border">
                     {n}
                   </span>
                 </div>
@@ -76,8 +65,8 @@ export function FeatureTiles() {
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={springSnappy}
-                      className={`mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${
-                        isOpen ? 'bg-primary/15 text-primary' : 'bg-white/5 text-muted-foreground'
+                      className={`mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border ${
+                        isOpen ? 'bg-primary/15 text-primary' : 'bg-secondary text-muted-foreground'
                       }`}
                     >
                       <ChevronDown className="h-4 w-4" aria-hidden="true" />
@@ -96,22 +85,26 @@ export function FeatureTiles() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.32, ease: easeOut }}
+                    transition={{ duration: 0.28, ease: easeOut }}
                     className="overflow-hidden"
                   >
-                    <div className="relative space-y-4 border-t border-white/8 px-5 pb-5 pt-4 sm:px-6">
+                    <div className="relative space-y-4 border-t border-border px-5 pb-5 pt-4 sm:px-5">
                       <div className="space-y-3 text-sm leading-relaxed">
                         <p>
-                          <span className="font-semibold text-primary">Alltag · </span>
+                          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-brass">
+                            Alltag ·{' '}
+                          </span>
                           <span className="text-foreground/90">{helps}</span>
                         </p>
                         <p>
-                          <span className="font-semibold text-primary">Kostenvorteil · </span>
+                          <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-primary">
+                            Kostenvorteil ·{' '}
+                          </span>
                           <span className="text-foreground/90">{saves}</span>
                         </p>
                       </div>
 
-                      <ul className="flex flex-wrap gap-x-4 gap-y-2 border-t border-white/6 pt-3">
+                      <ul className="flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-3">
                         {points.map((point, i) => (
                           <motion.li
                             key={point}
@@ -138,14 +131,14 @@ export function FeatureTiles() {
         <div className="mt-8 flex justify-center">
           <motion.button
             type="button"
-            className="group inline-flex h-11 items-center gap-2 rounded-xl border border-primary/35 bg-primary/10 px-5 text-sm font-semibold text-primary"
+            className="group inline-flex h-11 items-center gap-2 rounded-md border border-border bg-secondary px-5 text-sm font-semibold text-foreground hover:border-primary/40"
             onClick={() => setShowAll(true)}
-            whileHover={{ scale: 1.03, y: -1 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
             transition={springSoft}
           >
             Alle Module anzeigen
-            <span className="rounded-md bg-primary/15 px-1.5 py-0.5 text-xs tabular-nums text-primary/90">
+            <span className="rounded-sm border border-border bg-background px-1.5 py-0.5 font-mono text-xs tabular-nums text-muted-foreground">
               +{hiddenCount}
             </span>
             <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />

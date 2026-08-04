@@ -142,19 +142,19 @@ export function ProductVisual({
 
   const shell = isLight
     ? 'bg-white text-slate-900'
-    : 'bg-[rgb(8_12_20_/_0.55)] text-foreground';
-  const chromeBorder = isLight ? 'border-slate-200' : 'border-white/8';
-  const chromeBg = isLight ? 'bg-slate-50/90' : 'bg-white/[0.03]';
-  const asideBg = isLight ? 'bg-slate-50' : 'bg-white/[0.02]';
+    : 'bg-[rgb(22_25_23)] text-foreground';
+  const chromeBorder = isLight ? 'border-slate-200' : 'border-border';
+  const chromeBg = isLight ? 'bg-slate-50/90' : 'bg-secondary/70';
+  const asideBg = isLight ? 'bg-slate-50' : 'bg-background/80';
   const surface = isLight
-    ? 'border border-slate-200 bg-white shadow-[0_1px_0_rgb(15_23_42_/_0.04)]'
-    : 'border border-white/8 bg-white/[0.03]';
+    ? 'border border-slate-200 bg-white'
+    : 'border border-border bg-card';
   const muted = isLight ? 'text-slate-500' : 'text-muted-foreground';
   const strong = isLight ? 'text-slate-900' : 'text-foreground';
   const searchBg = isLight
     ? 'border border-slate-200 bg-white text-slate-400'
-    : 'border border-white/8 bg-white/[0.04] text-muted-foreground';
-  const filterBg = isLight ? 'bg-slate-100 text-slate-500' : 'bg-white/5 text-muted-foreground';
+    : 'border border-border bg-background text-muted-foreground';
+  const filterBg = isLight ? 'bg-slate-100 text-slate-500' : 'bg-secondary text-muted-foreground';
   const brand = isLight ? 'text-teal-600' : 'text-primary';
   const activeNavBg = isLight ? 'rgb(20 184 166 / 0.1)' : 'rgb(45 212 191 / 0.12)';
   const hoverBorder = isLight ? 'rgb(13 148 136 / 0.45)' : 'rgb(45 212 191 / 0.45)';
@@ -167,14 +167,10 @@ export function ProductVisual({
         style={isLight ? { colorScheme: 'light' } : undefined}
       >
         <div className={`flex h-12 items-center gap-3 border-b px-4 ${chromeBorder} ${chromeBg}`}>
-          <motion.span
-            className={`inline-flex items-center gap-1 text-sm font-bold ${brand}`}
-            animate={{ rotate: [0, -4, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 3 }}
-          >
+          <span className={`inline-flex items-center gap-1 text-sm font-bold ${brand}`}>
             <Zap className="h-3.5 w-3.5 fill-current" />
             Volt
-          </motion.span>
+          </span>
           <div className="ml-2 hidden flex-1 items-center gap-2 sm:flex">
             <div className={`h-7 flex-1 rounded-lg px-3 text-[11px] leading-7 ${searchBg}`}>
               Suche Projekte, Kunden, Belege…

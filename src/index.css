@@ -16,34 +16,37 @@
   --color-border: rgb(var(--border));
   --color-input: rgb(var(--input));
   --color-ring: rgb(var(--ring));
-  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-  --radius-xl: 0.75rem;
+  --color-brass: rgb(var(--brass));
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius-xl: 0.5rem;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 :root {
   /*
-   * Marketing-Dark — ERP-Teal bleibt Primary, Basis etwas tiefer als App-`.dark`
-   * für mehr Atmosphäre (Homepower-Nähe, ohne Cyan-Swap).
+   * Field Terminal — warmes Graphit, harte Flächen, knappes Teal-Signal.
+   * Bewusst kein Glass-/Bloom-Marketing (Homepower-Kontrast).
    */
-  --background: 8 12 20;
-  --foreground: 241 245 249;
-  --card: 18 27 42;
-  --card-foreground: 241 245 249;
+  --background: 18 20 19;
+  --foreground: 236 240 237;
+  --card: 28 32 30;
+  --card-foreground: 236 240 237;
   --primary: 45 212 191;
-  --primary-foreground: 8 12 20;
-  --secondary: 30 41 59;
-  --secondary-foreground: 241 245 249;
-  --muted: 30 41 59;
-  --muted-foreground: 148 163 184;
-  --accent: 19 78 74;
+  --primary-foreground: 10 14 12;
+  --secondary: 38 44 41;
+  --secondary-foreground: 236 240 237;
+  --muted: 38 44 41;
+  --muted-foreground: 148 158 152;
+  --accent: 42 52 48;
   --accent-foreground: 204 251 241;
-  --border: 38 52 72;
-  --input: 38 52 72;
+  --border: 58 68 62;
+  --input: 48 56 52;
   --ring: 45 212 191;
-  --radius: 0.75rem;
-  --nav-h: 4.5rem;
+  --brass: 196 140 72;
+  --radius: 0.5rem;
+  --nav-h: 4.25rem;
 }
 
 @layer base {
@@ -74,7 +77,7 @@
   h1,
   h2,
   h3 {
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     text-wrap: balance;
   }
 
@@ -97,145 +100,108 @@
   }
 }
 
-/* Marken-Atmosphäre — Soft-Bloom + Tiefenverlauf */
-.volt-atmosphere {
-  background:
-    radial-gradient(ellipse 80% 55% at 50% -10%, rgb(45 212 191 / 0.18), transparent 70%),
-    radial-gradient(900px 480px at 88% 12%, rgb(45 212 191 / 0.08), transparent 55%),
-    radial-gradient(700px 400px at 8% 80%, rgb(20 184 166 / 0.06), transparent 50%),
-    linear-gradient(180deg, rgb(8 12 20) 0%, rgb(8 12 20) 45%, rgb(18 27 42 / 0.7) 100%);
-}
-
-/* Technische Raster-Atmosphäre (sehr dezent) */
-.volt-grid {
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-  background-size: 4rem 4rem;
-  mask-image: radial-gradient(ellipse 75% 65% at 50% 30%, black, transparent);
-}
-
-/* Glass-Surface — Marketing-Material, nicht ERP-Card */
-.volt-glass {
-  position: relative;
-  background: linear-gradient(
-    180deg,
-    rgb(255 255 255 / 0.06) 0%,
-    rgb(255 255 255 / 0.02) 100%
-  );
-  border: 1px solid rgb(255 255 255 / 0.08);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.volt-glass::before {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 1px;
+/* Horizontale Signal-Linie (Teal → Brass) — statt Bloom-Orbs */
+.volt-live-line {
+  height: 2px;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgb(45 212 191 / 0.45),
-    transparent
+    transparent 0%,
+    rgb(45 212 191 / 0.15) 12%,
+    rgb(45 212 191) 42%,
+    rgb(196 140 72) 72%,
+    transparent 100%
   );
+}
+
+/* Dezentes Ruled-Paper — technisch, kein Grid-Glow */
+.volt-ruled {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 31px,
+    rgb(255 255 255 / 0.028) 31px,
+    rgb(255 255 255 / 0.028) 32px
+  );
+  mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
+}
+
+/* Solide Panel-Fläche statt Glass */
+.volt-panel {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+}
+
+.volt-panel-inset {
+  background: rgb(22 25 23);
+  border: 1px solid rgb(var(--border));
 }
 
 /* Display-Headline-Skala */
 .text-display {
-  font-size: clamp(2.5rem, 6.5vw, 4.5rem);
-  line-height: 0.98;
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  line-height: 0.95;
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.045em;
 }
 
 .text-section {
-  font-size: clamp(1.75rem, 3.8vw, 2.75rem);
-  line-height: 1.1;
+  font-size: clamp(1.85rem, 3.6vw, 2.85rem);
+  line-height: 1.08;
   font-weight: 650;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
-/* Einzelwort-Highlight (Primary → helles Teal) */
+/* Teal als Signalwort — flach, kein Multi-Stop-Glow */
 .text-highlight {
-  background: linear-gradient(
-    120deg,
-    rgb(45 212 191) 0%,
-    rgb(153 246 228) 55%,
-    rgb(94 234 212) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: rgb(var(--primary));
 }
 
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgb(94 234 212);
+  color: rgb(var(--brass));
 }
 
 .eyebrow::before {
   content: '';
   display: block;
-  width: 1.25rem;
-  height: 1px;
-  background: rgb(45 212 191 / 0.7);
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid rgb(var(--brass) / 0.85);
+  background: rgb(var(--brass) / 0.2);
+  transform: rotate(45deg);
 }
 
 ::selection {
   background: rgb(45 212 191 / 0.28);
-  color: rgb(241 245 249);
+  color: rgb(236 240 237);
 }
 
-/* Leichter Sheen auf Feature-Kacheln beim Hover */
-.feature-tile::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 40%,
-    rgb(45 212 191 / 0.06) 50%,
-    transparent 60%
-  );
-  transform: translateX(-120%);
-  transition: transform 0.7s var(--ease-out-expo);
-}
-
-.feature-tile:hover::after {
-  transform: translateX(120%);
-}
-
-/* Sanfter Section-Einstieg beim Scrollen */
+/* Clip-Reveal statt Fade-Float */
 @keyframes volt-section-in {
   from {
-    opacity: 0.35;
-    transform: translateY(12px);
+    opacity: 0;
+    clip-path: inset(8% 0 0 0);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    clip-path: inset(0 0 0 0);
     transform: translateY(0);
   }
 }
 
 .volt-section-reveal {
-  animation: volt-section-in 0.7s var(--ease-out-expo) both;
+  animation: volt-section-in 0.65s var(--ease-out-expo) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .feature-tile::after {
-    display: none;
-  }
-
   .volt-section-reveal {
     animation: none;
   }
