@@ -62,70 +62,58 @@ export function SiteHeader() {
 
   return (
     <motion.header
-      className="sticky top-0 z-40 border-b border-white/8 bg-[rgb(8_12_20_/_0.78)] backdrop-blur-xl"
+      className="sticky top-0 z-40 border-b border-border bg-background/95"
       animate={{
-        boxShadow: compact ? '0 12px 40px rgb(0 0 0 / 0.35)' : '0 0 0 rgb(0 0 0 / 0)',
+        borderColor: compact ? 'rgb(58 68 62)' : 'rgb(58 68 62 / 0.55)',
       }}
-      transition={{ duration: 0.25 }}
+      transition={{ duration: 0.2 }}
     >
       <motion.div
         className="mx-auto flex max-w-6xl items-center justify-between px-6 sm:px-8"
-        animate={{ height: compact ? 60 : 72 }}
+        animate={{ height: compact ? 56 : 68 }}
         transition={springSnappy}
       >
-        <motion.a
-          href="#top"
-          className="text-foreground no-underline"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={closeMenu}
-        >
+        <a href="#top" className="text-foreground no-underline" onClick={closeMenu}>
           <VoltLogo size="nav" />
-        </motion.a>
+        </a>
 
         <nav
-          className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex"
+          className="hidden items-center gap-6 font-mono text-[12px] font-medium uppercase tracking-[0.08em] text-muted-foreground md:flex"
           aria-label="Hauptnavigation"
         >
           {NAV.map((item) => {
             const isActive = activeId === item.id;
             return (
-              <motion.a
+              <a
                 key={item.href}
                 href={item.href}
                 className={`relative transition-colors ${
-                  isActive ? 'text-foreground' : 'hover:text-foreground'
+                  isActive ? 'text-primary' : 'hover:text-foreground'
                 }`}
-                whileHover={{ y: -1 }}
                 aria-current={isActive ? 'true' : undefined}
               >
                 {item.label}
-                <motion.span
-                  className="absolute -bottom-1 left-0 h-0.5 w-full origin-left rounded-full bg-primary"
-                  initial={false}
-                  animate={{ scaleX: isActive ? 1 : 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.22 }}
+                <span
+                  className={`absolute -bottom-1 left-0 h-px w-full bg-primary transition-transform origin-left ${
+                    isActive ? 'scale-x-100' : 'scale-x-0'
+                  }`}
                 />
-              </motion.a>
+              </a>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-2">
-          <motion.a
+          <a
             href="#kontakt"
-            className="inline-flex h-10 items-center rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground"
-            whileHover={{ scale: 1.04, y: -1 }}
-            whileTap={{ scale: 0.97 }}
-            transition={springSnappy}
+            className="inline-flex h-9 items-center rounded-md bg-primary px-3.5 text-sm font-semibold text-primary-foreground"
             onClick={closeMenu}
           >
             Demo anfragen
-          </motion.a>
+          </a>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-foreground md:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-foreground md:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
@@ -140,22 +128,22 @@ export function SiteHeader() {
         {menuOpen ? (
           <motion.nav
             id="mobile-nav"
-            className="border-t border-white/8 md:hidden"
+            className="border-t border-border bg-card md:hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
             aria-label="Mobile Navigation"
           >
-            <div className="flex flex-col gap-1 px-6 py-4">
+            <div className="flex flex-col gap-0.5 px-6 py-3">
               {NAV.map((item) => {
                 const isActive = activeId === item.id;
                 return (
                   <a
                     key={item.href}
                     href={item.href}
-                    className={`rounded-xl px-3 py-3 text-sm font-medium transition-colors hover:bg-white/5 hover:text-foreground ${
-                      isActive ? 'bg-primary/10 text-primary' : 'text-muted-foreground'
+                    className={`rounded-md px-3 py-3 font-mono text-xs font-medium uppercase tracking-[0.08em] transition-colors ${
+                      isActive ? 'bg-secondary text-primary' : 'text-muted-foreground hover:text-foreground'
                     }`}
                     aria-current={isActive ? 'true' : undefined}
                     onClick={closeMenu}

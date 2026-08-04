@@ -23,12 +23,6 @@ export function ProductSection() {
       aria-labelledby="produkt-heading"
     >
       <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-20 top-8 h-48 w-48 rounded-full bg-primary/10 blur-3xl"
-        animate={{ y: [0, 14, 0], x: [0, 8, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
         className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28"
         variants={staggerContainer}
         initial="hidden"
@@ -49,31 +43,22 @@ export function ProductSection() {
           Baustelle.
         </motion.p>
         <motion.ul
-          className="relative mt-12 grid gap-8 border-t border-white/8 pt-12 sm:grid-cols-2 lg:grid-cols-4"
+          className="relative mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4"
           variants={staggerContainer}
         >
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute left-[8%] right-[8%] top-[calc(3rem+0.7rem)] hidden h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent lg:block"
-          />
           {BUSINESS_BENEFITS.map((item, index) => (
             <motion.li
               key={item.title}
               variants={fadeUp}
-              whileHover={{ y: -3 }}
               transition={springSnappy}
-              className="relative space-y-2"
+              className="relative space-y-2 bg-background p-5 sm:p-6"
             >
-              <motion.span
+              <span
                 aria-hidden="true"
-                className="mb-3 grid h-7 w-7 place-items-center rounded-full border border-primary/40 bg-[rgb(8_12_20_/_0.7)] text-[11px] font-bold tabular-nums text-primary"
-                initial={{ scale: 0.7, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={viewport}
-                transition={{ delay: 0.08 * index, ...springSnappy }}
+                className="mb-3 inline-block font-mono text-[11px] font-semibold tabular-nums text-brass"
               >
                 {String(index + 1).padStart(2, '0')}
-              </motion.span>
+              </span>
               <h3 className="text-sm font-semibold tracking-tight text-foreground">{item.title}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
             </motion.li>
@@ -86,28 +71,20 @@ export function ProductSection() {
 
 export function TrustStrip() {
   return (
-    <section className="relative border-b border-border" aria-label="Volt auf einen Blick">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
-      />
-      <div className="mx-auto max-w-6xl px-6 py-7 sm:px-8">
-        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+    <section className="relative border-b border-border bg-card" aria-label="Volt auf einen Blick">
+      <div aria-hidden="true" className="volt-live-line" />
+      <div className="mx-auto max-w-6xl px-6 py-6 sm:px-8">
+        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
           {TRUST_POINTS.map((point, index) => (
             <motion.li
               key={point}
-              className="inline-flex items-center gap-2.5 text-sm text-muted-foreground"
+              className="inline-flex items-center gap-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-muted-foreground"
               initial={{ opacity: 0.25, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewport}
               transition={{ delay: index * 0.05, duration: 0.35 }}
             >
-              <span
-                className="grid size-4 place-items-center rounded-full border border-primary/35 bg-primary/10"
-                aria-hidden="true"
-              >
-                <span className="size-1.5 rounded-full bg-primary" />
-              </span>
+              <span className="size-1.5 rotate-45 bg-brass" aria-hidden="true" />
               {point}
             </motion.li>
           ))}
@@ -121,7 +98,7 @@ export function OutcomeSection() {
   return (
     <section
       id="ergebnis"
-      className="volt-section-reveal relative overflow-hidden border-b border-border bg-card/30"
+      className="volt-section-reveal relative overflow-hidden border-b border-border bg-card"
       aria-labelledby="ergebnis-heading"
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
@@ -142,14 +119,14 @@ export function OutcomeSection() {
               Nicht mehr Module um der Module willen — sondern ein klarer Arbeitsfluss von der Anfrage
               bis zur Abrechnung.
             </motion.p>
-            <motion.ul className="mt-10 space-y-6" variants={staggerContainer}>
+            <motion.ul className="mt-10 space-y-0" variants={staggerContainer}>
               {OUTCOMES.map((item, index) => (
                 <motion.li
                   key={item.title}
                   variants={fadeUp}
-                  className="relative border-l border-primary/40 pl-5"
+                  className="relative border-l-2 border-brass/50 py-4 pl-5"
                 >
-                  <p className="text-[11px] font-bold tabular-nums tracking-[0.14em] text-primary/80">
+                  <p className="font-mono text-[11px] font-semibold tabular-nums tracking-[0.14em] text-brass">
                     {String(index + 1).padStart(2, '0')}
                   </p>
                   <h3 className="mt-1 text-base font-semibold tracking-tight text-foreground">
@@ -162,19 +139,19 @@ export function OutcomeSection() {
           </motion.div>
 
           <motion.div
-            className="volt-glass relative overflow-hidden rounded-2xl p-5 sm:p-7"
+            className="volt-panel-inset relative overflow-hidden rounded-md p-5 sm:p-7"
             initial={{ opacity: 0.25, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewport}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brass">
               Typischer Tag
             </p>
             <ol className="relative mt-6 space-y-0">
               <span
                 aria-hidden="true"
-                className="absolute bottom-3 left-[2.15rem] top-3 w-px bg-gradient-to-b from-primary/50 via-primary/25 to-amber-300/40"
+                className="absolute bottom-3 left-[2.15rem] top-3 w-px bg-border"
               />
               {[
                 { when: '07:45', what: 'Plantafel steht — Team und NU sind disponiert.', accent: false },
@@ -195,10 +172,10 @@ export function OutcomeSection() {
                   transition={{ delay: 0.08 * index, duration: 0.4 }}
                 >
                   <span
-                    className={`relative z-[1] grid h-9 w-14 shrink-0 place-items-center rounded-full border font-mono text-[11px] font-semibold ${
+                    className={`relative z-[1] grid h-9 w-14 shrink-0 place-items-center rounded-md border font-mono text-[11px] font-semibold ${
                       row.accent
-                        ? 'border-amber-300/50 bg-amber-400/15 text-amber-100 shadow-[0_0_24px_rgb(251_191_36_/_0.22)]'
-                        : 'border-primary/35 bg-[rgb(8_12_20_/_0.65)] text-primary'
+                        ? 'border-brass/60 bg-brass/15 text-brass'
+                        : 'border-border bg-background text-primary'
                     }`}
                   >
                     {row.when}
@@ -227,15 +204,6 @@ export function ModulesSection() {
       className="volt-section-reveal relative overflow-hidden border-b border-border"
       aria-labelledby="module-heading"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.4]"
-        style={{
-          backgroundImage: 'radial-gradient(rgb(45 212 191 / 0.08) 1px, transparent 1px)',
-          backgroundSize: '22px 22px',
-          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent)',
-        }}
-      />
       <div className="relative mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
         <motion.div
           variants={staggerContainer}
@@ -267,12 +235,6 @@ export function ExtrasSection() {
       className="relative overflow-hidden border-b border-border bg-card"
       aria-labelledby="mehr-heading"
     >
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-16 top-10 h-44 w-44 rounded-full bg-primary/10 blur-3xl"
-        animate={{ y: [0, 16, 0], x: [0, -10, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
         <motion.div
           variants={staggerContainer}
@@ -309,17 +271,13 @@ export function ExtrasSection() {
             <motion.li
               key={title}
               variants={fadeUp}
-              whileHover={{ y: -3, borderColor: 'rgb(45 212 191 / 0.45)' }}
+              whileHover={{ borderColor: 'rgb(45 212 191 / 0.45)' }}
               transition={springSnappy}
-              className="flex items-start gap-3.5 rounded-xl border border-border bg-background p-4"
+              className="flex items-start gap-3.5 rounded-md border border-border bg-background p-4"
             >
-              <motion.span
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground ring-1 ring-primary/15"
-                whileHover={{ rotate: -6, scale: 1.06 }}
-                transition={springSoft}
-              >
+              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-secondary text-primary">
                 <Icon className="h-4.5 w-4.5" aria-hidden="true" />
-              </motion.span>
+              </span>
               <span className="min-w-0">
                 <span className="block text-sm font-semibold tracking-tight">{title}</span>
                 <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
@@ -393,13 +351,9 @@ export function WorkflowSection() {
                   <div
                     className={`pl-12 sm:pl-0 ${left ? 'sm:pr-12 sm:text-right' : 'sm:col-start-2 sm:pl-12'}`}
                   >
-                    <motion.div
-                      className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-full border border-primary/40 bg-[rgb(8_12_20_/_0.85)] text-xs font-bold text-primary shadow-[0_0_24px_rgb(45_212_191_/_0.18)] sm:left-1/2 sm:-translate-x-1/2"
-                      whileHover={{ scale: 1.12 }}
-                      transition={springSnappy}
-                    >
+                    <div className="absolute left-0 top-1 flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card font-mono text-xs font-bold text-primary sm:left-1/2 sm:-translate-x-1/2">
                       {item.step}
-                    </motion.div>
+                    </div>
                     <div className="space-y-2">
                       <h3 className="text-lg font-semibold tracking-tight">{item.title}</h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">{item.text}</p>
@@ -426,7 +380,6 @@ export function OperationsSection() {
       className="relative overflow-hidden border-b border-border"
       aria-labelledby="betrieb-heading"
     >
-      <div aria-hidden="true" className="volt-grid pointer-events-none absolute inset-0 opacity-30" />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-2 lg:items-center">
         <motion.div
           variants={staggerContainer}
@@ -446,18 +399,17 @@ export function OperationsSection() {
           </motion.p>
         </motion.div>
         <motion.div
-          className="volt-glass overflow-hidden rounded-2xl"
+          className="volt-panel-inset overflow-hidden rounded-md"
           initial={{ opacity: 0.2, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={viewport}
-          whileHover={{ y: -4, borderColor: 'rgb(45 212 191 / 0.4)' }}
           transition={springSoft}
         >
-          <div className="flex items-center gap-2 border-b border-white/8 bg-white/[0.03] px-4 py-2.5">
-            <span className="h-2 w-2 rounded-full bg-rose-400/80" />
-            <span className="h-2 w-2 rounded-full bg-amber-400/80" />
-            <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
-            <span className="ml-2 font-mono text-[11px] text-muted-foreground">kundenserver ~</span>
+          <div className="flex items-center gap-2 border-b border-border bg-secondary/60 px-4 py-2.5">
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-brass">
+              kundenserver
+            </span>
+            <span className="ml-auto font-mono text-[11px] text-muted-foreground">~</span>
           </div>
           <div className="p-5 font-mono text-sm leading-7 text-foreground sm:p-6">
             <TypeLine prefix="# Kundenserver" delay={0.1} />
@@ -511,17 +463,11 @@ export function LightCtaSection() {
       aria-labelledby="demo-band-heading"
       style={{ colorScheme: 'light' }}
     >
-      {/* Dark→Light Übergang, damit der helle Band bewusst wirkt */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[rgb(8_12_20)] to-transparent"
-      />
       <div
         aria-hidden="true"
         className="absolute inset-0"
         style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% -10%, rgb(20 184 166 / 0.14), transparent 65%), linear-gradient(180deg, #f1f5f9 0%, #eef2f7 45%, #e8eef5 100%)',
+          background: 'linear-gradient(180deg, #ebe8e1 0%, #e4e0d6 50%, #ddd8cc 100%)',
         }}
       />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-24">
@@ -534,20 +480,20 @@ export function LightCtaSection() {
             viewport={viewport}
           >
             <motion.p
-              className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700"
+              className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-[#8a6230]"
               variants={fadeUp}
             >
               Im Büro hell · auf Wunsch dunkel
             </motion.p>
             <motion.h2
               id="demo-band-heading"
-              className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl"
+              className="mt-3 text-2xl font-semibold tracking-tight text-[#1a1c1a] sm:text-3xl"
               variants={fadeUp}
             >
               So sieht Volt im Arbeitsalltag aus.
             </motion.h2>
             <motion.p
-              className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base"
+              className="mt-3 text-sm leading-relaxed text-[#4a524c] sm:text-base"
               variants={fadeUp}
             >
               Light-first Oberfläche fürs Büro — dichter, ruhig, ohne Marketing-Dunkelheit.
@@ -555,9 +501,9 @@ export function LightCtaSection() {
           </motion.div>
           <motion.a
             href="#kontakt"
-            className="inline-flex h-12 shrink-0 items-center rounded-xl bg-teal-600 px-6 text-sm font-semibold text-white shadow-[0_12px_32px_rgb(13_148_136_/_0.28)]"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+            className="inline-flex h-12 shrink-0 items-center rounded-md bg-[#0f766e] px-6 text-sm font-semibold text-white"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
             transition={springSoft}
             initial={{ opacity: 0.3, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -568,22 +514,21 @@ export function LightCtaSection() {
         </div>
 
         <motion.div
-          className="relative mt-10 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_28px_70px_rgb(15_23_42_/_0.12)]"
+          className="relative mt-10 overflow-hidden rounded-md border border-[#c8c2b4] bg-white"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-50/95 px-4 py-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-300/90" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-300/90" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-300/90" />
-            <span className="ml-2 truncate text-[11px] font-medium text-slate-500">
+          <div className="flex items-center gap-2 border-b border-[#ddd8cc] bg-[#f4f1ea] px-4 py-2.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#8a6230]">
+              Terminal · Light
+            </span>
+            <span className="ml-2 truncate font-mono text-[11px] text-[#6b736c]">
               app.volt-erp.de · KPI &amp; Controlling
             </span>
-            <span className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-teal-200 bg-teal-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-teal-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
-              Live Preview
+            <span className="ml-auto inline-flex items-center gap-1.5 border border-[#99d5c8] bg-[#ecfdf8] px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-[#0f766e]">
+              Live
             </span>
           </div>
 
@@ -618,8 +563,8 @@ export function ContactSection() {
   }
 
   return (
-    <section id="kontakt" className="volt-atmosphere relative" aria-labelledby="kontakt-heading">
-      <div aria-hidden="true" className="volt-grid pointer-events-none absolute inset-0 opacity-40" />
+    <section id="kontakt" className="relative border-t border-border bg-background" aria-labelledby="kontakt-heading">
+      <div aria-hidden="true" className="volt-ruled pointer-events-none absolute inset-0 opacity-40" />
       <motion.div
         className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start"
         variants={staggerContainer}
@@ -646,7 +591,7 @@ export function ContactSection() {
           ].map((line) => (
             <motion.li key={line} className="flex items-start gap-3" variants={fadeUp}>
               <span
-                className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary"
+                className="mt-1.5 size-1.5 shrink-0 rotate-45 bg-brass"
                 aria-hidden="true"
               />
               {line}
@@ -663,7 +608,7 @@ export function ContactSection() {
         </motion.p>
         </div>
         <motion.form
-          className="volt-glass grid gap-3 rounded-2xl p-6 sm:p-7"
+          className="volt-panel grid gap-3 rounded-md p-6 sm:p-7"
           onSubmit={submitContact}
           variants={fadeUp}
         >
@@ -673,41 +618,37 @@ export function ContactSection() {
           ].map((field) => (
             <label key={field.name} className="grid gap-1.5 text-sm font-medium">
               {field.label}
-              <motion.input
+              <input
                 name={field.name}
                 type={field.type}
                 required
                 disabled={sending}
                 autoComplete={field.autoComplete}
-                className="h-11 rounded-xl border border-white/10 bg-white/[0.04] px-3 font-normal outline-none ring-ring disabled:opacity-60"
-                whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(45 212 191 / 0.4)' }}
-                transition={springSnappy}
+                className="h-11 rounded-md border border-border bg-background px-3 font-normal outline-none ring-ring focus:ring-2 focus:ring-primary/40 disabled:opacity-60"
               />
             </label>
           ))}
           <label className="grid gap-1.5 text-sm font-medium">
             Nachricht
-            <motion.textarea
+            <textarea
               name="message"
               rows={4}
               required
               disabled={sending}
-              className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 font-normal outline-none ring-ring disabled:opacity-60"
-              whileFocus={{ scale: 1.01, boxShadow: '0 0 0 2px rgb(45 212 191 / 0.4)' }}
-              transition={springSnappy}
+              className="rounded-md border border-border bg-background px-3 py-2 font-normal outline-none ring-ring focus:ring-2 focus:ring-primary/40 disabled:opacity-60"
             />
           </label>
           <motion.button
             type="submit"
             disabled={sending}
-            className="mt-1 inline-flex h-11 w-fit items-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_28px_rgb(45_212_191_/_0.25)] disabled:opacity-80"
-            whileHover={sending ? undefined : { scale: 1.04, y: -2 }}
-            whileTap={sending ? undefined : { scale: 0.97 }}
+            className="mt-1 inline-flex h-11 w-fit items-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-80"
+            whileHover={sending ? undefined : { y: -2 }}
+            whileTap={sending ? undefined : { scale: 0.98 }}
             transition={springSoft}
           >
             {sending ? (
               <>
-                <BlitzLoader size="xs" label="Senden" color="#080c14" />
+                <BlitzLoader size="xs" label="Senden" color="#0a0e0c" />
                 Senden…
               </>
             ) : (
@@ -737,10 +678,6 @@ export function ImpressumSection() {
       className="relative overflow-hidden border-t border-border"
       aria-labelledby="impressum-heading"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_0%_0%,rgb(45_212_191_/_0.06),transparent_55%)]"
-      />
       <motion.div
         className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20"
         variants={staggerContainer}
@@ -808,17 +745,15 @@ export function SiteFooter() {
       whileInView={{ opacity: 1 }}
       viewport={viewport}
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_120%,rgb(45_212_191_/_0.12),transparent_60%)]"
-      />
       <div className="relative mx-auto flex max-w-6xl flex-col gap-5 px-6 py-12 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <div className="space-y-1.5">
           <p className="text-base">
             <span className="font-semibold text-primary">Volt</span>
             <span className="text-foreground"> — ERP für Elektrohandwerk</span>
           </p>
-          <p className="text-xs text-muted-foreground/80">Modular · deutsch · Hosting in DE</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground/80">
+            Modular · deutsch · Hosting in DE
+          </p>
         </div>
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Rechtliches">
           <a href="#ergebnis" className="underline-offset-2 hover:text-foreground hover:underline">
@@ -835,7 +770,7 @@ export function SiteFooter() {
           </a>
           <a
             href="#kontakt"
-            className="inline-flex h-9 items-center rounded-lg bg-primary px-3.5 text-xs font-semibold text-primary-foreground"
+            className="inline-flex h-9 items-center rounded-md bg-primary px-3.5 text-xs font-semibold text-primary-foreground"
           >
             Demo anfragen
           </a>
