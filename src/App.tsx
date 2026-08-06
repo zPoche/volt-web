@@ -13,7 +13,6 @@ import {
   OutcomeSection,
   ProductSection,
   SiteFooter,
-  TrustStrip,
   WorkflowSection,
 } from './components/Sections';
 
@@ -26,7 +25,6 @@ export default function App() {
         <SiteHeader />
         <main>
           <Hero />
-          <TrustStrip />
           <ProductSection />
           <OutcomeSection />
           <ModulesSection />

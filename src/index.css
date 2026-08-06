@@ -100,6 +100,58 @@
   }
 }
 
+/* Hero-Laufleiste — nahtloser Loop (Track ist 2× Inhalt) */
+@keyframes volt-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.volt-marquee {
+  overflow: hidden;
+  border-top: 1px solid rgb(var(--border));
+  background: rgb(14 16 15 / 0.92);
+}
+
+.volt-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: volt-marquee 42s linear infinite;
+}
+
+.volt-marquee:hover .volt-marquee-track {
+  animation-play-state: paused;
+}
+
+.volt-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-inline: 0.15rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(var(--muted-foreground));
+}
+
+.volt-marquee-item::after {
+  content: '/';
+  color: rgb(var(--brass) / 0.7);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volt-marquee-track {
+    animation: none;
+  }
+}
+
 /* Horizontale Signal-Linie (Teal → Brass) — statt Bloom-Orbs */
 .volt-live-line {
   height: 2px;

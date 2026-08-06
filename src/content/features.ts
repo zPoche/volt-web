@@ -244,6 +244,22 @@ export const TRUST_POINTS = [
   'Lokale KI ohne Token-Rechnung',
 ] as const;
 
+/** Laufleiste am unteren Hero-Rand (bootlabs-Stil). */
+export const HERO_TICKER = [
+  'Projekte & Aufträge',
+  'Plantafel',
+  'MonteurHub',
+  'Angebote & Belege',
+  'Kundencenter',
+  'Lager & Einkauf',
+  'KPI & Kosten',
+  'Service & E-Check',
+  'Hosting in Deutschland',
+  'Lexware optional',
+  'Lokale KI',
+  'Modular zuschaltbar',
+] as const;
+
 export type ExtraModule = {
   icon: LucideIcon;
   title: string;

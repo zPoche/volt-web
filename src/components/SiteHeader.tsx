@@ -62,9 +62,10 @@ export function SiteHeader() {
 
   return (
     <motion.header
-      className="sticky top-0 z-40 border-b border-border bg-background/95"
+      className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm"
       animate={{
-        borderColor: compact ? 'rgb(58 68 62)' : 'rgb(58 68 62 / 0.55)',
+        borderColor: compact ? 'rgb(58 68 62)' : 'rgb(58 68 62 / 0.35)',
+        backgroundColor: compact ? 'rgb(18 20 19 / 0.96)' : 'rgb(18 20 19 / 0.72)',
       }}
       transition={{ duration: 0.2 }}
     >

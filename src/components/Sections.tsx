@@ -454,21 +454,18 @@ function TypeLine({
   );
 }
 
-/** Heller Kontrastband — Light-Mode ERP-Preview als Screenshot-Ersatz + Demo-CTA. */
+/** Demo-Band mit dunkler ERP-Preview + CTA — kein heller Kontrastband mehr. */
 export function LightCtaSection() {
   return (
     <section
       id="demo-band"
-      className="relative overflow-hidden border-b border-border"
+      className="relative overflow-hidden border-b border-border bg-card"
       aria-labelledby="demo-band-heading"
-      style={{ colorScheme: 'light' }}
     >
+      <div aria-hidden="true" className="volt-ruled pointer-events-none absolute inset-0 opacity-45" />
       <div
         aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(180deg, #ebe8e1 0%, #e4e0d6 50%, #ddd8cc 100%)',
-        }}
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_80%_20%,rgb(45_212_191_/_0.06),transparent_55%)]"
       />
       <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-24">
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -480,28 +477,28 @@ export function LightCtaSection() {
             viewport={viewport}
           >
             <motion.p
-              className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-[#8a6230]"
+              className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-brass"
               variants={fadeUp}
             >
-              Im Büro hell · auf Wunsch dunkel
+              Arbeitsfläche · Field Terminal
             </motion.p>
             <motion.h2
               id="demo-band-heading"
-              className="mt-3 text-2xl font-semibold tracking-tight text-[#1a1c1a] sm:text-3xl"
+              className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
               variants={fadeUp}
             >
               So sieht Volt im Arbeitsalltag aus.
             </motion.h2>
             <motion.p
-              className="mt-3 text-sm leading-relaxed text-[#4a524c] sm:text-base"
+              className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base"
               variants={fadeUp}
             >
-              Light-first Oberfläche fürs Büro — dichter, ruhig, ohne Marketing-Dunkelheit.
+              Dunkle, ruhige Oberfläche für den Alltag — dicht, lesbar, ohne blendendes Weiß.
             </motion.p>
           </motion.div>
           <motion.a
             href="#kontakt"
-            className="inline-flex h-12 shrink-0 items-center rounded-md bg-[#0f766e] px-6 text-sm font-semibold text-white"
+            className="inline-flex h-12 shrink-0 items-center rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
             transition={springSoft}
@@ -514,25 +511,25 @@ export function LightCtaSection() {
         </div>
 
         <motion.div
-          className="relative mt-10 overflow-hidden rounded-md border border-[#c8c2b4] bg-white"
+          className="volt-panel relative mt-10 overflow-hidden rounded-md"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex items-center gap-2 border-b border-[#ddd8cc] bg-[#f4f1ea] px-4 py-2.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#8a6230]">
-              Terminal · Light
+          <div className="flex items-center gap-2 border-b border-border bg-secondary/50 px-4 py-2.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-brass">
+              Terminal · Live
             </span>
-            <span className="ml-2 truncate font-mono text-[11px] text-[#6b736c]">
+            <span className="ml-2 truncate font-mono text-[11px] text-muted-foreground">
               app.volt-erp.de · KPI &amp; Controlling
             </span>
-            <span className="ml-auto inline-flex items-center gap-1.5 border border-[#99d5c8] bg-[#ecfdf8] px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-[#0f766e]">
+            <span className="ml-auto inline-flex items-center gap-1.5 border border-primary/35 bg-primary/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-primary">
               Live
             </span>
           </div>
 
-          <ProductVisual theme="light" layoutIdPrefix="light-product" className="relative" />
+          <ProductVisual theme="dark" layoutIdPrefix="demo-product" className="relative" />
         </motion.div>
       </div>
     </section>
