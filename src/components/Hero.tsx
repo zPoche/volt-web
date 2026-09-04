@@ -26,7 +26,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex h-[100svh] flex-col overflow-x-clip border-b border-border bg-background"
+      className="relative flex min-h-[100svh] flex-col overflow-x-clip border-b border-border bg-background"
       aria-labelledby="hero-heading"
     >
       <div aria-hidden="true" className="volt-ruled pointer-events-none absolute inset-0 opacity-70" />
@@ -35,7 +35,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_70%_40%,rgb(45_212_191_/_0.07),transparent_60%)]"
       />
 
-      <div className="relative mx-auto grid min-h-0 w-full max-w-6xl flex-1 items-stretch lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)]">
+      <div className="relative mx-auto grid min-h-0 w-full max-w-6xl flex-1 items-stretch md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)]">
         <div className="relative z-10 flex max-w-xl flex-col justify-center px-6 pb-8 pt-[calc(var(--nav-h)+1.25rem)] sm:px-8 lg:pb-10 lg:pt-20">
           <motion.div
             initial={{ y: 18, opacity: 0 }}
@@ -121,7 +121,7 @@ export function Hero() {
         </div>
 
         <motion.div
-          className="relative hidden min-h-0 px-0 pb-3 pt-[calc(var(--nav-h)+0.75rem)] lg:block"
+          className="relative hidden min-h-0 px-0 pb-3 pt-[calc(var(--nav-h)+0.75rem)] md:block"
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: easeOut }}

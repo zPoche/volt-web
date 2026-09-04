@@ -57,7 +57,7 @@
   html {
     color-scheme: dark;
     scroll-behavior: smooth;
-    scroll-padding-top: calc(var(--nav-h) + 1rem);
+    scroll-padding-top: calc(var(--nav-h) + 1rem + env(safe-area-inset-top, 0px));
   }
 
   body {

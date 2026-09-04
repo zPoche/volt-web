@@ -23,7 +23,7 @@ export function FeatureTiles() {
 
   return (
     <div className="mt-12">
-      <ul className="grid gap-2 lg:grid-cols-2">
+      <ul className="grid gap-2 md:grid-cols-2">
         {visible.map(({ icon: Icon, title, does, helps, saves, points }, index) => {
           const isOpen = Boolean(open[title]);
           const n = String(index + 1).padStart(2, '0');
