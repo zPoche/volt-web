@@ -182,7 +182,27 @@ export function ProductVisual({
             }`}
           />
         </div>
-        <div className="flex min-h-0 flex-1">
+        <div className="flex min-h-0 flex-1 flex-col sm:flex-row">
+          <div className={`flex gap-1 overflow-x-auto border-b px-2 py-1.5 sm:hidden ${chromeBorder}`}>
+            {NAV.map((label) => {
+              const isActive = label === active;
+              return (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => {
+                    setAutoplay(false);
+                    setActive(label);
+                  }}
+                  className={`inline-flex min-h-11 shrink-0 items-center rounded-md px-3 text-xs font-medium ${
+                    isActive ? brand : muted
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
           <aside className={`hidden w-44 shrink-0 border-r p-3 sm:block ${chromeBorder} ${asideBg}`}>
             {NAV.map((label) => {
               const isActive = label === active;

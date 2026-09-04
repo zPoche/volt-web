@@ -35,6 +35,15 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   useEffect(() => {
+    if (!menuOpen) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setMenuOpen(false);
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [menuOpen]);
+
+  useEffect(() => {
     const sections = NAV.map((item) => document.getElementById(item.id)).filter(
       (el): el is HTMLElement => Boolean(el),
     );
@@ -62,7 +71,7 @@ export function SiteHeader() {
 
   return (
     <motion.header
-      className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm"
+      className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 pt-[env(safe-area-inset-top,0px)] backdrop-blur-sm"
       animate={{
         borderColor: compact ? 'rgb(58 68 62)' : 'rgb(58 68 62 / 0.35)',
         backgroundColor: compact ? 'rgb(18 20 19 / 0.96)' : 'rgb(18 20 19 / 0.72)',
@@ -107,14 +116,14 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <a
             href="#kontakt"
-            className="inline-flex h-9 items-center rounded-md bg-primary px-3.5 text-sm font-semibold text-primary-foreground"
+            className="hidden h-11 items-center rounded-md bg-primary px-3.5 text-sm font-semibold text-primary-foreground sm:inline-flex md:h-11"
             onClick={closeMenu}
           >
             Demo anfragen
           </a>
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-foreground md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border text-foreground md:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
@@ -153,6 +162,13 @@ export function SiteHeader() {
                   </a>
                 );
               })}
+              <a
+                href="#kontakt"
+                className="mt-2 inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-3 text-sm font-semibold text-primary-foreground sm:hidden"
+                onClick={closeMenu}
+              >
+                Demo anfragen
+              </a>
             </div>
           </motion.nav>
         ) : null}

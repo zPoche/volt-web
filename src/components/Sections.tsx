@@ -102,7 +102,7 @@ export function OutcomeSection() {
       aria-labelledby="ergebnis-heading"
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center">
+        <div className="grid gap-12 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:items-center">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -563,7 +563,7 @@ export function ContactSection() {
     <section id="kontakt" className="relative border-t border-border bg-background" aria-labelledby="kontakt-heading">
       <div aria-hidden="true" className="volt-ruled pointer-events-none absolute inset-0 opacity-40" />
       <motion.div
-        className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start"
+        className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:px-8 sm:py-28 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:items-start"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
@@ -638,7 +638,7 @@ export function ContactSection() {
           <motion.button
             type="submit"
             disabled={sending}
-            className="mt-1 inline-flex h-11 w-fit items-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-80"
+            className="mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-80 sm:w-fit"
             whileHover={sending ? undefined : { y: -2 }}
             whileTap={sending ? undefined : { scale: 0.98 }}
             transition={springSoft}
@@ -753,21 +753,21 @@ export function SiteFooter() {
           </p>
         </div>
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Rechtliches">
-          <a href="#ergebnis" className="underline-offset-2 hover:text-foreground hover:underline">
+          <a href="#ergebnis" className="inline-flex min-h-11 items-center underline-offset-2 hover:text-foreground hover:underline">
             Ergebnis
           </a>
-          <a href="#module" className="underline-offset-2 hover:text-foreground hover:underline">
+          <a href="#module" className="inline-flex min-h-11 items-center underline-offset-2 hover:text-foreground hover:underline">
             Funktionen
           </a>
           <a
             href="#impressum"
-            className="font-medium text-foreground underline-offset-2 hover:underline"
+            className="inline-flex min-h-11 items-center font-medium text-foreground underline-offset-2 hover:underline"
           >
             Impressum
           </a>
           <a
             href="#kontakt"
-            className="inline-flex h-9 items-center rounded-md bg-primary px-3.5 text-xs font-semibold text-primary-foreground"
+            className="inline-flex h-11 items-center rounded-md bg-primary px-3.5 text-xs font-semibold text-primary-foreground"
           >
             Demo anfragen
           </a>
